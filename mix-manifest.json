@@ -4,15 +4,5 @@
     "/assets/css/frontend-rtl.css": "/assets/css/frontend-rtl.css",
     "/assets/css/frontend.css": "/assets/css/frontend.css",
     "/assets/css/backend-rtl.css": "/assets/css/backend-rtl.css",
-    "/assets/css/backend.css": "/assets/css/backend.css",
-    "/assets/fonts/fa-brands-400.ttf": "/assets/fonts/fa-brands-400.ttf",
-    "/assets/fonts/fa-brands-400.woff2": "/assets/fonts/fa-brands-400.woff2",
-    "/assets/fonts/fa-regular-400.ttf": "/assets/fonts/fa-regular-400.ttf",
-    "/assets/fonts/fa-regular-400.woff2": "/assets/fonts/fa-regular-400.woff2",
-    "/assets/fonts/fa-solid-900.ttf": "/assets/fonts/fa-solid-900.ttf",
-    "/assets/fonts/fa-solid-900.woff2": "/assets/fonts/fa-solid-900.woff2",
-    "/assets/fonts/fa-v4compatibility.ttf": "/assets/fonts/fa-v4compatibility.ttf",
-    "/assets/fonts/fa-v4compatibility.woff2": "/assets/fonts/fa-v4compatibility.woff2",
-    "/assets/css/fonts/element-icons.ttf": "/assets/css/fonts/element-icons.ttf",
-    "/assets/css/fonts/element-icons.woff": "/assets/css/fonts/element-icons.woff"
+    "/assets/css/backend.css": "/assets/css/backend.css"
 }

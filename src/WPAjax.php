@@ -25,12 +25,14 @@ class WPAjax
     function add_ajax()
     {
         $ajax_events = array(
+            'init_products',
+            'get_vs_init_status',
             'get_woo_product_html',
             'get_woo_products_html_by_vs',
             'get_woo_product_categories',
             'get_woo_products_by_category',
             'get_woo_product_list_html',
-            'get_woo_product_handle_history'
+            'get_woo_product_handle_history',
         );
         foreach ($ajax_events as $ajax_event) {
             add_action('wp_ajax_wd_' . $ajax_event, array($this, $ajax_event));
@@ -147,11 +149,30 @@ class WPAjax
     }
 
     /**
-     * 查询
+     * 查询图片出来历史记录
      */
     public function get_woo_product_handle_history()
     {
         $result = Helper::handle_history(WPCore::getApiKey(),$_POST['page_no'],$_POST['page_size']);
+        wp_send_json($result);
+    }
+
+    /**
+     * 初始化数据
+     */
+    public function init_products()
+    {
+        $products = $_POST['products'];
+        $result = Helper::init_products(WPCore::getApiKey(),json_encode(array("items"=>$products)));
+        wp_send_json($result);
+    }
+
+    /**
+     * 查询当前
+     */
+    public function get_vs_init_status()
+    {
+        $result = Helper::get_vs_init_status(WPCore::getApiKey());
         wp_send_json($result);
     }
 

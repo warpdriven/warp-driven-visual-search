@@ -28,79 +28,8 @@ class WPHomePage
     public function page_html()
     {
         ?>
-        <div class="wrap">
-            <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-            <div class="mt-2 bg-white grid grid-cols-1 md:grid-cols-3 gap-2 p-4 rounded shadow">
-                <div>
-                    <h2><span class="mr-2">1.</span><?php _e('Create an account', 'wd-woo-plugin-vs'); ?></h2>
-                    <p><?php _e('', 'wd-woo-plugin-vs'); ?></p>
-                    <a class="btn" href="https://www.warp-driven.com"
-                       target="_blank"><?php _e('SIGN UP,IT\'S FREE!', 'wd-woo-plugin-vs'); ?></a>
-                </div>
-                <div>
-                    <h2><span class="mr-2">2.</span><?php _e('Enter your API Key', 'wd-woo-plugin-vs'); ?></h2>
-                    <p><?php _e('', 'wd-woo-plugin-vs'); ?></p>
-                    <a class="btn"
-                       href="<?php menu_page_url('warp-driven-setting'); ?>"><?php _e('I HAVE MY API KEY', 'wd-woo-plugin-vs'); ?></a>
-                </div>
-                <div>
-                    <h2><span class="mr-2">3.</span><?php _e('Optimize it', 'wd-woo-plugin-vs'); ?></h2>
-                    <p><?php _e('', 'wd-woo-plugin-vs'); ?></p>
-                    <a class="btn"
-                       href="<?php menu_page_url('warp-driven-optimize'); ?>"><?php _e('GO TO OPTIMIZE', 'wd-woo-plugin-vs'); ?></a>
-                </div>
-            </div>
-            <h2 class="text-center mt-10"><?php _e('Recommend Plugins', 'wd-woo-plugin-vs'); ?></h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-2 mt-4">
-                <div class="card rounded-md p-4 text-center">
-                    <i class="fas fa-wand-magic-sparkles text-4xl"></i>
-                    <h4><?php _e('Conversion to webp', 'warp-driven'); ?></h4>
-                    <p></p>
-                    <a class="btn" href="#">Install</a>
-                </div>
-                <div class="card rounded-md p-4 text-center">
-                    <i class="fas fa-wand-magic-sparkles text-4xl"></i>
-                    <h4><?php _e('Conversion to webp', 'warp-driven'); ?></h4>
-                    <p></p>
-                    <a class="btn" href="#">Install</a>
-                </div>
-                <div class="card rounded-md p-4 text-center">
-                    <i class="fas fa-wand-magic-sparkles text-4xl"></i>
-                    <h4><?php _e('Conversion to webp', 'warp-driven'); ?></h4>
-                    <p></p>
-                    <a class="btn" href="#">Install</a>
-                </div>
-                <div class="card rounded-md p-4 text-center">
-                    <i class="fas fa-wand-magic-sparkles text-4xl"></i>
-                    <h4><?php _e('Conversion to webp', 'warp-driven'); ?></h4>
-                    <p></p>
-                    <a class="btn" href="#">Install</a>
-                </div>
-                <div class="card rounded-md p-4 text-center">
-                    <i class="fas fa-wand-magic-sparkles text-4xl"></i>
-                    <h4><?php _e('Conversion to webp', 'warp-driven'); ?></h4>
-                    <p></p>
-                    <a class="btn" href="#">Install</a>
-                </div>
-                <div class="card rounded-md p-4 text-center">
-                    <i class="fas fa-wand-magic-sparkles text-4xl"></i>
-                    <h4><?php _e('Conversion to webp', 'warp-driven'); ?></h4>
-                    <p></p>
-                    <a class="btn" href="#">Install</a>
-                </div>
-                <div class="card rounded-md p-4 text-center">
-                    <i class="fas fa-wand-magic-sparkles text-4xl"></i>
-                    <h4><?php _e('Conversion to webp', 'warp-driven'); ?></h4>
-                    <p></p>
-                    <a class="btn" href="#">Install</a>
-                </div>
-                <div class="card rounded-md p-4 text-center">
-                    <i class="fas fa-wand-magic-sparkles text-4xl"></i>
-                    <h4><?php _e('Conversion to webp', 'warp-driven'); ?></h4>
-                    <p></p>
-                    <a class="btn" href="#">Install</a>
-                </div>
-            </div>
+        <div id="app" class="wrap">
+            <home-page :setting-url="'<?php menu_page_url('warp-driven-setting'); ?>'"></home-page>
         </div>
         <?php
     }

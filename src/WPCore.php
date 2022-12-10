@@ -11,7 +11,6 @@ class WPCore
         }
         define('WD_WPCore_Loaded', true);
         $home = new WPHomePage();
-        $optimize = new WPOptimizePage();
         $setting = new WPSettingPage();
         $ajax = new WPAjax();
     }
