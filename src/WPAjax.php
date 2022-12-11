@@ -87,6 +87,132 @@ class WPAjax extends WC_REST_Products_Controller
     }
 
     /**
+	 * Get the Product's schema, conforming to JSON Schema.
+	 *
+	 * @return array
+	 */
+	public function get_item_schema() {
+		$schema         = array(
+			'$schema'    => 'http://json-schema.org/draft-04/schema#',
+			'title'      => $this->post_type,
+			'type'       => 'object',
+			'properties' => array(
+				'id'                    => array(
+					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'type'        => 'integer',
+					'context'     => array( 'view', 'edit' ),
+					'readonly'    => true,
+				),
+				'name'                  => array(
+					'description' => __( 'Product name.', 'woocommerce' ),
+					'type'        => 'string',
+					'context'     => array( 'view', 'edit' ),
+				),
+                'short_description'     => array(
+					'description' => __( 'Product short description.', 'woocommerce' ),
+					'type'        => 'string',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'sku'                   => array(
+					'description' => __( 'Unique identifier.', 'woocommerce' ),
+					'type'        => 'string',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'stock_status'          => array(
+					'description' => __( 'Controls the stock status of the product.', 'woocommerce' ),
+					'type'        => 'string',
+					'default'     => 'instock',
+					'enum'        => array_keys( wc_get_product_stock_status_options() ),
+					'context'     => array( 'view', 'edit' ),
+				),
+				'categories'            => array(
+					'description' => __( 'List of categories.', 'woocommerce' ),
+					'type'        => 'array',
+					'context'     => array( 'view', 'edit' ),
+					'items'       => array(
+						'type'       => 'object',
+						'properties' => array(
+							'id'   => array(
+								'description' => __( 'Category ID.', 'woocommerce' ),
+								'type'        => 'integer',
+								'context'     => array( 'view', 'edit' ),
+							),
+							'name' => array(
+								'description' => __( 'Category name.', 'woocommerce' ),
+								'type'        => 'string',
+								'context'     => array( 'view', 'edit' ),
+								'readonly'    => true,
+							),
+							'slug' => array(
+								'description' => __( 'Category slug.', 'woocommerce' ),
+								'type'        => 'string',
+								'context'     => array( 'view', 'edit' ),
+								'readonly'    => true,
+							),
+						),
+					),
+				),
+				'images'                => array(
+					'description' => __( 'List of images.', 'woocommerce' ),
+					'type'        => 'array',
+					'context'     => array( 'view', 'edit' ),
+					'items'       => array(
+						'type'       => 'object',
+						'properties' => array(
+							'id'                => array(
+								'description' => __( 'Image ID.', 'woocommerce' ),
+								'type'        => 'integer',
+								'context'     => array( 'view', 'edit' ),
+							),
+							'date_created'      => array(
+								'description' => __( "The date the image was created, in the site's timezone.", 'woocommerce' ),
+								'type'        => 'date-time',
+								'context'     => array( 'view', 'edit' ),
+								'readonly'    => true,
+							),
+							'date_created_gmt'  => array(
+								'description' => __( 'The date the image was created, as GMT.', 'woocommerce' ),
+								'type'        => 'date-time',
+								'context'     => array( 'view', 'edit' ),
+								'readonly'    => true,
+							),
+							'date_modified'     => array(
+								'description' => __( "The date the image was last modified, in the site's timezone.", 'woocommerce' ),
+								'type'        => 'date-time',
+								'context'     => array( 'view', 'edit' ),
+								'readonly'    => true,
+							),
+							'date_modified_gmt' => array(
+								'description' => __( 'The date the image was last modified, as GMT.', 'woocommerce' ),
+								'type'        => 'date-time',
+								'context'     => array( 'view', 'edit' ),
+								'readonly'    => true,
+							),
+							'src'               => array(
+								'description' => __( 'Image URL.', 'woocommerce' ),
+								'type'        => 'string',
+								'format'      => 'uri',
+								'context'     => array( 'view', 'edit' ),
+							),
+							'name'              => array(
+								'description' => __( 'Image name.', 'woocommerce' ),
+								'type'        => 'string',
+								'context'     => array( 'view', 'edit' ),
+							),
+							'alt'               => array(
+								'description' => __( 'Image alternative text.', 'woocommerce' ),
+								'type'        => 'string',
+								'context'     => array( 'view', 'edit' ),
+							),
+						),
+					),
+				),
+			),
+		);
+		return $this->add_additional_fields_schema( $schema );
+	}
+
+    /**
      * Register REST API routes.
      */
     public function register_rest_routes()

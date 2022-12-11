@@ -17,14 +17,14 @@ config({
     GET_PRODUCT_LIST_HTML:{
         ajax_url:wd_woo_plugin_vs.ajax_url,
     },
-    GET_HANDLE_HISTORY:{
+    GET_PRODUCT_HANDLE_HISTORY:{
         ajax_url:wd_woo_plugin_vs.ajax_url,
     },
     GET_PRODUCT_CATEGORIES:{
         ajax_url:wd_woo_plugin_vs.ajax_url,
     },
     GET_PRODUCTS_BY_CATEGORY:{
-        ajax_url:wd_woo_plugin_vs.ajax_url,
+        ajax_url:"/wp-json/wd/v3/products",
     }
 })
 import ElementPlus from 'element-plus';
