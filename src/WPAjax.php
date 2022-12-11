@@ -2,7 +2,9 @@
 /**
  * 基于WooCommerce ajax
  */
+
 namespace WarpDriven\WpCore;
+
 use WC_Shortcodes;
 use WC_REST_Products_Controller;
 
@@ -15,79 +17,82 @@ class WPAjax extends WC_REST_Products_Controller
 
     public function __construct()
     {
-        add_action( 'rest_api_init', array( $this, 'register_rest_routes' ), 1 );
+        add_action('rest_api_init', array($this, 'register_rest_routes'), 1);
         $this->add_ajax();
     }
 
-    public function get_items_permissions_check( $request ) {
-		return true;
-	}
-
-   /**
-	 * Get a collection of posts.
-	 *
-	 * @param WP_REST_Request $request Full details about the request.
-	 * @return WP_Error|WP_REST_Response
-	 */
-	public function get_items( $request ) {
-		$query_args = $this->prepare_objects_query( $request );
-		if ( is_wp_error( current( $query_args ) ) ) {
-			return current( $query_args );
-		}
-		$query_results = $this->get_objects( $query_args );
-
-		$objects = array();
-		foreach ( $query_results['objects'] as $object ) {
-			$data      = $this->prepare_object_for_response( $object, $request );
-			$objects[] = $this->prepare_response_for_collection( $data );
-		}
-
-		$page      = (int) $query_args['paged'];
-		$max_pages = $query_results['pages'];
-
-		$response = rest_ensure_response( $objects );
-		$response->header( 'X-WP-Total', $query_results['total'] );
-		$response->header( 'X-WP-TotalPages', (int) $max_pages );
-
-		$base          = $this->rest_base;
-		$attrib_prefix = '(?P<';
-		if ( strpos( $base, $attrib_prefix ) !== false ) {
-			$attrib_names = array();
-			preg_match( '/\(\?P<[^>]+>.*\)/', $base, $attrib_names, PREG_OFFSET_CAPTURE );
-			foreach ( $attrib_names as $attrib_name_match ) {
-				$beginning_offset = strlen( $attrib_prefix );
-				$attrib_name_end  = strpos( $attrib_name_match[0], '>', $attrib_name_match[1] );
-				$attrib_name      = substr( $attrib_name_match[0], $beginning_offset, $attrib_name_end - $beginning_offset );
-				if ( isset( $request[ $attrib_name ] ) ) {
-					$base = str_replace( "(?P<$attrib_name>[\d]+)", $request[ $attrib_name ], $base );
-				}
-			}
-		}
-		$base = add_query_arg( $request->get_query_params(), rest_url( sprintf( '/%s/%s', $this->namespace, $base ) ) );
-
-		if ( $page > 1 ) {
-			$prev_page = $page - 1;
-			if ( $prev_page > $max_pages ) {
-				$prev_page = $max_pages;
-			}
-			$prev_link = add_query_arg( 'page', $prev_page, $base );
-			$response->link_header( 'prev', $prev_link );
-		}
-		if ( $max_pages > $page ) {
-			$next_page = $page + 1;
-			$next_link = add_query_arg( 'page', $next_page, $base );
-			$response->link_header( 'next', $next_link );
-		}
-
-		return $response;
-	}
+    public function get_items_permissions_check($request)
+    {
+        return true;
+    }
 
     /**
-	 * Register REST API routes.
-	 */
-	public function register_rest_routes() {
+     * Get a collection of posts.
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return WP_Error|WP_REST_Response
+     */
+    public function get_items($request)
+    {
+        $query_args = $this->prepare_objects_query($request);
+        if (is_wp_error(current($query_args))) {
+            return current($query_args);
+        }
+        $query_results = $this->get_objects($query_args);
+
+        $objects = array();
+        foreach ($query_results['objects'] as $object) {
+            $data = $this->prepare_object_for_response($object, $request);
+            $objects[] = $this->prepare_response_for_collection($data);
+        }
+
+        $page = (int)$query_args['paged'];
+        $max_pages = $query_results['pages'];
+
+        $response = rest_ensure_response($objects);
+        $response->header('X-WP-Total', $query_results['total']);
+        $response->header('X-WP-TotalPages', (int)$max_pages);
+
+        $base = $this->rest_base;
+        $attrib_prefix = '(?P<';
+        if (strpos($base, $attrib_prefix) !== false) {
+            $attrib_names = array();
+            preg_match('/\(\?P<[^>]+>.*\)/', $base, $attrib_names, PREG_OFFSET_CAPTURE);
+            foreach ($attrib_names as $attrib_name_match) {
+                $beginning_offset = strlen($attrib_prefix);
+                $attrib_name_end = strpos($attrib_name_match[0], '>', $attrib_name_match[1]);
+                $attrib_name = substr($attrib_name_match[0], $beginning_offset, $attrib_name_end - $beginning_offset);
+                if (isset($request[$attrib_name])) {
+                    $base = str_replace("(?P<$attrib_name>[\d]+)", $request[$attrib_name], $base);
+                }
+            }
+        }
+        $base = add_query_arg($request->get_query_params(), rest_url(sprintf('/%s/%s', $this->namespace, $base)));
+
+        if ($page > 1) {
+            $prev_page = $page - 1;
+            if ($prev_page > $max_pages) {
+                $prev_page = $max_pages;
+            }
+            $prev_link = add_query_arg('page', $prev_page, $base);
+            $response->link_header('prev', $prev_link);
+        }
+        if ($max_pages > $page) {
+            $next_page = $page + 1;
+            $next_link = add_query_arg('page', $next_page, $base);
+            $response->link_header('next', $next_link);
+        }
+
+        return $response;
+    }
+
+    /**
+     * Register REST API routes.
+     */
+    public function register_rest_routes()
+    {
         $this->register_routes();
-	}
+    }
 
     function add_ajax()
     {
@@ -163,16 +168,17 @@ class WPAjax extends WC_REST_Products_Controller
             'orderby' => 'name',
             'order' => 'asc',
             'count' => true,
-            'pad_counts' => true,
+            'pad_counts' => true
         );
-        $product_categories = get_terms($args);
+        $product_categories = array_values(get_terms($args));
+        error_log(print_r($product_categories, true));
         wp_send_json($product_categories);
     }
 
     public function get_woo_products_by_category()
     {
-       $categories = $_POST['categories'];
-        
+        $categories = $_POST['categories'];
+
         // $wc_rest_product = new WC_REST_Products_Controller();
         // $products = $wc_rest_product->prepare_object_for_response(array(),$_REQUEST);
 
@@ -180,7 +186,7 @@ class WPAjax extends WC_REST_Products_Controller
 
         // $products = array();
         // WC()->api->includes();
-		// WC()->api->register_resources( new WC_API_Server( '/' ) );
+        // WC()->api->register_resources( new WC_API_Server( '/' ) );
         // foreach ($categories as $category) {
         //     $filter = array(
         //         'category' => $category,
@@ -193,8 +199,9 @@ class WPAjax extends WC_REST_Products_Controller
         // wp_send_json($products);
 
     }
+
     /**
-     * 查询商品清单 
+     * 查询商品清单
      */
     public function get_woo_product_list_html()
     {
@@ -202,9 +209,9 @@ class WPAjax extends WC_REST_Products_Controller
         $body = "";
         $product_ids = array();
         if ($product_id) {
-            $result = Helper::visual_search(WPCore::getApiKey(),$product_id);
+            $result = Helper::visual_search(WPCore::getApiKey(), $product_id);
             foreach ($result as $item) {
-                array_push($product_ids,$item->product_id);
+                array_push($product_ids, $item->product_id);
             }
             array_unique($product_ids);
             ob_start();
@@ -218,7 +225,7 @@ class WPAjax extends WC_REST_Products_Controller
             ob_end_clean();
         }
 
-        wp_send_json(array('html' => $body,"product_ids"=> join(',',$product_ids)));
+        wp_send_json(array('html' => $body, "product_ids" => join(',', $product_ids)));
     }
 
     /**
@@ -226,7 +233,7 @@ class WPAjax extends WC_REST_Products_Controller
      */
     public function get_woo_product_handle_history()
     {
-        $result = Helper::handle_history(WPCore::getApiKey(),$_POST['page_no'],$_POST['page_size']);
+        $result = Helper::handle_history(WPCore::getApiKey(), $_POST['page_no'], $_POST['page_size']);
         wp_send_json($result);
     }
 
@@ -236,7 +243,7 @@ class WPAjax extends WC_REST_Products_Controller
     public function init_products()
     {
         $products = $_POST['products'];
-        $result = Helper::init_products(WPCore::getApiKey(),json_encode(array("items"=>$products)));
+        $result = Helper::init_products(WPCore::getApiKey(), json_encode(array("items" => $products)));
         wp_send_json($result);
     }
 
