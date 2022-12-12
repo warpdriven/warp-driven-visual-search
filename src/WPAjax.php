@@ -224,7 +224,7 @@ class WPAjax extends WC_REST_Products_Controller
     {
         $ajax_events = array(
             'init_products',
-            'get_vs_init_status',
+            'get_vs_credit_status',
             'get_woo_product_html',
             'get_woo_products_html_by_vs',
             'get_woo_product_categories',
@@ -376,9 +376,9 @@ class WPAjax extends WC_REST_Products_Controller
     /**
      * 查询当前
      */
-    public function get_vs_init_status()
+    public function get_vs_credit_status()
     {
-        $result = Helper::get_vs_init_status(WPCore::getApiKey());
+        $result = Helper::get_vs_credit_status(WPCore::getApiKey());
         wp_send_json($result);
     }
 

@@ -5,7 +5,7 @@ config({
     INIT_PRODUCTS:{
         ajax_url:wd_woo_plugin_vs.ajax_url
     },
-    GET_VS_INIT_STATUS:{
+    GET_VS_CREDIT_STATUS:{
         ajax_url:wd_woo_plugin_vs.ajax_url
     },
     GET_PRODUCT_HTML:{
