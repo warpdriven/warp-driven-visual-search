@@ -1,7 +1,6 @@
 <?php
 
 namespace WarpDriven\WpCore;
-
 class WPCore
 {
     public function __construct()
@@ -13,6 +12,7 @@ class WPCore
         $home = new WPHomePage();
         $setting = new WPSettingPage();
         $ajax = new WPAjax();
+        $visualSearch = new WPVisualSearch();
     }
 
     public static function getApiKey()

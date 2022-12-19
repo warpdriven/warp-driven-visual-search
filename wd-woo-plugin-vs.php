@@ -58,6 +58,20 @@ add_action('wp_enqueue_scripts', function () {
     wp_style_add_data('wd-woo-plugin-vs-frontend-style', 'rtl', 'replace');
     wp_enqueue_script('wd-woo-plugin-vs-frontend-script', plugins_url('/assets/js/frontend.js', WD_WP_CORE_PLUGIN_FILE), array('jquery'), $plugin_version, true);
     wp_localize_script('wd-woo-plugin-vs-frontend-script', 'wd_woo_plugin_vs', array(
-        'ajax_url' => admin_url('admin-ajax.php')
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'icon_css'=>array(
+            'size'=>sanitize_text_field(get_option("wd_search_product_icon_size")),
+            'top'=>sanitize_text_field(get_option("wd_search_product_icon_top")),
+            'left'=>sanitize_text_field(get_option("wd_search_product_icon_left")),
+            'right'=>sanitize_text_field(get_option("wd_search_product_icon_right")),
+            'bottom'=>sanitize_text_field(get_option("wd_search_product_icon_bottom"))
+        ),
+        'test_icon_css'=>array(
+            'size'=>sanitize_text_field(get_option("wd_search_product_test_icon_size")),
+            'top'=>sanitize_text_field(get_option("wd_search_product_test_icon_top")),
+            'left'=>sanitize_text_field(get_option("wd_search_product_test_icon_left")),
+            'right'=>sanitize_text_field(get_option("wd_search_product_test_icon_right")),
+            'bottom'=>sanitize_text_field(get_option("wd_search_product_test_icon_bottom"))
+        )
     ));
 });

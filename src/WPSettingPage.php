@@ -11,16 +11,16 @@ class  WPSettingPage
 
     public function setting_init()
     {
-        register_setting(
-            'general',
-            'wd_api_key'
-        );
-
         add_settings_section(
             'wd_wp_core_setting',
             __('General', 'warp-driven'),
             array($this, 'section_callback'),
             'warp-driven-setting'
+        );
+
+        register_setting(
+            'general',
+            'wd_api_key'
         );
 
         add_settings_field(
@@ -30,7 +30,51 @@ class  WPSettingPage
             'warp-driven-setting',
             'wd_wp_core_setting'
         );
+
+        $fields =array(
+            array("name"=>"wd_search_product_list_title","label"=>"Search Product List Title"),
+            array("name"=>"wd_search_product_icon_size","label"=>"Icon Size"),
+            array("name"=>"wd_search_product_icon_top","label"=>"Icon Top"),
+            array("name"=>"wd_search_product_icon_left","label"=>"Icon Left"),
+            array("name"=>"wd_search_product_icon_right","label"=>"Icon Right"),
+            array("name"=>"wd_search_product_icon_bottom","label"=>"Icon Bottom"),
+            array("name"=>"wd_search_product_test_icon_size","label"=>"Test Icon Size"),
+            array("name"=>"wd_search_product_test_icon_top","label"=>"Icon Top"),
+            array("name"=>"wd_search_product_test_icon_left","label"=>"Icon Left"),
+            array("name"=>"wd_search_product_test_icon_right","label"=>"Icon Right"),
+            array("name"=>"wd_search_product_test_icon_bottom","label"=>"Icon Bottom"),
+        );
+
+        $this->add_settings_fields($fields);
+
     }
+
+    public function add_settings_fields($fields){
+        foreach($fields as $field){
+            register_setting(
+                'general',
+                $field['name']
+            );
+
+            add_settings_field(
+                $field['name'],
+                __($field['label'], 'wd-woo-plugin-vs'),
+                array($this, 'add_filed_callback'),
+                'warp-driven-setting',
+                'wd_wp_core_setting',
+                $field
+            );
+        }
+    }
+
+    public function add_filed_callback($field){
+        $value = get_option($field['name']);
+        ?>
+           <input type="text" name="<?php echo $field['name'] ?>" value="<?php echo isset($value) ? esc_attr($value) : ''; ?>">
+        <?php
+    }
+
+
 
     public function section_callback()
     {
@@ -41,8 +85,7 @@ class  WPSettingPage
     {
         $wd_api_key = get_option('wd_api_key');
         ?>
-        <input type="text" name="wd_api_key"
-               value="<?php echo isset($wd_api_key) ? esc_attr($wd_api_key) : ''; ?>">
+            <input type="text" name="wd_api_key" value="<?php echo isset($wd_api_key) ? esc_attr($wd_api_key) : ''; ?>">
         <?php
     }
 

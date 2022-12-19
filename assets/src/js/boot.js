@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
-import HomePage from '../../../node_modules/wd-vue-lib/src/components/warp-driven/wd/community-home-page.vue';
-import {config} from '../../../node_modules/wd-vue-lib/src/api/api-setting';
+import HomePage from '../../../node_modules/wd-vue-lib/src/components/warp-driven/wd/community-home-page.vue'
+import VisualSearch from '../../../node_modules/wd-vue-lib/src/components/warp-driven/wd/VisualSearch.vue'
+import {config} from '../../../node_modules/wd-vue-lib/src/api/api-setting'
 config({
     INIT_PRODUCTS:{
         ajax_url:wd_woo_plugin_vs.ajax_url
@@ -29,4 +30,4 @@ config({
 })
 import ElementPlus from 'element-plus';
 import 'element-plus/theme-chalk/index.css';
-let app = createApp({}).use(ElementPlus).component('home-page',HomePage).mount('#app')
+let app = createApp({}).use(ElementPlus).component('home-page',HomePage).component('visual-search',VisualSearch).mount('#app')

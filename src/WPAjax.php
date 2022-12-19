@@ -282,7 +282,8 @@ class WPAjax extends WC_REST_Products_Controller
             array(
                 "product_id" => $product_id,
                 "count" => count($ids),
-                "html" => $html
+                "html" => $html,
+                "products" => $products
             )
         );
     }
@@ -363,13 +364,25 @@ class WPAjax extends WC_REST_Products_Controller
         wp_send_json($result);
     }
 
+
     /**
      * 初始化数据
      */
     public function init_products()
     {
         $products = $_POST['products'];
-        $result = Helper::init_products(WPCore::getApiKey(), json_encode(array("items" => $products)));
+        $pdts = array();
+        foreach ($products as $product) {
+           if($product['images']){
+                $pdt = json_decode(json_encode($product));
+                $images = $pdt->images;
+                if(count($images)>1){
+                    $pdt->images = array($images[0]);     
+                }
+                array_push($pdts, $pdt);
+           }
+        }
+        $result = Helper::init_products(WPCore::getApiKey(), json_encode(array("items" => $pdts)));
         wp_send_json($result);
     }
 
