@@ -39,10 +39,10 @@ class  WPSettingPage
             array("name"=>"wd_search_product_icon_right","label"=>"Icon Right"),
             array("name"=>"wd_search_product_icon_bottom","label"=>"Icon Bottom"),
             array("name"=>"wd_search_product_test_icon_size","label"=>"Test Icon Size"),
-            array("name"=>"wd_search_product_test_icon_top","label"=>"Icon Top"),
-            array("name"=>"wd_search_product_test_icon_left","label"=>"Icon Left"),
-            array("name"=>"wd_search_product_test_icon_right","label"=>"Icon Right"),
-            array("name"=>"wd_search_product_test_icon_bottom","label"=>"Icon Bottom"),
+            array("name"=>"wd_search_product_test_icon_top","label"=>"Test Icon Top"),
+            array("name"=>"wd_search_product_test_icon_left","label"=>"Test Icon Left"),
+            array("name"=>"wd_search_product_test_icon_right","label"=>"Test Icon Right"),
+            array("name"=>"wd_search_product_test_icon_bottom","label"=>"Test Icon Bottom"),
         );
 
         $this->add_settings_fields($fields);
