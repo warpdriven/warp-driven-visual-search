@@ -1,0 +1,25 @@
+{
+  "name": "warp-driven/wp-core-community",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "WarpDriven\\WpCore\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "jabber",
+      "email": "jabber5880@gmail.com"
+    }
+  ],
+  "require": {
+    "warp-driven/php-sdk": "dev-develop"
+  },
+  "repositories": [
+    {
+      "name": "warp-driven/php-sdk",
+      "type": "vcs",
+      "url": "git@bitbucket.org:warp-driven/wd-utility.git"
+    }
+  ]
+}

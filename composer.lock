@@ -1,0 +1,43 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "3599eaf77066ef35b018c2aea70424ef",
+    "packages": [
+        {
+            "name": "warp-driven/php-sdk",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:warp-driven/wd-utility.git",
+                "reference": "e807fe30cec110ae9a5e115d1c3f16a00ffb9ea8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WarpDriven\\PhpSdk\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "jabber",
+                    "email": "jabber5880@gmail.com"
+                }
+            ],
+            "time": "2022-11-09T17:42:20+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "warp-driven/php-sdk": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}

@@ -1,0 +1,31 @@
+{
+    "packages": [
+        {
+            "name": "warp-driven/php-sdk",
+            "version": "dev-develop",
+            "version_normalized": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:warp-driven/wd-utility.git",
+                "reference": "e807fe30cec110ae9a5e115d1c3f16a00ffb9ea8"
+            },
+            "time": "2022-11-09T17:42:20+00:00",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-4": {
+                    "WarpDriven\\PhpSdk\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "jabber",
+                    "email": "jabber5880@gmail.com"
+                }
+            ],
+            "install-path": "../warp-driven/php-sdk"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}
