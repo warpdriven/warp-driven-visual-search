@@ -36,6 +36,6 @@
     "vue-loader": "^16.8.3"
   },
   "dependencies": {
-    "wd-vue-lib": "git+https://git@github.com/warpdriven/wd-vue-lib.git#dev"
+    "wd-vue-lib": "git+https://git@github.com/warpdriven/wd-vue-lib.git"
   }
 }

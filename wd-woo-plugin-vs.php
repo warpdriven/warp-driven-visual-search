@@ -59,6 +59,7 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_script('wd-woo-plugin-vs-frontend-script', plugins_url('/assets/js/frontend.js', WD_WP_CORE_PLUGIN_FILE), array('jquery'), $plugin_version, true);
     wp_localize_script('wd-woo-plugin-vs-frontend-script', 'wd_woo_plugin_vs', array(
         'ajax_url' => admin_url('admin-ajax.php'),
+        'wd_search_product_enable'=>sanitize_text_field(get_option("wd_search_product_enable")),
         'icon_css'=>array(
             'size'=>sanitize_text_field(get_option("wd_search_product_icon_size")),
             'top'=>sanitize_text_field(get_option("wd_search_product_icon_top")),

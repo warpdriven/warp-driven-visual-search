@@ -12,7 +12,11 @@ class WPCore
         $home = new WPHomePage();
         $setting = new WPSettingPage();
         $ajax = new WPAjax();
-        $visualSearch = new WPVisualSearch();
+
+        $wd_search_product_list_enable = get_option('wd_search_product_list_enable');
+        if(isset($wd_search_product_list_enable)&&esc_attr($wd_search_product_list_enable)==='on'){
+            $visualSearch = new WPVisualSearch();
+        };
     }
 
     public static function getApiKey()
