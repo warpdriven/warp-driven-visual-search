@@ -1,6 +1,6 @@
 <?php
 /**
- * 基于WooCommerce ajax
+ * WooCommerce ajax
  */
 
 namespace WarpDriven\WpCore;
@@ -220,6 +220,9 @@ class WPAjax extends WC_REST_Products_Controller
         $this->register_routes();
     }
 
+    /**
+     * Add wordpress ajax
+     */
     function add_ajax()
     {
         $ajax_events = array(
@@ -239,7 +242,7 @@ class WPAjax extends WC_REST_Products_Controller
     }
 
     /**
-     * 获取单个产品html
+     * Get a single product html page
      */
     public function get_woo_product_html()
     {
@@ -256,7 +259,7 @@ class WPAjax extends WC_REST_Products_Controller
     }
 
     /**
-     * 从 visual search 获取产品列表
+     * Get the product list from visual search
      */
     public function get_woo_products_html_by_vs()
     {
@@ -288,6 +291,9 @@ class WPAjax extends WC_REST_Products_Controller
         );
     }
 
+    /**
+     * Get the product categorys from woocommerce
+     */
     public function get_woo_product_categories()
     {
         $args = array(
@@ -302,33 +308,17 @@ class WPAjax extends WC_REST_Products_Controller
         wp_send_json($product_categories);
     }
 
+    /**
+     * Get products by category
+     */
     public function get_woo_products_by_category()
     {
         $categories = $_POST['categories'];
-
-        // $wc_rest_product = new WC_REST_Products_Controller();
-        // $products = $wc_rest_product->prepare_object_for_response(array(),$_REQUEST);
-
         $products = $this->get_items($_REQUEST);
-
-        // $products = array();
-        // WC()->api->includes();
-        // WC()->api->register_resources( new WC_API_Server( '/' ) );
-        // foreach ($categories as $category) {
-        //     $filter = array(
-        //         'category' => $category,
-        //         'limit' => 1000
-        //     );
-        //     $result = WC()->api->WC_API_Products->get_products(null,null,$filter,1);
-        //     $products=array_merge($products,$result['products']);
-        //     array_unique($products);
-        // }        
-        // wp_send_json($products);
-
     }
 
     /**
-     * 查询商品清单
+     * Query the list of associated products
      */
     public function get_woo_product_list_html()
     {
@@ -356,7 +346,7 @@ class WPAjax extends WC_REST_Products_Controller
     }
 
     /**
-     * 查询图片出来历史记录
+     * Query image initialization history
      */
     public function get_woo_product_handle_history()
     {
@@ -366,7 +356,7 @@ class WPAjax extends WC_REST_Products_Controller
 
 
     /**
-     * 初始化数据
+     * Initialize product image
      */
     public function init_products()
     {
@@ -387,7 +377,7 @@ class WPAjax extends WC_REST_Products_Controller
     }
 
     /**
-     * 查询当前
+     * Get initialization status
      */
     public function get_vs_credit_status()
     {

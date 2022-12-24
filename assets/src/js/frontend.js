@@ -40,8 +40,7 @@ import {getProductListHtml} from "../../../node_modules/wd-vue-lib/src/api/wd-co
     }
 
     var reload_products =function($products){
-
-        if($products){
+        if($products&&wd_woo_plugin_vs.wd_search_product_enable==='on'){
             var pro_num = getNumberByClassName($products.attr("class"),"columns-");
             $(".product",$products).each(function(index,product){
                 var $this = $(this);

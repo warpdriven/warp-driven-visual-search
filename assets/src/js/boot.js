@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import HomePage from '../../../node_modules/wd-vue-lib/src/components/warp-driven/wd/community-home-page.vue'
-import VisualSearch from '../../../node_modules/wd-vue-lib/src/components/warp-driven/wd/VisualSearch.vue'
+import VisualSearch from '../../../node_modules/wd-vue-lib/src/components/warp-driven/wd/visual-search-page.vue'
+import SettingPage from '../../../node_modules/wd-vue-lib/src/components/warp-driven/wd/community-setting-page.vue'
 import {config} from '../../../node_modules/wd-vue-lib/src/api/api-setting'
 config({
     INIT_PRODUCTS:{
@@ -30,4 +31,4 @@ config({
 })
 import ElementPlus from 'element-plus';
 import 'element-plus/theme-chalk/index.css';
-let app = createApp({}).use(ElementPlus).component('home-page',HomePage).component('visual-search',VisualSearch).mount('#app')
+let app = createApp({}).use(ElementPlus).component('home-page',HomePage).component('visual-search',VisualSearch).component('setting-page',SettingPage).mount('#app')
