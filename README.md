@@ -1,1 +1,1 @@
-# wd-vs-plugin-woo-community 1222
+# Warp Driven Visual Search Woocommerce version
