@@ -13,13 +13,13 @@
     }
   ],
   "require": {
-    "warp-driven/php-sdk": "dev-develop"
+    "warp-driven/php-sdk": "dev-main"
   },
   "repositories": [
     {
       "name": "warp-driven/php-sdk",
       "type": "vcs",
-      "url": "git@bitbucket.org:warp-driven/wd-utility.git"
+      "url": "git@github.com:warpdriven/wd-ai-php-sdk.git"
     }
   ]
 }
