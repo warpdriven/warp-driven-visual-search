@@ -4,16 +4,23 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3599eaf77066ef35b018c2aea70424ef",
+    "content-hash": "54f085131c0e2891bbe615fdea58f116",
     "packages": [
         {
             "name": "warp-driven/php-sdk",
-            "version": "dev-develop",
+            "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:warp-driven/wd-utility.git",
-                "reference": "e807fe30cec110ae9a5e115d1c3f16a00ffb9ea8"
+                "url": "https://github.com/warpdriven/wd-ai-php-sdk.git",
+                "reference": "cb6cced5a1ec4b2783061a6f8b11254fdc48039b"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/warpdriven/wd-ai-php-sdk/zipball/cb6cced5a1ec4b2783061a6f8b11254fdc48039b",
+                "reference": "cb6cced5a1ec4b2783061a6f8b11254fdc48039b",
+                "shasum": ""
+            },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -26,7 +33,11 @@
                     "email": "jabber5880@gmail.com"
                 }
             ],
-            "time": "2022-11-09T17:42:20+00:00"
+            "support": {
+                "source": "https://github.com/warpdriven/wd-ai-php-sdk/tree/main",
+                "issues": "https://github.com/warpdriven/wd-ai-php-sdk/issues"
+            },
+            "time": "2022-12-25T02:36:23+00:00"
         }
     ],
     "packages-dev": [],

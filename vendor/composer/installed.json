@@ -2,16 +2,23 @@
     "packages": [
         {
             "name": "warp-driven/php-sdk",
-            "version": "dev-develop",
-            "version_normalized": "dev-develop",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:warp-driven/wd-utility.git",
-                "reference": "e807fe30cec110ae9a5e115d1c3f16a00ffb9ea8"
+                "url": "https://github.com/warpdriven/wd-ai-php-sdk.git",
+                "reference": "cb6cced5a1ec4b2783061a6f8b11254fdc48039b"
             },
-            "time": "2022-11-09T17:42:20+00:00",
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/warpdriven/wd-ai-php-sdk/zipball/cb6cced5a1ec4b2783061a6f8b11254fdc48039b",
+                "reference": "cb6cced5a1ec4b2783061a6f8b11254fdc48039b",
+                "shasum": ""
+            },
+            "time": "2022-12-25T02:36:23+00:00",
+            "default-branch": true,
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "WarpDriven\\PhpSdk\\": "src/"
@@ -23,6 +30,10 @@
                     "email": "jabber5880@gmail.com"
                 }
             ],
+            "support": {
+                "source": "https://github.com/warpdriven/wd-ai-php-sdk/tree/main",
+                "issues": "https://github.com/warpdriven/wd-ai-php-sdk/issues"
+            },
             "install-path": "../warp-driven/php-sdk"
         }
     ],
