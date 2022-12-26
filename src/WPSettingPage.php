@@ -48,7 +48,7 @@ class  WPSettingPage
 
     public function section_callback()
     {
-        echo '<p>' . __('', 'wd-vs-woo') . '</p>';
+        echo '<p>' . '</p>';
     }
 
     public function add_page()
