@@ -1,5 +1,5 @@
 {
-  "name": "warp-driven/wp-core-community",
+  "name": "warp-driven/wd-vs-woo",
   "type": "library",
   "autoload": {
     "psr-4": {
@@ -8,8 +8,8 @@
   },
   "authors": [
     {
-      "name": "jabber",
-      "email": "jabber5880@gmail.com"
+      "name": "Warp Driven Technology",
+      "email": "info@warpdriven.com.au"
     }
   ],
   "require": {

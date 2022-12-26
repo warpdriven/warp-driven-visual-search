@@ -98,53 +98,53 @@ class WPAjax extends WC_REST_Products_Controller
 			'type'       => 'object',
 			'properties' => array(
 				'id'                    => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'wd-vs-woo' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'name'                  => array(
-					'description' => __( 'Product name.', 'woocommerce' ),
+					'description' => __( 'Product name.', 'wd-vs-woo' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
                 'short_description'     => array(
-					'description' => __( 'Product short description.', 'woocommerce' ),
+					'description' => __( 'Product short description.', 'wd-vs-woo' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'sku'                   => array(
-					'description' => __( 'Unique identifier.', 'woocommerce' ),
+					'description' => __( 'Unique identifier.', 'wd-vs-woo' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'stock_status'          => array(
-					'description' => __( 'Controls the stock status of the product.', 'woocommerce' ),
+					'description' => __( 'Controls the stock status of the product.', 'wd-vs-woo' ),
 					'type'        => 'string',
 					'default'     => 'instock',
 					'enum'        => array_keys( wc_get_product_stock_status_options() ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'categories'            => array(
-					'description' => __( 'List of categories.', 'woocommerce' ),
+					'description' => __( 'List of categories.', 'wd-vs-woo' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'id'   => array(
-								'description' => __( 'Category ID.', 'woocommerce' ),
+								'description' => __( 'Category ID.', 'wd-vs-woo' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'name' => array(
-								'description' => __( 'Category name.', 'woocommerce' ),
+								'description' => __( 'Category name.', 'wd-vs-woo' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'slug' => array(
-								'description' => __( 'Category slug.', 'woocommerce' ),
+								'description' => __( 'Category slug.', 'wd-vs-woo' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
@@ -153,54 +153,54 @@ class WPAjax extends WC_REST_Products_Controller
 					),
 				),
 				'images'                => array(
-					'description' => __( 'List of images.', 'woocommerce' ),
+					'description' => __( 'List of images.', 'wd-vs-woo' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'id'                => array(
-								'description' => __( 'Image ID.', 'woocommerce' ),
+								'description' => __( 'Image ID.', 'wd-vs-woo' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'date_created'      => array(
-								'description' => __( "The date the image was created, in the site's timezone.", 'woocommerce' ),
+								'description' => __( "The date the image was created, in the site's timezone.", 'wd-vs-woo' ),
 								'type'        => 'date-time',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'date_created_gmt'  => array(
-								'description' => __( 'The date the image was created, as GMT.', 'woocommerce' ),
+								'description' => __( 'The date the image was created, as GMT.', 'wd-vs-woo' ),
 								'type'        => 'date-time',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'date_modified'     => array(
-								'description' => __( "The date the image was last modified, in the site's timezone.", 'woocommerce' ),
+								'description' => __( "The date the image was last modified, in the site's timezone.", 'wd-vs-woo' ),
 								'type'        => 'date-time',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'date_modified_gmt' => array(
-								'description' => __( 'The date the image was last modified, as GMT.', 'woocommerce' ),
+								'description' => __( 'The date the image was last modified, as GMT.', 'wd-vs-woo' ),
 								'type'        => 'date-time',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'src'               => array(
-								'description' => __( 'Image URL.', 'woocommerce' ),
+								'description' => __( 'Image URL.', 'wd-vs-woo' ),
 								'type'        => 'string',
 								'format'      => 'uri',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'name'              => array(
-								'description' => __( 'Image name.', 'woocommerce' ),
+								'description' => __( 'Image name.', 'wd-vs-woo' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'alt'               => array(
-								'description' => __( 'Image alternative text.', 'woocommerce' ),
+								'description' => __( 'Image alternative text.', 'wd-vs-woo' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),

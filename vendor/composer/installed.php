@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
-        'name' => 'warp-driven/wp-core-community',
+        'name' => 'warp-driven/wd-vs-woo',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '8aed8b5f16a7c98e5102ef50ce881086fb42e054',
+        'reference' => '9658a8d36f501e5307ee4b9f8f5d1f83fb784dc7',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'warp-driven/php-sdk' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'cb6cced5a1ec4b2783061a6f8b11254fdc48039b',
+            'reference' => 'b74929ff1d14fcffef13ba50dec45f8783ebf15f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../warp-driven/php-sdk',
             'aliases' => array(
@@ -21,10 +21,10 @@
             ),
             'dev_requirement' => false,
         ),
-        'warp-driven/wp-core-community' => array(
+        'warp-driven/wd-vs-woo' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '8aed8b5f16a7c98e5102ef50ce881086fb42e054',
+            'reference' => '9658a8d36f501e5307ee4b9f8f5d1f83fb784dc7',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

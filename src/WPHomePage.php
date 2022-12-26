@@ -13,8 +13,8 @@ class WPHomePage
     public function add_page()
     {
         $hookname = add_menu_page(
-            __('Warp Driven', 'wd-woo-plugin-vs'),
-            __('Warp Driven', 'wd-woo-plugin-vs'),
+            __('Warp Driven', 'wd-vs-woo'),
+            __('Warp Driven', 'wd-vs-woo'),
             'manage_options',
             'warp-driven',
             array($this, 'page_html'),
