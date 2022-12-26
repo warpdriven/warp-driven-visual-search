@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Warp Driven Visual Search Woocommerce
+Plugin Name: Warp Driven Visual Search
 Plugin URI: https://wordpress.org/plugins/wd-vs-woo
-Description: Warp Driven Visual Search Woocommerce
+Description: Warp Driven Visual Search
 Author: Warp Driven
 Author URI: https://warp-driven.com/
 Text Domain: wd-vs-woo

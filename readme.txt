@@ -1,4 +1,4 @@
-=== Warp Driven Visual Search Woocommerce ===
+=== Warp Driven Visual Search ===
 Contributors: Warp Driven
 Donate link: https://warp-driven.com/
 Requires at least: 5.9
