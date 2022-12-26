@@ -5,22 +5,23 @@ class  WPSettingPage
 {
 
 
-    public static $fields = array(
-        array("name"=>"wd_api_key","label"=>"API Key"),
-        array("name"=>"wd_search_product_list_title","label"=>"Search Product List Title"),
-        array("name"=>"wd_search_product_list_enable","label"=>"Enbale"),
-        array("name"=>"wd_search_product_icon_size","label"=>"Icon Size"),
-        array("name"=>"wd_search_product_icon_top","label"=>"Icon Top"),
-        array("name"=>"wd_search_product_icon_left","label"=>"Icon Left"),
-        array("name"=>"wd_search_product_icon_right","label"=>"Icon Right"),
-        array("name"=>"wd_search_product_icon_bottom","label"=>"Icon Bottom"),
-        array("name"=>"wd_search_product_enable","label"=>"Enbale"),
-    );
+    public $fields;
 
     public function __construct()
     {
         add_action('admin_menu', array($this, 'add_page'));
         add_action('admin_init', array($this, 'setting_init'));
+        $this->fields = array(
+            array("name" => "wd_api_key", "label" => __("API Key", 'wd-vs-woo')),
+            array("name" => "wd_search_product_list_title", "label" => __("Search Product List Title", 'wd-vs-woo')),
+            array("name" => "wd_search_product_list_enable", "label" => __("Enbale", 'wd-vs-woo')),
+            array("name" => "wd_search_product_icon_size", "label" => __("Icon Size", 'wd-vs-woo')),
+            array("name" => "wd_search_product_icon_top", "label" => __("Icon Top", 'wd-vs-woo')),
+            array("name" => "wd_search_product_icon_left", "label" => __("Icon Left", 'wd-vs-woo')),
+            array("name" => "wd_search_product_icon_right", "label" => __("Icon Right", 'wd-vs-woo')),
+            array("name" => "wd_search_product_icon_bottom", "label" => __("Icon Bottom", 'wd-vs-woo')),
+            array("name" => "wd_search_product_enable", "label" => __("Enbale", 'wd-vs-woo')),
+        );
     }
 
     public function setting_init()
@@ -31,12 +32,13 @@ class  WPSettingPage
             'wd_api_key'
         );
 
-        $this->add_settings_fields(self::$fields);
+        $this->add_settings_fields($this->fields);
 
     }
 
-    public function add_settings_fields($fields){
-        foreach($fields as $field){
+    public function add_settings_fields($fields)
+    {
+        foreach ($fields as $field) {
             register_setting(
                 'general',
                 $field['name']
@@ -46,7 +48,7 @@ class  WPSettingPage
 
     public function section_callback()
     {
-        echo '<p>' . __('', 'wd-woo-plugin-vs') . '</p>';
+        echo '<p>' . __('', 'wd-vs-woo') . '</p>';
     }
 
     public function add_page()
@@ -70,17 +72,17 @@ class  WPSettingPage
             return;
         }
         if (isset($_GET['settings-updated'])) {
-            add_settings_error('warp-driven-setting', 'warp-driven-setting', __('Settings Saved', 'wd-woo-plugin-vs'), 'updated');
+            add_settings_error('warp-driven-setting', 'warp-driven-setting', __('Settings Saved', 'wd-vs-woo'), 'updated');
         }
         settings_errors('warp-driven-setting');
         ?>
         <div id="app" class="wrap">
-            <?php 
-                $data = array();
-                foreach(self::$fields as $field){
-                    $value = get_option($field['name']);
-                    $data[$field['name']]= isset($value) ? esc_attr($value) : '';
-                }
+            <?php
+            $data = array();
+            foreach ($this->fields as $field) {
+                $value = get_option($field['name']);
+                $data[$field['name']] = isset($value) ? esc_attr($value) : '';
+            }
             ?>
             <setting-page :action="'options.php'" :data="{
                     'wd_api_key':'<?php echo $data['wd_api_key']; ?>',
@@ -92,13 +94,13 @@ class  WPSettingPage
                     'wd_search_product_icon_right':'<?php echo $data['wd_search_product_icon_right']; ?>',
                     'wd_search_product_icon_bottom':'<?php echo $data['wd_search_product_icon_bottom']; ?>',
                     'wd_search_product_enable':'<?php echo $data['wd_search_product_enable']; ?>',
-                }">
+                    }">
                 <template #footer>
-                <?php
+                    <?php
                     settings_fields('general');
                     do_settings_sections('warp-driven-setting');
-                    submit_button(__('Save Settings', 'wd-woo-plugin-vs'));
-                ?>
+                    submit_button(__('Save Settings', 'wd-vs-woo'));
+                    ?>
                 </template>
             </setting-page>
         </div>

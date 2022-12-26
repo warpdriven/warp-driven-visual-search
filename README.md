@@ -1,1 +1,1 @@
-# Warp Driven Visual Search Woocommerce version
+# Warp Driven Visual Search Woocommerce

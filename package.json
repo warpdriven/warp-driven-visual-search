@@ -1,5 +1,5 @@
 {
-  "name": "wd-woo-plugin-vs-community",
+  "name": "wd-vs-woo",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/warpdriven/wd-vs-plugin-woo-community.git"
+    "url": "git+ssh://git@github.com/warpdriven/wd-vs-woo.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/warpdriven/wd-vs-plugin-woo-community/issues"
+    "url": "https://github.com/warpdriven/wd-vs-woo/issues"
   },
-  "homepage": "https://github.com/warpdriven/wd-vs-plugin-woo-community#readme",
+  "homepage": "https://github.com/warpdriven/wd-vs-woo#readme",
   "devDependencies": {
     "autoprefixer": "^10.4.13",
     "css-loader": "^6.7.1",

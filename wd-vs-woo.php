@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: WD Woo Plugin VS Community
-Plugin URI: https://warp-driven.com/
-Description: Warp Driven Wordpress Core
+Plugin Name: Warp Driven Visual Search Woocommerce
+Plugin URI: https://wordpress.org/plugins/wd-vs-woo
+Description: Warp Driven Visual Search Woocommerce
 Author: Warp Driven
 Author URI: https://warp-driven.com/
-Text Domain: wd-woo-plugin-vs-community
+Text Domain: wd-vs-woo
 Domain Path: /languages/
 Version: 0.0.1
 */

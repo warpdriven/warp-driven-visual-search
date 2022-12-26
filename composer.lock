@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "54f085131c0e2891bbe615fdea58f116",
+    "content-hash": "d3a58b1216ff94d715927f9901911ea5",
     "packages": [
         {
             "name": "warp-driven/php-sdk",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/warpdriven/wd-ai-php-sdk.git",
-                "reference": "cb6cced5a1ec4b2783061a6f8b11254fdc48039b"
+                "reference": "b74929ff1d14fcffef13ba50dec45f8783ebf15f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/warpdriven/wd-ai-php-sdk/zipball/cb6cced5a1ec4b2783061a6f8b11254fdc48039b",
-                "reference": "cb6cced5a1ec4b2783061a6f8b11254fdc48039b",
+                "url": "https://api.github.com/repos/warpdriven/wd-ai-php-sdk/zipball/b74929ff1d14fcffef13ba50dec45f8783ebf15f",
+                "reference": "b74929ff1d14fcffef13ba50dec45f8783ebf15f",
                 "shasum": ""
             },
             "default-branch": true,
@@ -29,15 +29,15 @@
             },
             "authors": [
                 {
-                    "name": "jabber",
-                    "email": "jabber5880@gmail.com"
+                    "name": "Warp Driven Technology",
+                    "email": "info@warpdriven.com.au"
                 }
             ],
             "support": {
                 "source": "https://github.com/warpdriven/wd-ai-php-sdk/tree/main",
                 "issues": "https://github.com/warpdriven/wd-ai-php-sdk/issues"
             },
-            "time": "2022-12-25T02:36:23+00:00"
+            "time": "2022-12-25T02:57:31+00:00"
         }
     ],
     "packages-dev": [],
