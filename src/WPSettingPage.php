@@ -85,15 +85,15 @@ class  WPSettingPage
             }
             ?>
             <setting-page :action="'options.php'" :data="{
-                    'wd_api_key':'<?php echo $data['wd_api_key']; ?>',
-                    'wd_search_product_list_title':'<?php echo $data['wd_search_product_list_title']; ?>',
-                    'wd_search_product_list_enable':'<?php echo $data['wd_search_product_list_enable']; ?>',
-                    'wd_search_product_icon_size':'<?php echo $data['wd_search_product_icon_size']; ?>',
-                    'wd_search_product_icon_top':'<?php echo $data['wd_search_product_icon_top']; ?>',
-                    'wd_search_product_icon_left':'<?php echo $data['wd_search_product_icon_left']; ?>',
-                    'wd_search_product_icon_right':'<?php echo $data['wd_search_product_icon_right']; ?>',
-                    'wd_search_product_icon_bottom':'<?php echo $data['wd_search_product_icon_bottom']; ?>',
-                    'wd_search_product_enable':'<?php echo $data['wd_search_product_enable']; ?>',
+                    'wd_api_key':'<?php echo esc_attr($data['wd_api_key']); ?>',
+                    'wd_search_product_list_title':'<?php echo esc_attr($data['wd_search_product_list_title']); ?>',
+                    'wd_search_product_list_enable':'<?php echo esc_attr($data['wd_search_product_list_enable']); ?>',
+                    'wd_search_product_icon_size':'<?php echo esc_attr($data['wd_search_product_icon_size']); ?>',
+                    'wd_search_product_icon_top':'<?php echo esc_attr($data['wd_search_product_icon_top']); ?>',
+                    'wd_search_product_icon_left':'<?php echo esc_attr($data['wd_search_product_icon_left']); ?>',
+                    'wd_search_product_icon_right':'<?php echo esc_attr($data['wd_search_product_icon_right']); ?>',
+                    'wd_search_product_icon_bottom':'<?php echo esc_attr($data['wd_search_product_icon_bottom']); ?>',
+                    'wd_search_product_enable':'<?php echo esc_attr($data['wd_search_product_enable']); ?>',
                     }">
                 <template #footer>
                     <?php

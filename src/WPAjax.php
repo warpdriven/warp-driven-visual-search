@@ -87,130 +87,131 @@ class WPAjax extends WC_REST_Products_Controller
     }
 
     /**
-	 * Get the Product's schema, conforming to JSON Schema.
-	 *
-	 * @return array
-	 */
-	public function get_item_schema() {
-		$schema         = array(
-			'$schema'    => 'http://json-schema.org/draft-04/schema#',
-			'title'      => $this->post_type,
-			'type'       => 'object',
-			'properties' => array(
-				'id'                    => array(
-					'description' => __( 'Unique identifier for the resource.', 'wd-vs-woo' ),
-					'type'        => 'integer',
-					'context'     => array( 'view', 'edit' ),
-					'readonly'    => true,
-				),
-				'name'                  => array(
-					'description' => __( 'Product name.', 'wd-vs-woo' ),
-					'type'        => 'string',
-					'context'     => array( 'view', 'edit' ),
-				),
-                'short_description'     => array(
-					'description' => __( 'Product short description.', 'wd-vs-woo' ),
-					'type'        => 'string',
-					'context'     => array( 'view', 'edit' ),
-				),
-				'sku'                   => array(
-					'description' => __( 'Unique identifier.', 'wd-vs-woo' ),
-					'type'        => 'string',
-					'context'     => array( 'view', 'edit' ),
-				),
-				'stock_status'          => array(
-					'description' => __( 'Controls the stock status of the product.', 'wd-vs-woo' ),
-					'type'        => 'string',
-					'default'     => 'instock',
-					'enum'        => array_keys( wc_get_product_stock_status_options() ),
-					'context'     => array( 'view', 'edit' ),
-				),
-				'categories'            => array(
-					'description' => __( 'List of categories.', 'wd-vs-woo' ),
-					'type'        => 'array',
-					'context'     => array( 'view', 'edit' ),
-					'items'       => array(
-						'type'       => 'object',
-						'properties' => array(
-							'id'   => array(
-								'description' => __( 'Category ID.', 'wd-vs-woo' ),
-								'type'        => 'integer',
-								'context'     => array( 'view', 'edit' ),
-							),
-							'name' => array(
-								'description' => __( 'Category name.', 'wd-vs-woo' ),
-								'type'        => 'string',
-								'context'     => array( 'view', 'edit' ),
-								'readonly'    => true,
-							),
-							'slug' => array(
-								'description' => __( 'Category slug.', 'wd-vs-woo' ),
-								'type'        => 'string',
-								'context'     => array( 'view', 'edit' ),
-								'readonly'    => true,
-							),
-						),
-					),
-				),
-				'images'                => array(
-					'description' => __( 'List of images.', 'wd-vs-woo' ),
-					'type'        => 'array',
-					'context'     => array( 'view', 'edit' ),
-					'items'       => array(
-						'type'       => 'object',
-						'properties' => array(
-							'id'                => array(
-								'description' => __( 'Image ID.', 'wd-vs-woo' ),
-								'type'        => 'integer',
-								'context'     => array( 'view', 'edit' ),
-							),
-							'date_created'      => array(
-								'description' => __( "The date the image was created, in the site's timezone.", 'wd-vs-woo' ),
-								'type'        => 'date-time',
-								'context'     => array( 'view', 'edit' ),
-								'readonly'    => true,
-							),
-							'date_created_gmt'  => array(
-								'description' => __( 'The date the image was created, as GMT.', 'wd-vs-woo' ),
-								'type'        => 'date-time',
-								'context'     => array( 'view', 'edit' ),
-								'readonly'    => true,
-							),
-							'date_modified'     => array(
-								'description' => __( "The date the image was last modified, in the site's timezone.", 'wd-vs-woo' ),
-								'type'        => 'date-time',
-								'context'     => array( 'view', 'edit' ),
-								'readonly'    => true,
-							),
-							'date_modified_gmt' => array(
-								'description' => __( 'The date the image was last modified, as GMT.', 'wd-vs-woo' ),
-								'type'        => 'date-time',
-								'context'     => array( 'view', 'edit' ),
-								'readonly'    => true,
-							),
-							'src'               => array(
-								'description' => __( 'Image URL.', 'wd-vs-woo' ),
-								'type'        => 'string',
-								'format'      => 'uri',
-								'context'     => array( 'view', 'edit' ),
-							),
-							'name'              => array(
-								'description' => __( 'Image name.', 'wd-vs-woo' ),
-								'type'        => 'string',
-								'context'     => array( 'view', 'edit' ),
-							),
-							'alt'               => array(
-								'description' => __( 'Image alternative text.', 'wd-vs-woo' ),
-								'type'        => 'string',
-								'context'     => array( 'view', 'edit' ),
-							),
-						),
-					),
-				),
-			),
-		);
-		return $this->add_additional_fields_schema( $schema );
-	}
+     * Get the Product's schema, conforming to JSON Schema.
+     *
+     * @return array
+     */
+    public function get_item_schema()
+    {
+        $schema = array(
+            '$schema' => 'http://json-schema.org/draft-04/schema#',
+            'title' => $this->post_type,
+            'type' => 'object',
+            'properties' => array(
+                'id' => array(
+                    'description' => __('Unique identifier for the resource.', 'wd-vs-woo'),
+                    'type' => 'integer',
+                    'context' => array('view', 'edit'),
+                    'readonly' => true,
+                ),
+                'name' => array(
+                    'description' => __('Product name.', 'wd-vs-woo'),
+                    'type' => 'string',
+                    'context' => array('view', 'edit'),
+                ),
+                'short_description' => array(
+                    'description' => __('Product short description.', 'wd-vs-woo'),
+                    'type' => 'string',
+                    'context' => array('view', 'edit'),
+                ),
+                'sku' => array(
+                    'description' => __('Unique identifier.', 'wd-vs-woo'),
+                    'type' => 'string',
+                    'context' => array('view', 'edit'),
+                ),
+                'stock_status' => array(
+                    'description' => __('Controls the stock status of the product.', 'wd-vs-woo'),
+                    'type' => 'string',
+                    'default' => 'instock',
+                    'enum' => array_keys(wc_get_product_stock_status_options()),
+                    'context' => array('view', 'edit'),
+                ),
+                'categories' => array(
+                    'description' => __('List of categories.', 'wd-vs-woo'),
+                    'type' => 'array',
+                    'context' => array('view', 'edit'),
+                    'items' => array(
+                        'type' => 'object',
+                        'properties' => array(
+                            'id' => array(
+                                'description' => __('Category ID.', 'wd-vs-woo'),
+                                'type' => 'integer',
+                                'context' => array('view', 'edit'),
+                            ),
+                            'name' => array(
+                                'description' => __('Category name.', 'wd-vs-woo'),
+                                'type' => 'string',
+                                'context' => array('view', 'edit'),
+                                'readonly' => true,
+                            ),
+                            'slug' => array(
+                                'description' => __('Category slug.', 'wd-vs-woo'),
+                                'type' => 'string',
+                                'context' => array('view', 'edit'),
+                                'readonly' => true,
+                            ),
+                        ),
+                    ),
+                ),
+                'images' => array(
+                    'description' => __('List of images.', 'wd-vs-woo'),
+                    'type' => 'array',
+                    'context' => array('view', 'edit'),
+                    'items' => array(
+                        'type' => 'object',
+                        'properties' => array(
+                            'id' => array(
+                                'description' => __('Image ID.', 'wd-vs-woo'),
+                                'type' => 'integer',
+                                'context' => array('view', 'edit'),
+                            ),
+                            'date_created' => array(
+                                'description' => __("The date the image was created, in the site's timezone.", 'wd-vs-woo'),
+                                'type' => 'date-time',
+                                'context' => array('view', 'edit'),
+                                'readonly' => true,
+                            ),
+                            'date_created_gmt' => array(
+                                'description' => __('The date the image was created, as GMT.', 'wd-vs-woo'),
+                                'type' => 'date-time',
+                                'context' => array('view', 'edit'),
+                                'readonly' => true,
+                            ),
+                            'date_modified' => array(
+                                'description' => __("The date the image was last modified, in the site's timezone.", 'wd-vs-woo'),
+                                'type' => 'date-time',
+                                'context' => array('view', 'edit'),
+                                'readonly' => true,
+                            ),
+                            'date_modified_gmt' => array(
+                                'description' => __('The date the image was last modified, as GMT.', 'wd-vs-woo'),
+                                'type' => 'date-time',
+                                'context' => array('view', 'edit'),
+                                'readonly' => true,
+                            ),
+                            'src' => array(
+                                'description' => __('Image URL.', 'wd-vs-woo'),
+                                'type' => 'string',
+                                'format' => 'uri',
+                                'context' => array('view', 'edit'),
+                            ),
+                            'name' => array(
+                                'description' => __('Image name.', 'wd-vs-woo'),
+                                'type' => 'string',
+                                'context' => array('view', 'edit'),
+                            ),
+                            'alt' => array(
+                                'description' => __('Image alternative text.', 'wd-vs-woo'),
+                                'type' => 'string',
+                                'context' => array('view', 'edit'),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+        return $this->add_additional_fields_schema($schema);
+    }
 
     /**
      * Register REST API routes.
@@ -250,8 +251,8 @@ class WPAjax extends WC_REST_Products_Controller
             array(
                 "html" => WC_Shortcodes::product(
                     array(
-                        "sku" => $_POST["id"],
-                        "id" => $_POST["sku"]
+                        "sku" => sanitize_key($_POST["id"]),
+                        "id" => sanitize_key($_POST["sku"])
                     )
                 )
             )
@@ -264,7 +265,7 @@ class WPAjax extends WC_REST_Products_Controller
     public function get_woo_products_html_by_vs()
     {
 
-        $product_id = $_POST["product_id"];
+        $product_id = sanitize_key($_POST["product_id"]);
         // 调用 visual search 
         $products = Helper::visual_search(WPCore::getApiKey(), $product_id);
         $ids = array();
@@ -313,7 +314,7 @@ class WPAjax extends WC_REST_Products_Controller
      */
     public function get_woo_products_by_category()
     {
-        $categories = $_POST['categories'];
+        $categories = rest_sanitize_array($_POST['categories']);
         $products = $this->get_items($_REQUEST);
     }
 
@@ -322,7 +323,7 @@ class WPAjax extends WC_REST_Products_Controller
      */
     public function get_woo_product_list_html()
     {
-        $product_id = $_POST['product_id'];
+        $product_id = sanitize_key($_POST['product_id']);
         $body = "";
         $product_ids = array();
         if ($product_id) {
@@ -350,7 +351,7 @@ class WPAjax extends WC_REST_Products_Controller
      */
     public function get_woo_product_handle_history()
     {
-        $result = Helper::handle_history(WPCore::getApiKey(), $_POST['page_no'], $_POST['page_size']);
+        $result = Helper::handle_history(WPCore::getApiKey(), sanitize_key($_POST['page_no']), sanitize_key($_POST['page_size']));
         wp_send_json($result);
     }
 
@@ -360,17 +361,17 @@ class WPAjax extends WC_REST_Products_Controller
      */
     public function init_products()
     {
-        $products = $_POST['products'];
+        $products = rest_sanitize_array($_POST['products']);
         $pdts = array();
         foreach ($products as $product) {
-           if($product['images']){
+            if ($product['images']) {
                 $pdt = json_decode(json_encode($product));
                 $images = $pdt->images;
-                if(count($images)>1){
-                    $pdt->images = array($images[0]);     
+                if (count($images) > 1) {
+                    $pdt->images = array($images[0]);
                 }
                 array_push($pdts, $pdt);
-           }
+            }
         }
         $result = Helper::init_products(WPCore::getApiKey(), json_encode(array("items" => $pdts)));
         wp_send_json($result);
