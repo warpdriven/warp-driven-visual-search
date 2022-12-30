@@ -15,7 +15,9 @@ class WPVisualSearchShortCode{
 
     public function get_products_html($product_id=0,$link=true,$target=''){
         $body="<div id='app' class='wd-wc-visual-search'>".
-                "<h2>".sanitize_text_field(get_option("wd_search_product_list_title"))."</h2>".
+                "<div class='related products'>".
+                    "<h2>".sanitize_text_field(get_option("wd_search_product_list_title"))."</h2>".
+                "</div>".
                 "<visual-search :product_id='".$product_id."'></visual-search>".
               "</div>";
         return $body;
