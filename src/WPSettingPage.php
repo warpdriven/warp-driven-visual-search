@@ -12,15 +12,15 @@ class  WPSettingPage
         add_action('admin_menu', array($this, 'add_page'));
         add_action('admin_init', array($this, 'setting_init'));
         $this->fields = array(
-            array("name" => "wd_api_key", "label" => __("API Key", 'wd-vs-woo')),
-            array("name" => "wd_search_product_list_title", "label" => __("Search Product List Title", 'wd-vs-woo')),
-            array("name" => "wd_search_product_list_enable", "label" => __("Enbale", 'wd-vs-woo')),
-            array("name" => "wd_search_product_icon_size", "label" => __("Icon Size", 'wd-vs-woo')),
-            array("name" => "wd_search_product_icon_top", "label" => __("Icon Top", 'wd-vs-woo')),
-            array("name" => "wd_search_product_icon_left", "label" => __("Icon Left", 'wd-vs-woo')),
-            array("name" => "wd_search_product_icon_right", "label" => __("Icon Right", 'wd-vs-woo')),
-            array("name" => "wd_search_product_icon_bottom", "label" => __("Icon Bottom", 'wd-vs-woo')),
-            array("name" => "wd_search_product_enable", "label" => __("Enbale", 'wd-vs-woo')),
+            array("name" => "wd_api_key", "label" => __("API Key", 'warp-driven-visual-search')),
+            array("name" => "wd_search_product_list_title", "label" => __("Search Product List Title", 'warp-driven-visual-search')),
+            array("name" => "wd_search_product_list_enable", "label" => __("Enbale", 'warp-driven-visual-search')),
+            array("name" => "wd_search_product_icon_size", "label" => __("Icon Size", 'warp-driven-visual-search')),
+            array("name" => "wd_search_product_icon_top", "label" => __("Icon Top", 'warp-driven-visual-search')),
+            array("name" => "wd_search_product_icon_left", "label" => __("Icon Left", 'warp-driven-visual-search')),
+            array("name" => "wd_search_product_icon_right", "label" => __("Icon Right", 'warp-driven-visual-search')),
+            array("name" => "wd_search_product_icon_bottom", "label" => __("Icon Bottom", 'warp-driven-visual-search')),
+            array("name" => "wd_search_product_enable", "label" => __("Enbale", 'warp-driven-visual-search')),
         );
     }
 
@@ -72,7 +72,7 @@ class  WPSettingPage
             return;
         }
         if (isset($_GET['settings-updated'])) {
-            add_settings_error('warp-driven-setting', 'warp-driven-setting', __('Settings Saved', 'wd-vs-woo'), 'updated');
+            add_settings_error('warp-driven-setting', 'warp-driven-setting', __('Settings Saved', 'warp-driven-visual-search'), 'updated');
         }
         settings_errors('warp-driven-setting');
         ?>
@@ -99,7 +99,7 @@ class  WPSettingPage
                     <?php
                     settings_fields('general');
                     do_settings_sections('warp-driven-setting');
-                    submit_button(__('Save Settings', 'wd-vs-woo'));
+                    submit_button(__('Save Settings', 'warp-driven-visual-search'));
                     ?>
                 </template>
             </setting-page>

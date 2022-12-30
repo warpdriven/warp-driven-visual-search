@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Warp Driven Visual Search
-Plugin URI: https://wordpress.org/plugins/wd-vs-woo
+Plugin URI: https://wordpress.org/plugins/warp-driven-visual-search
 Description: Warp Driven Visual Search
 Author: Warp Driven
 Author URI: https://warp-driven.com/
-Text Domain: wd-vs-woo
+Text Domain: warp-driven-visual-search
 Domain Path: /languages/
 Version: 0.0.1
 */

@@ -99,53 +99,53 @@ class WPAjax extends WC_REST_Products_Controller
             'type' => 'object',
             'properties' => array(
                 'id' => array(
-                    'description' => __('Unique identifier for the resource.', 'wd-vs-woo'),
+                    'description' => __('Unique identifier for the resource.', 'warp-driven-visual-search'),
                     'type' => 'integer',
                     'context' => array('view', 'edit'),
                     'readonly' => true,
                 ),
                 'name' => array(
-                    'description' => __('Product name.', 'wd-vs-woo'),
+                    'description' => __('Product name.', 'warp-driven-visual-search'),
                     'type' => 'string',
                     'context' => array('view', 'edit'),
                 ),
                 'short_description' => array(
-                    'description' => __('Product short description.', 'wd-vs-woo'),
+                    'description' => __('Product short description.', 'warp-driven-visual-search'),
                     'type' => 'string',
                     'context' => array('view', 'edit'),
                 ),
                 'sku' => array(
-                    'description' => __('Unique identifier.', 'wd-vs-woo'),
+                    'description' => __('Unique identifier.', 'warp-driven-visual-search'),
                     'type' => 'string',
                     'context' => array('view', 'edit'),
                 ),
                 'stock_status' => array(
-                    'description' => __('Controls the stock status of the product.', 'wd-vs-woo'),
+                    'description' => __('Controls the stock status of the product.', 'warp-driven-visual-search'),
                     'type' => 'string',
                     'default' => 'instock',
                     'enum' => array_keys(wc_get_product_stock_status_options()),
                     'context' => array('view', 'edit'),
                 ),
                 'categories' => array(
-                    'description' => __('List of categories.', 'wd-vs-woo'),
+                    'description' => __('List of categories.', 'warp-driven-visual-search'),
                     'type' => 'array',
                     'context' => array('view', 'edit'),
                     'items' => array(
                         'type' => 'object',
                         'properties' => array(
                             'id' => array(
-                                'description' => __('Category ID.', 'wd-vs-woo'),
+                                'description' => __('Category ID.', 'warp-driven-visual-search'),
                                 'type' => 'integer',
                                 'context' => array('view', 'edit'),
                             ),
                             'name' => array(
-                                'description' => __('Category name.', 'wd-vs-woo'),
+                                'description' => __('Category name.', 'warp-driven-visual-search'),
                                 'type' => 'string',
                                 'context' => array('view', 'edit'),
                                 'readonly' => true,
                             ),
                             'slug' => array(
-                                'description' => __('Category slug.', 'wd-vs-woo'),
+                                'description' => __('Category slug.', 'warp-driven-visual-search'),
                                 'type' => 'string',
                                 'context' => array('view', 'edit'),
                                 'readonly' => true,
@@ -154,54 +154,54 @@ class WPAjax extends WC_REST_Products_Controller
                     ),
                 ),
                 'images' => array(
-                    'description' => __('List of images.', 'wd-vs-woo'),
+                    'description' => __('List of images.', 'warp-driven-visual-search'),
                     'type' => 'array',
                     'context' => array('view', 'edit'),
                     'items' => array(
                         'type' => 'object',
                         'properties' => array(
                             'id' => array(
-                                'description' => __('Image ID.', 'wd-vs-woo'),
+                                'description' => __('Image ID.', 'warp-driven-visual-search'),
                                 'type' => 'integer',
                                 'context' => array('view', 'edit'),
                             ),
                             'date_created' => array(
-                                'description' => __("The date the image was created, in the site's timezone.", 'wd-vs-woo'),
+                                'description' => __("The date the image was created, in the site's timezone.", 'warp-driven-visual-search'),
                                 'type' => 'date-time',
                                 'context' => array('view', 'edit'),
                                 'readonly' => true,
                             ),
                             'date_created_gmt' => array(
-                                'description' => __('The date the image was created, as GMT.', 'wd-vs-woo'),
+                                'description' => __('The date the image was created, as GMT.', 'warp-driven-visual-search'),
                                 'type' => 'date-time',
                                 'context' => array('view', 'edit'),
                                 'readonly' => true,
                             ),
                             'date_modified' => array(
-                                'description' => __("The date the image was last modified, in the site's timezone.", 'wd-vs-woo'),
+                                'description' => __("The date the image was last modified, in the site's timezone.", 'warp-driven-visual-search'),
                                 'type' => 'date-time',
                                 'context' => array('view', 'edit'),
                                 'readonly' => true,
                             ),
                             'date_modified_gmt' => array(
-                                'description' => __('The date the image was last modified, as GMT.', 'wd-vs-woo'),
+                                'description' => __('The date the image was last modified, as GMT.', 'warp-driven-visual-search'),
                                 'type' => 'date-time',
                                 'context' => array('view', 'edit'),
                                 'readonly' => true,
                             ),
                             'src' => array(
-                                'description' => __('Image URL.', 'wd-vs-woo'),
+                                'description' => __('Image URL.', 'warp-driven-visual-search'),
                                 'type' => 'string',
                                 'format' => 'uri',
                                 'context' => array('view', 'edit'),
                             ),
                             'name' => array(
-                                'description' => __('Image name.', 'wd-vs-woo'),
+                                'description' => __('Image name.', 'warp-driven-visual-search'),
                                 'type' => 'string',
                                 'context' => array('view', 'edit'),
                             ),
                             'alt' => array(
-                                'description' => __('Image alternative text.', 'wd-vs-woo'),
+                                'description' => __('Image alternative text.', 'warp-driven-visual-search'),
                                 'type' => 'string',
                                 'context' => array('view', 'edit'),
                             ),

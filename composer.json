@@ -1,5 +1,5 @@
 {
-  "name": "warp-driven/wd-vs-woo",
+  "name": "warp-driven/warp-driven-visual-search",
   "type": "library",
   "autoload": {
     "psr-4": {
