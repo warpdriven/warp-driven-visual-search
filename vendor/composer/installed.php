@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
-        'name' => 'warp-driven/warp-driven-visual-search',
+        'name' => 'warp-driven/wd-vs-woo',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'f6ce82c1fff86d6c9a4c29603292e57224913562',
+        'reference' => 'b628d01e67078be080d7957f88ce918c6895949c',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -21,10 +21,10 @@
             ),
             'dev_requirement' => false,
         ),
-        'warp-driven/warp-driven-visual-search' => array(
+        'warp-driven/wd-vs-woo' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'f6ce82c1fff86d6c9a4c29603292e57224913562',
+            'reference' => 'b628d01e67078be080d7957f88ce918c6895949c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

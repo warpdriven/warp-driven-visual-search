@@ -1,5 +1,5 @@
 {
-  "name": "warp-driven-visual-search",
+  "name": "wd-vs-woo",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/warpdriven/warp-driven-visual-search.git"
+    "url": "git+ssh://git@github.com/warpdriven/wd-vs-woo.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/warpdriven/warp-driven-visual-search/issues"
+    "url": "https://github.com/warpdriven/wd-vs-woo/issues"
   },
-  "homepage": "https://github.com/warpdriven/warp-driven-visual-search#readme",
+  "homepage": "https://github.com/warpdriven/wd-vs-woo#readme",
   "devDependencies": {
     "autoprefixer": "^10.4.13",
     "css-loader": "^6.7.1",
