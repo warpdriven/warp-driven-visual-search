@@ -1,9 +1,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Warp Driven Visual Search Woocommerce\n"
-"POT-Creation-Date: 2022-12-26 22:14+0800\n"
-"PO-Revision-Date: 2022-12-26 22:14+0800\n"
+"Project-Id-Version: Warp Driven Visual Search\n"
+"POT-Creation-Date: 2023-01-03 23:30+0800\n"
+"PO-Revision-Date: 2023-01-03 23:30+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: Poedit 3.2.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: warp-driven-visual-search.php\n"
+"X-Poedit-WPHeader: wd-vs-woo.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
@@ -23,75 +23,75 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 "X-Poedit-SearchPathExcluded-2: node_modules\n"
 
-#: src/WPAjax.php:101
+#: src/WPAjax.php:102
 msgid "Unique identifier for the resource."
 msgstr ""
 
-#: src/WPAjax.php:107
+#: src/WPAjax.php:108
 msgid "Product name."
 msgstr ""
 
-#: src/WPAjax.php:112
+#: src/WPAjax.php:113
 msgid "Product short description."
 msgstr ""
 
-#: src/WPAjax.php:117
+#: src/WPAjax.php:118
 msgid "Unique identifier."
 msgstr ""
 
-#: src/WPAjax.php:122
+#: src/WPAjax.php:123
 msgid "Controls the stock status of the product."
 msgstr ""
 
-#: src/WPAjax.php:129
+#: src/WPAjax.php:130
 msgid "List of categories."
 msgstr ""
 
-#: src/WPAjax.php:136
+#: src/WPAjax.php:137
 msgid "Category ID."
 msgstr ""
 
-#: src/WPAjax.php:141
+#: src/WPAjax.php:142
 msgid "Category name."
 msgstr ""
 
-#: src/WPAjax.php:147
+#: src/WPAjax.php:148
 msgid "Category slug."
 msgstr ""
 
-#: src/WPAjax.php:156
+#: src/WPAjax.php:157
 msgid "List of images."
 msgstr ""
 
-#: src/WPAjax.php:163
+#: src/WPAjax.php:164
 msgid "Image ID."
 msgstr ""
 
-#: src/WPAjax.php:168
+#: src/WPAjax.php:169
 msgid "The date the image was created, in the site's timezone."
 msgstr ""
 
-#: src/WPAjax.php:174
+#: src/WPAjax.php:175
 msgid "The date the image was created, as GMT."
 msgstr ""
 
-#: src/WPAjax.php:180
+#: src/WPAjax.php:181
 msgid "The date the image was last modified, in the site's timezone."
 msgstr ""
 
-#: src/WPAjax.php:186
+#: src/WPAjax.php:187
 msgid "The date the image was last modified, as GMT."
 msgstr ""
 
-#: src/WPAjax.php:192
+#: src/WPAjax.php:193
 msgid "Image URL."
 msgstr ""
 
-#: src/WPAjax.php:198
+#: src/WPAjax.php:199
 msgid "Image name."
 msgstr ""
 
-#: src/WPAjax.php:203
+#: src/WPAjax.php:204
 msgid "Image alternative text."
 msgstr ""
 
@@ -150,11 +150,11 @@ msgstr ""
 
 #. Plugin Name of the plugin/theme
 #. Description of the plugin/theme
-msgid "Warp Driven Visual Search Woocommerce"
+msgid "Warp Driven Visual Search"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "https://wordpress.org/plugins/warp-driven-visual-search"
+msgid "https://wordpress.org/plugins/wd-vs-woo"
 msgstr ""
 
 #. Author URI of the plugin/theme
