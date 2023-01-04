@@ -2,7 +2,7 @@
 
 Contributors: Warp Driven
 
-Donate link: https://warp-driven.com/
+Website link: https://warp-driven.com/
 
 Requires at least: 5.9
 
