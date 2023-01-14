@@ -110,3 +110,19 @@ You can find more details on WarpDriven’s terms and privacy policy in the foll
 - Integrated WooCommerce Plugin with WarpDriven AI API
 - Implemented WooCommerce feed pagination
 - Integrated Visually Similar Search widget and Discovery View on product list page into one WooCommerce Plugin
+=======
+Contributors: Warp Driven
+
+Website link: https://warp-driven.com/
+
+Requires at least: 5.9
+
+Requires PHP: 5.6
+
+Tested up to: 6.1
+
+Stable tag: 0.0.1
+
+License: GPLv2 or later
+
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
