@@ -26,7 +26,8 @@ config({
         ajax_url:wd_woo_plugin_vs.ajax_url,
     },
     GET_PRODUCTS_BY_CATEGORY:{
-        ajax_url:"/wp-json/wd/v3/products",
+        ajax_url:wd_woo_plugin_vs.ajax_url,
+        action:"wd_get_woo_products_by_category"
     }
 })
 import ElementPlus from 'element-plus';
