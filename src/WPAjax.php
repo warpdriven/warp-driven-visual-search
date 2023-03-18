@@ -6,219 +6,16 @@
 namespace WarpDriven\WpCore;
 
 use WC_Shortcodes;
-use WC_REST_Products_Controller;
+use WP_Query;
 
 use WarpDriven\PhpSdk\Helper;
 
-class WPAjax extends WC_REST_Products_Controller
+class WPAjax 
 {
-
-    protected $namespace = 'wd/v3';
 
     public function __construct()
     {
-        add_action('rest_api_init', array($this, 'register_rest_routes'), 1);
         $this->add_ajax();
-    }
-
-    public function get_items_permissions_check($request)
-    {
-        return true;
-    }
-
-    /**
-     * Get a collection of posts.
-     *
-     * @param WP_REST_Request $request Full details about the request.
-     * @return WP_Error|WP_REST_Response
-     */
-    public function get_items($request)
-    {
-        $query_args = $this->prepare_objects_query($request);
-        if (is_wp_error(current($query_args))) {
-            return current($query_args);
-        }
-        $query_results = $this->get_objects($query_args);
-
-        $objects = array();
-        foreach ($query_results['objects'] as $object) {
-            $data = $this->prepare_object_for_response($object, $request);
-            $objects[] = $this->prepare_response_for_collection($data);
-        }
-
-        $page = (int)$query_args['paged'];
-        $max_pages = $query_results['pages'];
-
-        $response = rest_ensure_response($objects);
-        $response->header('X-WP-Total', $query_results['total']);
-        $response->header('X-WP-TotalPages', (int)$max_pages);
-
-        $base = $this->rest_base;
-        $attrib_prefix = '(?P<';
-        if (strpos($base, $attrib_prefix) !== false) {
-            $attrib_names = array();
-            preg_match('/\(\?P<[^>]+>.*\)/', $base, $attrib_names, PREG_OFFSET_CAPTURE);
-            foreach ($attrib_names as $attrib_name_match) {
-                $beginning_offset = strlen($attrib_prefix);
-                $attrib_name_end = strpos($attrib_name_match[0], '>', $attrib_name_match[1]);
-                $attrib_name = substr($attrib_name_match[0], $beginning_offset, $attrib_name_end - $beginning_offset);
-                if (isset($request[$attrib_name])) {
-                    $base = str_replace("(?P<$attrib_name>[\d]+)", $request[$attrib_name], $base);
-                }
-            }
-        }
-        $base = add_query_arg($request->get_query_params(), rest_url(sprintf('/%s/%s', $this->namespace, $base)));
-
-        if ($page > 1) {
-            $prev_page = $page - 1;
-            if ($prev_page > $max_pages) {
-                $prev_page = $max_pages;
-            }
-            $prev_link = add_query_arg('page', $prev_page, $base);
-            $response->link_header('prev', $prev_link);
-        }
-        if ($max_pages > $page) {
-            $next_page = $page + 1;
-            $next_link = add_query_arg('page', $next_page, $base);
-            $response->link_header('next', $next_link);
-        }
-
-        return $response;
-    }
-
-    /**
-     * Get the Product's schema, conforming to JSON Schema.
-     *
-     * @return array
-     */
-    public function get_item_schema()
-    {
-        $schema = array(
-            '$schema' => 'http://json-schema.org/draft-04/schema#',
-            'title' => $this->post_type,
-            'type' => 'object',
-            'properties' => array(
-                'id' => array(
-                    'description' => __('Unique identifier for the resource.', 'wd-vs-woo'),
-                    'type' => 'integer',
-                    'context' => array('view', 'edit'),
-                    'readonly' => true,
-                ),
-                'name' => array(
-                    'description' => __('Product name.', 'wd-vs-woo'),
-                    'type' => 'string',
-                    'context' => array('view', 'edit'),
-                ),
-                'short_description' => array(
-                    'description' => __('Product short description.', 'wd-vs-woo'),
-                    'type' => 'string',
-                    'context' => array('view', 'edit'),
-                ),
-                'sku' => array(
-                    'description' => __('Unique identifier.', 'wd-vs-woo'),
-                    'type' => 'string',
-                    'context' => array('view', 'edit'),
-                ),
-                'stock_status' => array(
-                    'description' => __('Controls the stock status of the product.', 'wd-vs-woo'),
-                    'type' => 'string',
-                    'default' => 'instock',
-                    'enum' => array_keys(wc_get_product_stock_status_options()),
-                    'context' => array('view', 'edit'),
-                ),
-                'categories' => array(
-                    'description' => __('List of categories.', 'wd-vs-woo'),
-                    'type' => 'array',
-                    'context' => array('view', 'edit'),
-                    'items' => array(
-                        'type' => 'object',
-                        'properties' => array(
-                            'id' => array(
-                                'description' => __('Category ID.', 'wd-vs-woo'),
-                                'type' => 'integer',
-                                'context' => array('view', 'edit'),
-                            ),
-                            'name' => array(
-                                'description' => __('Category name.', 'wd-vs-woo'),
-                                'type' => 'string',
-                                'context' => array('view', 'edit'),
-                                'readonly' => true,
-                            ),
-                            'slug' => array(
-                                'description' => __('Category slug.', 'wd-vs-woo'),
-                                'type' => 'string',
-                                'context' => array('view', 'edit'),
-                                'readonly' => true,
-                            ),
-                        ),
-                    ),
-                ),
-                'images' => array(
-                    'description' => __('List of images.', 'wd-vs-woo'),
-                    'type' => 'array',
-                    'context' => array('view', 'edit'),
-                    'items' => array(
-                        'type' => 'object',
-                        'properties' => array(
-                            'id' => array(
-                                'description' => __('Image ID.', 'wd-vs-woo'),
-                                'type' => 'integer',
-                                'context' => array('view', 'edit'),
-                            ),
-                            'date_created' => array(
-                                'description' => __("The date the image was created, in the site's timezone.", 'wd-vs-woo'),
-                                'type' => 'date-time',
-                                'context' => array('view', 'edit'),
-                                'readonly' => true,
-                            ),
-                            'date_created_gmt' => array(
-                                'description' => __('The date the image was created, as GMT.', 'wd-vs-woo'),
-                                'type' => 'date-time',
-                                'context' => array('view', 'edit'),
-                                'readonly' => true,
-                            ),
-                            'date_modified' => array(
-                                'description' => __("The date the image was last modified, in the site's timezone.", 'wd-vs-woo'),
-                                'type' => 'date-time',
-                                'context' => array('view', 'edit'),
-                                'readonly' => true,
-                            ),
-                            'date_modified_gmt' => array(
-                                'description' => __('The date the image was last modified, as GMT.', 'wd-vs-woo'),
-                                'type' => 'date-time',
-                                'context' => array('view', 'edit'),
-                                'readonly' => true,
-                            ),
-                            'src' => array(
-                                'description' => __('Image URL.', 'wd-vs-woo'),
-                                'type' => 'string',
-                                'format' => 'uri',
-                                'context' => array('view', 'edit'),
-                            ),
-                            'name' => array(
-                                'description' => __('Image name.', 'wd-vs-woo'),
-                                'type' => 'string',
-                                'context' => array('view', 'edit'),
-                            ),
-                            'alt' => array(
-                                'description' => __('Image alternative text.', 'wd-vs-woo'),
-                                'type' => 'string',
-                                'context' => array('view', 'edit'),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
-        return $this->add_additional_fields_schema($schema);
-    }
-
-    /**
-     * Register REST API routes.
-     */
-    public function register_rest_routes()
-    {
-        $this->register_routes();
     }
 
     /**
@@ -273,7 +70,7 @@ class WPAjax extends WC_REST_Products_Controller
             <ul class="products columns-4">
                 <?php
                 foreach ($products as $item) {
-                    $post_object = get_post($item->product_id);
+                    $post_object = get_post($item->shop_variant_id);
                     setup_postdata($GLOBALS['post'] =& $post_object);
                     wc_get_template_part('content', 'product');
                 }
@@ -315,8 +112,93 @@ class WPAjax extends WC_REST_Products_Controller
      */
     public function get_woo_products_by_category()
     {
-        $categories = rest_sanitize_array($_POST['categories']);
-        $products = $this->get_items($_REQUEST);
+        $categories = rest_sanitize_array($_GET['category']);
+        $args = array(
+            'post_type' => 'product',
+            'posts_per_page' => -1,
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'product_cat',
+                    'field' => 'term_id',
+                    'terms' => $categories,
+                    'operator' => 'IN',
+                )
+            )
+        );
+
+        $post_status = array(
+            'publish' => 1,
+            'draft' => 2,
+            'trash' => 0,
+            'wc-out-of-stock' => 3,
+            'private' => 4,
+            'pending' => 5,
+            'failed' => 7,
+            'wc-audit-success' => 8,
+            'wc-audit-failed' => 7,
+            'wc-editing' => 11,
+            'wc-force-unpublished' => 14
+        );
+
+        $query = new WP_Query( $args );
+    
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                $product = wc_get_product(get_the_ID());
+                $product_categories = array();
+                $terms = get_the_terms($product->get_id(), 'product_cat');
+        
+                if ($terms && !is_wp_error($terms)) {
+                    foreach ($terms as $term) {
+                        $product_categories[] = array(
+                            'cat_id' => $term->term_id,
+                            'cat_name' => $term->name
+                        );
+                    }
+                }
+        
+                $products[] = array(
+                    'shop_variant_id' => $product->get_id(),
+                    'shop_product_id' => $product->get_parent_id(),
+                    'sku' => $product->get_sku(),
+                    'product_id' => $product->get_id(),
+                    'barcode' => $product->get_meta('_barcode'),
+                    'is_default_variant' => $product->get_meta('_default_variant') == 'yes',
+                    'title' => $product->get_name(),
+                    'stock_quantity' => $product->get_stock_quantity(),
+                    'stock_status' => $product->get_stock_status()=='instock'?1:0,
+                    'description' => $product->get_description(),
+                    'short_description' => $product->get_short_description(),
+                    'categories' => $product_categories,
+                    'brand' => $product->get_meta('_brand'),
+                    'main_image_url' => wp_get_attachment_image_url($product->get_image_id(), 'full'),
+                    'image_urls' => array_map(function($image_id) {
+                        return wp_get_attachment_image_url($image_id, 'full');
+                    }, $product->get_gallery_image_ids()),
+                    'product_link' => $product->get_permalink(),
+                    'type' => $product->get_type(),
+                    'status' => $post_status[$product->get_status()],
+                    'regular_price' => floatval($product->get_regular_price()),
+                    'price' => floatval($product->get_price()),
+                    'sale_price' => floatval($product->get_sale_price()),
+                    'cost_price' => 0,
+                    'weight' => floatval($product->get_weight()),
+                    'colour' => $product->get_meta('_colour'),
+                    'size' => $product->get_meta('_size'),
+                    'on_sale' => $product->is_on_sale(),
+                    'purchasable' => $product->is_purchasable(),
+                    'related_ids' => array(),
+                    'meta_fields' => array(),
+                    'date_created_gmt' => $product->get_date_created()->getOffsetTimestamp(),
+                    'date_modified_gmt' => $product->get_date_modified()->getOffsetTimestamp()
+                );
+            }
+        }
+
+        $result = Helper::init_products(WPCore::getApiKey(), json_encode(array("items" => $products)));
+
+        wp_send_json($result);
     }
 
     /**
