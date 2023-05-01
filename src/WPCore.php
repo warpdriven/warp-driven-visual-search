@@ -21,7 +21,10 @@ class WPCore
 
         add_action('woocommerce_update_product', array($this,'my_product_updated'), 10, 2);
 
-        add_action( 'woocommerce_new_product', 'my_function_add', 10, 1 );
+        add_action( 'woocommerce_new_product', array($this,'my_product_add'), 10, 1 );
+
+        add_action( 'before_delete_post', array($this,'my_product_delete'), 1, 2 );
+
     }
 
     function sendProduct($product){
@@ -92,8 +95,18 @@ class WPCore
         Helper::init_products(WPCore::getApiKey(), json_encode(array("items" => $products)));
     }
 
+    
+    // 删除商品
+    function my_product_delete($post_id){
 
-    // my_product_updated回调函数
+        if (get_post_type($post_id) === 'product') {
+            Helper::delete_product(WPCore::getApiKey(), json_encode(array("delete_shop_variant_ids"=>[$post_id])));
+        }
+       
+    }
+
+
+    // 更新商品
     function my_product_updated($product_id, $product) {
          // 获取商品对象
         $updated_product = wc_get_product($product_id);
@@ -101,8 +114,8 @@ class WPCore
         $this->sendProduct($updated_product);
     }
 
-    // my_function_add回调函数
-    function my_function_add($product_id) {
+    // 添加商品
+    function my_product_add($product_id) {
         // 获取商品对象
        $product = wc_get_product($product_id);
 
