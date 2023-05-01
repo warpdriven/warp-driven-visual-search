@@ -28,6 +28,20 @@ config({
     GET_PRODUCTS_BY_CATEGORY:{
         ajax_url:wd_woo_plugin_vs.ajax_url,
         action:"wd_get_woo_products_by_category"
+    },
+    GET_USER_EXSITED: {
+        ajax_url: "/wp-admin/admin-ajax.php?action=wd_get_user_exsited",
+        method: "GET"
+    },
+    CREATE_USER: {
+        ajax_url: "/wp-admin/admin-ajax.php?action=wd_create_erp_user",
+        method: "POST",
+        contentType: "application/json"
+    },
+    CREATE_MY_WEBSITE: {
+        ajax_url: "/wp-admin/admin-ajax.php?action=wd_create_my_website",
+        method: "POST",
+        contentType: "application/json"
     }
 })
 import ElementPlus from 'element-plus';

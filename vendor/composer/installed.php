@@ -13,7 +13,7 @@
         'warp-driven/php-sdk' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '14ed8f619a2bc311c60ab36a1013b1cae0fd2421',
+            'reference' => '31ff5597eca2d491cfb14959925cc1470354252b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../warp-driven/php-sdk',
             'aliases' => array(
