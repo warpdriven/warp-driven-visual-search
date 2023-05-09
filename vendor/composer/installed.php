@@ -3,7 +3,7 @@
         'name' => 'warp-driven/wd-vs-woo',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'db3430d7bc04e1541c7bd7ab26d3b0eca0fe354c',
+        'reference' => 'e9f5b97fcc8db96160b31537f722e039cb7dfe03',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'warp-driven/php-sdk' => array(
             'pretty_version' => 'dev-dev',
             'version' => 'dev-dev',
-            'reference' => 'bd3aba3a1b1686bddb7ec62fcbdf6b30965bcedd',
+            'reference' => '033b32bdd7f39c08819592b20164df274157859c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../warp-driven/php-sdk',
             'aliases' => array(),
@@ -22,7 +22,7 @@
         'warp-driven/wd-vs-woo' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'db3430d7bc04e1541c7bd7ab26d3b0eca0fe354c',
+            'reference' => 'e9f5b97fcc8db96160b31537f722e039cb7dfe03',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
