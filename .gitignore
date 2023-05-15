@@ -1,2 +1,7 @@
 node_modules
 target/
+devops/.DS_Store
+/.wordpress-org
+/.git
+/.github
+.distignore

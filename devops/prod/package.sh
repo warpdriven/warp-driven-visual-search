@@ -6,4 +6,5 @@ npm install
 npm run build
 
 mkdir ./target/prod
-zip -r  ./target/prod/wd-vs-woo-prod.zip .
+rm ./target/prod/*
+zip -r  ./target/prod/wd-vs-woo-prod.zip . -x "devops/**" "target/**" ".*"
