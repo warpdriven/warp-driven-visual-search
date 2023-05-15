@@ -3,7 +3,7 @@
         'name' => 'warp-driven/wd-vs-woo',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'b628d01e67078be080d7957f88ce918c6895949c',
+        'reference' => 'ebe5af977b0c464229c8400fb0c451aac77e2fa0',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -24,7 +24,7 @@
         'warp-driven/wd-vs-woo' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'b628d01e67078be080d7957f88ce918c6895949c',
+            'reference' => 'ebe5af977b0c464229c8400fb0c451aac77e2fa0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
