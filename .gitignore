@@ -7,3 +7,4 @@ devops/.DS_Store
 .distignore
 vendor/
 composer.lock
+package-lock.json
