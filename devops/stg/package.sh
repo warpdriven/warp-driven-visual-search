@@ -8,4 +8,4 @@ npm run build
 
 mkdir -p ./target/stg
 rm ./target/prod/*
-zip -r  ./target/stg/wd-vs-woo-stg.zip . -x "devops/**" "target/**" ".*"
+zip -r  ./target/stg/wd-vs-woo.zip . -x "devops/**" "target/**" ".*"

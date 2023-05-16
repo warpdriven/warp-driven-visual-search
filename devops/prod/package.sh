@@ -7,4 +7,4 @@ npm run build
 
 mkdir -p ./target/prod
 rm ./target/prod/*
-zip -r  ./target/prod/wd-vs-woo-prod.zip . -x "devops/**" "target/**" ".*"
+zip -r  ./target/prod/wd-vs-woo.zip . -x "devops/**" "target/**" ".*"
