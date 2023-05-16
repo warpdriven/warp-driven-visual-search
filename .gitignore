@@ -5,3 +5,4 @@ devops/.DS_Store
 /.git
 /.github
 .distignore
+vendor/

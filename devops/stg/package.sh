@@ -1,5 +1,6 @@
 git pull
 
+composer update
 cp devops/stg/env.php ../wd-ai-php-sdk/src/
 
 npm install
