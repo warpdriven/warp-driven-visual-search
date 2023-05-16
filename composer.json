@@ -9,11 +9,11 @@
   "authors": [
     {
       "name": "Warp Driven Technology",
-      "email": "info@warpdriven.com.au"
+      "email": "info@warp-driven.com"
     }
   ],
   "require": {
-    "warp-driven/php-sdk": "dev-dev"
+    "warp-driven/php-sdk": "main-main"
   },
   "repositories": [
     {
