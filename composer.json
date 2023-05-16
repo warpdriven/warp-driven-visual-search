@@ -13,7 +13,7 @@
     }
   ],
   "require": {
-    "warp-driven/php-sdk": "main-main"
+    "warp-driven/php-sdk": "dev-main"
   },
   "repositories": [
     {

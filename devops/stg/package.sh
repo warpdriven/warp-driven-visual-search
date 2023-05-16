@@ -1,7 +1,7 @@
 git pull
 
-composer update
-cp devops/stg/env.php ../wd-ai-php-sdk/src/
+composer upgrade
+cp devops/stg/WDEnv.php vendor/warp-driven/php-sdk/src/
 
 npm install
 npm run build
