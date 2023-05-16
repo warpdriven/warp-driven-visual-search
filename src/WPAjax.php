@@ -15,6 +15,7 @@ class WPAjax
 
     public function __construct()
     {
+        Helper::init();
         $this->add_ajax();
     }
 
