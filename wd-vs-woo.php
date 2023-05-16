@@ -1,13 +1,13 @@
 <?php
 /*
-Plugin Name: Warp Driven Visual Search
+Plugin Name: WarpDriven Visually Similar Recommendations
 Plugin URI: https://wordpress.org/plugins/wd-vs-woo
-Description: Warp Driven Visual Search
-Author: Warp Driven
+Description: WarpDriven Visually Similar Recommendations
+Author: Warp Driven Technology
 Author URI: https://warp-driven.com/
-Text Domain: wd-vs-woo
+Text Domain: wd-wgc-woo
 Domain Path: /languages/
-Version: 0.0.1
+Version: 1.1.0
 */
 require_once "vendor/autoload.php";
 

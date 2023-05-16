@@ -219,7 +219,7 @@ class WPAjax
             $result = Helper::visual_search(WPCore::getApiKey(), $product_id);
             
             foreach ($result as $item) {
-                array_push($product_ids, $item->product_id);
+                array_push($product_ids, $item->shop_variant_id);
             }
 
             array_unique($product_ids);
