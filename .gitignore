@@ -6,3 +6,4 @@ devops/.DS_Store
 /.github
 .distignore
 vendor/
+composer.lock
