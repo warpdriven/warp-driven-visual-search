@@ -7,5 +7,5 @@ npm install
 npm run build
 
 mkdir -p ./target/stg
-rm ./target/stg/*
+rm ./target/stg/*.zip
 zip -r  ./target/stg/wd-vs-woo.zip . -x "devops/**" "node_modules/**" "target/**" ".*"
