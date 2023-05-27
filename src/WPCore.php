@@ -1,7 +1,7 @@
 <?php
 
 namespace WarpDriven\WpCore;
-use WarpDriven\PhpSdk\Helper;
+
 class WPCore
 {
     public function __construct()

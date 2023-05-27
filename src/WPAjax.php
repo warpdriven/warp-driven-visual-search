@@ -8,7 +8,6 @@ namespace WarpDriven\WpCore;
 use WC_Shortcodes;
 use WP_Query;
 
-use WarpDriven\PhpSdk\Helper;
 
 class WPAjax 
 {
