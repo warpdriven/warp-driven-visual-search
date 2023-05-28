@@ -9,9 +9,10 @@ Text Domain: wd-wgc-woo
 Domain Path: /languages/
 Version: 1.1.0
 */
-require_once "vendor/autoload.php";
 
-use WarpDriven\WpCore\WPCore;
+include_once __DIR__ . '/src/WPCore.php';
+
+use WarpDrivenWpCore\WPCore;
 
 if (!defined('WD_WP_CORE_PLUGIN_FILE')) {
     define('WD_WP_CORE_PLUGIN_FILE', __FILE__);

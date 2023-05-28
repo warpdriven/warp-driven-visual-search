@@ -1,9 +1,11 @@
 <?php
 
-namespace WarpDriven\WpCore;
+namespace WarpDrivenWpCore;
 
+include_once "WDEnv.php";
 class Helper
 {
+    private static $WARP_API_HOST;
     private static $WARP_AI_HOST;
     private static $WARP_DATA_HOST;
 
@@ -11,9 +13,11 @@ class Helper
     public static function init()
     {
         if (WDEnv::$env_value == 'prod') {
+            self::$WARP_API_HOST = 'https://api.warp-driven.com';
             self::$WARP_AI_HOST = 'https://ai.warp-driven.com/latest';
             self::$WARP_DATA_HOST = 'https://data.warp-driven.com/latest';
         } else {
+            self::$WARP_API_HOST = 'https://api-stg.warp-driven.com';
             self::$WARP_AI_HOST = 'https://ai-stg.warp-driven.com/latest';
             self::$WARP_DATA_HOST = 'https://data-stg.warp-driven.com/latest';
         }
@@ -119,7 +123,52 @@ class Helper
     }
 
 
+    /**
+     * get_user_exsited
+     * $email         email
+     */
+    public static function get_user_exsited($email)
+    {
+        $search_url = self::$WARP_API_HOST.'/erp_user?erp_user_email='.$email;
+        $response = wp_remote_get($search_url,array("timeout"=>1200));
+        return self::response($response);
+    }
     
+
+     /**
+     * create_erp_user
+     * $arg           Erp User
+     */
+    public static function create_erp_user($args)
+    {
+        $search_url = self::$WARP_API_HOST.'/erp_user/create';
+        $response = wp_remote_post($search_url,array("headers"=>array("Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
+        return self::response($response);
+    }
+
+
+    /**
+     * create_erp_user
+     * $arg           Erp User
+     */
+    public static function my_website($args)
+    {
+        $search_url = self::$WARP_API_HOST.'/my_website';
+        $response = wp_remote_post($search_url,array("headers"=>array("Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
+        return self::response($response);
+    }
+
+     /**
+     * create_my_website
+     * $arg           Erp User
+     */
+    public static function create_my_website($args)
+    {
+        $search_url = self::$WARP_API_HOST.'/my_website/create';
+        $response = wp_remote_post($search_url,array("headers"=>array("Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
+        return self::response($response);
+    }
+
     
     /**
      * Standard return results

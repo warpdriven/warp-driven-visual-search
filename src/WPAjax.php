@@ -3,8 +3,9 @@
  * WooCommerce ajax
  */
 
-namespace WarpDriven\WpCore;
-
+namespace WarpDrivenWpCore;
+include_once "Helper.php";
+use WarpDrivenWpCore\Helper;
 use WC_Shortcodes;
 use WP_Query;
 
@@ -107,6 +108,9 @@ class WPAjax
             'pad_counts' => true
         );
         $product_categories = array_values(get_terms($args));
+        foreach($product_categories as $key=>$value){
+            $product_categories[$key]->name=str_replace("&amp;","&",$value->name);
+        }
         error_log(print_r($product_categories, true));
         wp_send_json($product_categories);
     }
