@@ -54,11 +54,11 @@ class  WPSettingPage
     public function add_page()
     {
         $hookname = add_submenu_page(
-            'warp-driven',
-            __('Warp Driven Setting', 'warp-driven'),
-            __('Setting', 'warp-driven'),
+            'warpdriven-vsr',
+            __('WarpDriven VSR Setting', 'warpdriven-vsr'),
+            __('Setting', 'warpdriven-vsr'),
             'manage_options',
-            'warp-driven-setting',
+            'warpdriven-vsr-setting',
             array($this, 'page_html'),
             80
         );
@@ -72,9 +72,9 @@ class  WPSettingPage
             return;
         }
         if (isset($_GET['settings-updated'])) {
-            add_settings_error('warp-driven-setting', 'warp-driven-setting', __('Settings Saved', 'wd-vs-woo'), 'updated');
+            add_settings_error('warpdriven-vsr-setting', 'warpdriven-vsr-setting', __('Settings Saved', 'warpdriven-vsr'), 'updated');
         }
-        settings_errors('warp-driven-setting');
+        settings_errors('warpdriven-vsr-setting');
         ?>
         <div id="app" class="wrap">
             <?php
@@ -98,8 +98,8 @@ class  WPSettingPage
                 <template #footer>
                     <?php
                     settings_fields('general');
-                    do_settings_sections('warp-driven-setting');
-                    submit_button(__('Save Settings', 'wd-vs-woo'));
+                    do_settings_sections('warpdriven-vsr-setting');
+                    submit_button(__('Save Settings', 'warpdriven-vsr'));
                     ?>
                 </template>
             </setting-page>

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WarpDriven Visually Similar Recommendations
-Plugin URI: https://wordpress.org/plugins/wd-vs-woo
+Plugin URI: https://warp-driven.com/plugins/wd-vs-woo
 Description: WarpDriven Visually Similar Recommendations
 Author: Warp Driven Technology
 Author URI: https://warp-driven.com/

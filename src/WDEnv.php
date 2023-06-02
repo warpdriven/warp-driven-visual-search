@@ -4,5 +4,5 @@ namespace WarpDrivenWpCore;
 
 class WDEnv
 {
-    public static $env_value = 'prod';
+    public static $env_value = 'stg';
 }
