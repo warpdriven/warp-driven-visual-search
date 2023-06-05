@@ -36,7 +36,8 @@ class WPAjax
             'get_user_exsited',
             'create_erp_user',
             'create_my_website',
-            'my_website'
+            'my_website',
+            'set_woo_product_chrc'
         );
         foreach ($ajax_events as $ajax_event) {
             add_action('wp_ajax_wd_' . $ajax_event, array($this, $ajax_event));
@@ -209,6 +210,29 @@ class WPAjax
         wp_send_json($result);
     }
 
+
+
+    /**
+     * Set the init products characteristic   update/insert
+     */
+
+    public function set_woo_product_chrc()
+    {
+        $wd_vs_inits=get_option('wd_vs_init');
+
+        $result = Helper::get_products_by_status_list(WPCore::getApiKey());
+
+        if($data=$result->data){
+            if($data->total > 0){
+                update_option("wd_vs_init",json_encode($data->products));
+            }else{
+                update_option("wd_vs_init",'');
+            }
+        }
+        
+    }
+
+
     /**
      * Query the list of associated products
      */
@@ -288,9 +312,17 @@ class WPAjax
     {
         $result = Helper::get_vs_credit_status(WPCore::getApiKey());
 
+        if($data=$result->data){
+            if($data->task_status || $data->task_status ==='SUCCESS'){
+                $this->set_woo_product_chrc();
+            }
+        }
+
         wp_send_json($result);
 
     }
+
+
 
     public function get_user_exsited(){
 

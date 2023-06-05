@@ -124,6 +124,18 @@ class Helper
 
 
     /**
+     * Get initialization products list 
+     * $api_key          authorization key
+     */
+    public static function get_products_by_status_list($api_key)
+    {
+        $search_url = self::$WARP_DATA_HOST.'/product/get_products_by_status?status=1&page_number=1&page_size=100';
+        $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key),"timeout"=>1200));
+        return self::response($response);
+    }
+
+
+    /**
      * get_user_exsited
      * $email         email
      */
