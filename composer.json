@@ -11,15 +11,6 @@
       "name": "Warp Driven Technology",
       "email": "info@warp-driven.com"
     }
-  ],
-  "require": {
-    "warp-driven/php-sdk": "dev-main"
-  },
-  "repositories": [
-    {
-      "name": "warp-driven/php-sdk",
-      "type": "vcs",
-      "url": "git@github.com:warpdriven/wd-ai-php-sdk.git"
-    }
   ]
+
 }

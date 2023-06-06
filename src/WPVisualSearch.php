@@ -1,7 +1,8 @@
 <?php
 
-namespace WarpDriven\WpCore;
-
+namespace WarpDrivenWpCore;
+include_once "WPVisualSearchShortCode.php";
+use WarpDrivenWpCore\WPVisualSearchShortCode;
 class WPVisualSearch{
 
     public function __construct()
