@@ -8,19 +8,16 @@ class Helper
     private static $WARP_API_HOST;
     private static $WARP_AI_HOST;
     private static $WARP_DATA_HOST;
+    private static $WARP_ERP_HOST;
 
 
     public static function init()
     {
-        if (WDEnv::$env_value == 'prod') {
-            self::$WARP_API_HOST = 'https://api.warp-driven.com';
-            self::$WARP_AI_HOST = 'https://ai.warp-driven.com/latest';
-            self::$WARP_DATA_HOST = 'https://data.warp-driven.com/latest';
-        } else {
-            self::$WARP_API_HOST = 'https://api-stg.warp-driven.com';
-            self::$WARP_AI_HOST = 'https://ai-stg.warp-driven.com/latest';
-            self::$WARP_DATA_HOST = 'https://data-stg.warp-driven.com/latest';
-        }
+        self::$WARP_API_HOST = WDEnv::$WARP_API_HOST;
+        self::$WARP_AI_HOST = WDEnv::$WARP_AI_HOST;
+        self::$WARP_DATA_HOST = WDEnv::$WARP_DATA_HOST;
+        self::$WARP_ERP_HOST = WDEnv::$WARP_ERP_HOST;
+        
     }
 
     /**
@@ -106,8 +103,19 @@ class Helper
      */
     public static function delete_product($api_key, $args)
     {
-        $search_url = self::$WARP_DATA_HOST.'/product/delete/';
+        $search_url = self::$WARP_DATA_HOST.'/product/delete';
         $response = wp_remote_request($search_url,array("method"=>"DELETE","headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
+        return self::response($response);
+    }
+
+    /**
+     * Get category status stats
+     * $api_key          authorization key
+     */
+    public static function get_category_status_stats($api_key)
+    {
+        $search_url = self::$WARP_DATA_HOST.'/product/get_category_status_stats';
+        $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key)),array("timeout"=>1200));
         return self::response($response);
     }
 
@@ -127,11 +135,20 @@ class Helper
      * Get initialization products list 
      * $api_key          authorization key
      */
-    public static function get_products_by_status_list($api_key)
+    public static function get_products_by_status_list($api_key,$status=1)
     {
-        $search_url = self::$WARP_DATA_HOST.'/product/get_products_by_status?status=1&page_number=1&page_size=100';
+        $search_url = self::$WARP_DATA_HOST.'/product/get_products_by_status?status='.$status;
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key),"timeout"=>1200));
         return self::response($response);
+    }
+
+    /**
+     * get_erp_website
+     *         
+     */
+    public static function get_erp_website()
+    {
+       return self::$WARP_ERP_HOST;
     }
 
 

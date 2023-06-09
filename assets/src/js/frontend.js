@@ -44,6 +44,7 @@ import {getProductListHtml} from "../../../node_modules/wd-vue-lib/src/api/wd-co
             var pro_num = getNumberByClassName($products.attr("class"),"columns-");
             $(".product",$products).each(function(index,product){
                 var $this = $(this);
+                var classNames = $this.attr("class");
                 var this_id = getNumberByClassName(classNames,"post-");
                 var vs_init_ids= wd_woo_plugin_vs.wd_vs_init;
                 if($(".search_other",$this).length == 0){
