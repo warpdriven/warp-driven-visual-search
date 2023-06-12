@@ -1,22 +1,29 @@
 <?php
 
 namespace WarpDrivenWpCore;
-
-include_once "WDEnv.php";
+use Dotenv\Dotenv;
 class Helper
 {
     private static $WARP_API_HOST;
     private static $WARP_AI_HOST;
     private static $WARP_DATA_HOST;
     private static $WARP_ERP_HOST;
-
+    public  static $WARP_INIT_PAGE;
 
     public static function init()
     {
-        self::$WARP_API_HOST = WDEnv::$WARP_API_HOST;
-        self::$WARP_AI_HOST = WDEnv::$WARP_AI_HOST;
-        self::$WARP_DATA_HOST = WDEnv::$WARP_DATA_HOST;
-        self::$WARP_ERP_HOST = WDEnv::$WARP_ERP_HOST;
+        
+        $dotenv = Dotenv::createImmutable(dirname(__DIR__));
+
+        $dotenv->safeLoad();
+
+        $_ENV['WARP_MODEL'] = $_ENV['WARP_MODEL'] === 'STG'?"_".$_ENV['WARP_MODEL']:'';
+        
+        self::$WARP_API_HOST = $_ENV['WARP_API_HOST'.$_ENV['WARP_MODEL']];
+        self::$WARP_AI_HOST = $_ENV['WARP_AI_HOST'.$_ENV['WARP_MODEL']];
+        self::$WARP_DATA_HOST = $_ENV['WARP_DATA_HOST'.$_ENV['WARP_MODEL']];
+        self::$WARP_ERP_HOST = $_ENV['WARP_ERP_HOST'.$_ENV['WARP_MODEL']];
+        self::$WARP_INIT_PAGE = $_ENV['WARP_INIT_PAGE'.$_ENV['WARP_MODEL']];
         
     }
 

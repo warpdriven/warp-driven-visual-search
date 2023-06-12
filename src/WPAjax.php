@@ -158,7 +158,7 @@ class WPAjax
     {
         
         $categories = rest_sanitize_array($_GET['category']);
-        $per_page = 100;
+        $per_page = Helper::$WARP_INIT_PAGE;
         $args = array(
             'post_type' => 'product',
             'posts_per_page' => -1,

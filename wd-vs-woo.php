@@ -10,8 +10,8 @@ Domain Path: /languages/
 Version: 1.1.0
 */
 
-include_once __DIR__ . '/src/WPCore.php';
-
+include_once "vendor/autoload.php";
+include_once 'src/WPCore.php';
 use WarpDrivenWpCore\WPCore;
 
 if (!defined('WD_WP_CORE_PLUGIN_FILE')) {
