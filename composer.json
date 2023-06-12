@@ -11,6 +11,8 @@
       "name": "Warp Driven Technology",
       "email": "info@warp-driven.com"
     }
-  ]
-
+  ],
+  "require": {
+    "vlucas/phpdotenv": "^5.5"
+  }
 }

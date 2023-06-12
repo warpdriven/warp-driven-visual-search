@@ -42,7 +42,15 @@ config({
         ajax_url: "/wp-admin/admin-ajax.php?action=wd_create_my_website",
         method: "POST",
         contentType: "application/json"
-    }
+    },
+    CANCEL_INIT: {
+        ajax_url: wd_woo_plugin_vs.ajax_url,
+        action: "wd_init_product_cancel",
+      },
+    GET_ERP_WEBSITE: {
+        ajax_url: "/wp-admin/admin-ajax.php?action=wd_get_erp_website",
+        method: "GET",
+    },
 })
 import ElementPlus from 'element-plus';
 import 'element-plus/theme-chalk/index.css';
