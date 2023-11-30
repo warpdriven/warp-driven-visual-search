@@ -1,0 +1,35 @@
+{
+  "name": "t:appBlock.embed.name",
+  "target": "body",
+  "javascript": [],
+  "stylesheet": ["main.css"],
+  "templates": [],
+  "settings": [
+    {
+      "type": "switch",
+      "id": "is_test_mode",
+      "label": "t:appBlock.embed.settings.is_test_mode.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "data_server",
+      "label": "t:appBlock.embed.settings.data_server.label"
+    },
+    {
+      "type": "text",
+      "id": "data_server_key",
+      "label": "t:appBlock.embed.settings.data_server_key.label"
+    },
+    {
+      "type": "text",
+      "id": "recommender_api_key",
+      "label": "t:appBlock.embed.settings.recommender_api_key.label"
+    },
+    {
+      "type": "text",
+      "id": "custom_js",
+      "label": "t:appBlock.embed.settings.custom_js.label"
+    }
+  ]
+}
