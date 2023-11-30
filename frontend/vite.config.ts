@@ -47,7 +47,7 @@ export default defineConfig((configEnv) => {
           main: resolve(__dirname, "./src/main.tsx"),
         },
         output: {
-          entryFileNames: "warpdriven-recs-app-[name].js",
+          entryFileNames: "warpdriven-recs-[name].js",
           assetFileNames: "[name][extname]",
           chunkFileNames: "[name]-[hash].js",
         },
@@ -56,6 +56,10 @@ export default defineConfig((configEnv) => {
 
     server: {
       port: 3002,
+      strictPort: true,
+      hmr: {
+        port: 3002,
+      },
       proxy: {
         "/wp-admin/admin-ajax.php": {
           target: "https://stg.emutree.com.au",

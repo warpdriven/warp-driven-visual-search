@@ -4,13 +4,12 @@ import "vite/modulepreload-polyfill";
 // React Imports
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import { App } from "./App.tsx";
 
-init();
+import posthog from "posthog-js";
 
-function init() {
-  renderReact();
-}
+renderReact();
+void posthog;
 
 // Render React App
 function renderReact() {

@@ -4,12 +4,10 @@ import { ThemeProvider } from "@/theme";
 import { ReduxProvider } from "@/redux";
 
 // Pages Imports
-// import { Home } from "@/pages/home";
 import { Detail } from "@/pages/detail";
-// import { Cart } from "@/pages/cart";
 import { List } from "@/pages/list";
 
-export default function App() {
+export function App() {
   return (
     <ReduxProvider>
       <QueryProvider>
