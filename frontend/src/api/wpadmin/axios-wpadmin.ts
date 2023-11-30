@@ -1,14 +1,14 @@
 // Axios Imports
 import axios, { AxiosError } from "axios";
 
-export const axiosShopline = axios.create({
-  baseURL: globalThis.location.origin,
+export const axiosWpadmin = axios.create({
+  baseURL: "/wp-admin/admin-ajax.php",
   timeout: 1000 * 60,
   withCredentials: true,
 });
 
-axiosShopline.interceptors.request.use((config) => config);
-axiosShopline.interceptors.response.use(
+axiosWpadmin.interceptors.request.use((config) => config);
+axiosWpadmin.interceptors.response.use(
   (res) => {
     const { data } = res;
     return data;

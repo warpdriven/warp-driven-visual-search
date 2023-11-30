@@ -56,6 +56,24 @@ export default defineConfig((configEnv) => {
 
     server: {
       port: 3002,
+      proxy: {
+        "/wp-admin/admin-ajax.php": {
+          target: "https://stg.emutree.com.au",
+          changeOrigin: true,
+          ws: true,
+          rewrite(path) {
+            return path;
+          },
+        },
+        "/wp-json/wc/v3": {
+          target: "https://stg.emutree.com.au",
+          changeOrigin: true,
+          ws: true,
+          // rewrite(path) {
+          //   return path.replace(/^\/woo/, "");
+          // },
+        },
+      },
     },
   };
 });

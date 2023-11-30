@@ -8,9 +8,6 @@ import { ReduxProvider } from "@/redux";
 import { Detail } from "@/pages/detail";
 // import { Cart } from "@/pages/cart";
 import { List } from "@/pages/list";
-import { getJsonCustomer } from "@/utils";
-const customer = getJsonCustomer();
-console.log(customer);
 
 export default function App() {
   return (
