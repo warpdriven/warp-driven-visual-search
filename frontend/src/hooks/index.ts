@@ -1,2 +1,0 @@
-// ** DOM
-export * from "./dom";
