@@ -3,12 +3,12 @@
  * WooCommerce ajax
  */
 
-namespace WarpDriven\WpCore;
-
+namespace WarpDrivenWpCore;
+include_once "Helper.php";
+use WarpDrivenWpCore\Helper;
 use WC_Shortcodes;
 use WP_Query;
 
-use WarpDriven\PhpSdk\Helper;
 
 class WPAjax 
 {
@@ -36,7 +36,10 @@ class WPAjax
             'get_user_exsited',
             'create_erp_user',
             'create_my_website',
-            'my_website'
+            'my_website',
+            'set_woo_product_chrc',
+            'init_product_cancel',
+            'get_erp_website'
         );
         foreach ($ajax_events as $ajax_event) {
             add_action('wp_ajax_wd_' . $ajax_event, array($this, $ajax_event));
@@ -108,6 +111,42 @@ class WPAjax
             'pad_counts' => true
         );
         $product_categories = array_values(get_terms($args));
+
+        $category_status = Helper::get_category_status_stats(WPCore::getApiKey());
+
+        $error_list = Helper::get_products_by_status_list(WPCore::getApiKey(),-1);
+
+        foreach($product_categories as $key => $value){
+            $product_categories[$key]->count_success = 0;
+            $product_categories[$key]->count_pending = 0;
+            $product_categories[$key]->count_error = 0;
+            $product_categories[$key]->error_info = array(array('err_name'=>'','err_msg'=>''));
+            if($category_status->status && !empty($category_status->data)){
+                $category_status_data = $category_status->data;
+                foreach($category_status_data as $k => $v){
+                    if($product_categories[$key]->term_id == $category_status_data[$k]->category_id){
+                        $product_categories[$key]->count_success = $v->count_success;
+                        $product_categories[$key]->count_pending = $v->count_pending;
+                        $product_categories[$key]->count_error = $v->count_error;
+                    }
+                }
+            }
+            if($product_categories[$key]->count_error >0){
+                $error_data = $error_list->data;
+                $error_info_array = array();
+                foreach($error_data->products as $product){
+                    $product_term_info = get_the_terms($product->shop_variant_id, 'product_cat');
+                    if($product_categories[$key]->term_id == $product_term_info[0]->term_id){
+                        $error_info_array[] = array(
+                            'err_name' => $product_term_info[0]->name,
+                            'err_msg' => $product->error_info
+                        );
+                    }
+                }
+                $product_categories[$key]->error_info = $error_info_array;
+            }
+            $product_categories[$key]->name = str_replace("&amp;","&",$value->name);
+        }
         error_log(print_r($product_categories, true));
         wp_send_json($product_categories);
     }
@@ -117,7 +156,9 @@ class WPAjax
      */
     public function get_woo_products_by_category()
     {
+        
         $categories = rest_sanitize_array($_GET['category']);
+        $per_page = Helper::$WARP_INIT_PAGE;
         $args = array(
             'post_type' => 'product',
             'posts_per_page' => -1,
@@ -145,8 +186,11 @@ class WPAjax
             'wc-force-unpublished' => 14
         );
 
+        
+
         $query = new WP_Query( $args );
-    
+        $product_count= $query->post_count;
+
         if ($query->have_posts()) {
             while ($query->have_posts()) {
                 $query->the_post();
@@ -200,11 +244,51 @@ class WPAjax
                 );
             }
         }
+ 
+        if($product_count > $per_page){
+                        
+            for($i=1; $i<=$product_count%$per_page; $i++){
+                $pre_product=array_slice($products,($i-1)*$per_page,$per_page);
+                $result = Helper::init_products(WPCore::getApiKey(), json_encode(array("items" => $pre_product)));
+            }
 
-        $result = Helper::init_products(WPCore::getApiKey(), json_encode(array("items" => $products)));
+        }else{
+            $result = Helper::init_products(WPCore::getApiKey(), json_encode(array("items" => $products)));
+        }
 
         wp_send_json($result);
     }
+
+
+
+    /**
+     * Set the init products characteristic   update/insert
+     */
+
+    public function set_woo_product_chrc()
+    {
+        $wd_vs_inits = json_decode(get_option('wd_vs_init'));
+        if(empty($wd_vs_inits)){
+            $wd_vs_inits=array();
+        }
+
+        $result = Helper::get_products_by_status_list(WPCore::getApiKey(),1);
+        
+        if($data=$result->data){
+            if($data->total > 0){
+                $init_ids = array();
+                foreach($data->products as $product){
+                    $init_ids[] = $product->shop_variant_id;
+                    array_push($wd_vs_inits,$product->shop_variant_id);
+                }
+                update_option("wd_vs_init",json_encode(array_unique($wd_vs_inits)));
+            }else{
+                update_option("wd_vs_init",'');
+            }
+        }
+        
+    }
+
 
     /**
      * Query the list of associated products
@@ -223,7 +307,7 @@ class WPAjax
                 array_push($product_ids, $item->shop_variant_id);
             }
 
-            array_unique($product_ids);
+            $product_ids = array_unique($product_ids);
 
             ob_start();
             
@@ -279,29 +363,102 @@ class WPAjax
     }
 
     /**
+     * Initialzie product cancel
+     */
+
+    public function init_product_cancel()
+
+    {
+       
+        $categories = rest_sanitize_array($_GET['category']);
+        $per_page = 100;
+        $args = array(
+            'post_type' => 'product',
+            'posts_per_page' => -1,
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'product_cat',
+                    'field' => 'term_id',
+                    'terms' => $categories,
+                    'operator' => 'IN',
+                )
+            )
+        );
+        $query = new WP_Query( $args );
+        $product_ids = array();
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                $product = wc_get_product(get_the_ID());
+                $product_ids[] = $product->get_id();
+            }
+           $product_ids = array_unique($product_ids);
+        }
+
+        $result = Helper::delete_product(WPCore::getApiKey(), json_encode(array("delete_shop_variant_ids" => $product_ids)));
+        
+        if($result->status){
+            $wd_vs_inits = json_decode(get_option('wd_vs_init'));
+            $intersect=array_intersect($wd_vs_inits,$product_ids);
+            $diff=array_diff($wd_vs_inits,$intersect);
+            update_option('wd_vs_init',json_encode( $diff));
+
+            $data= $result->data;
+            $data['msg']=$result->msg;
+            $result->data=$data;
+            wp_send_json($result);
+        }
+        
+    }
+
+    /**
+     * get_erp_website
+     */
+
+     public function get_erp_website()
+     {
+
+        $result = Helper::get_erp_website();
+      
+        wp_send_json(array('status'=>true,'url'=>$result));
+     }
+
+    /**
      * Get initialization status
      */
     public function get_vs_credit_status()
     {
         $result = Helper::get_vs_credit_status(WPCore::getApiKey());
+        
+        if($data=$result->data){
+            if($data->task_status || $data->task_status ==='SUCCESS'){
+                $this->set_woo_product_chrc();
+            }
+        }
 
         wp_send_json($result);
 
     }
 
-    public function get_user_exsited(){
 
+
+    public function get_user_exsited(){
+        
         if(get_option("wd_api_key")){
             $result = array( "status"=>true, "msg" => "api key exist!", "data" => true );
         }else{
-            $result = Helper::get_user_exsited(get_option('admin_email'));
-
-            if($result->data){
+            $results = Helper::get_user_exsited(get_option('admin_email'));
+            if($results->data){
                 $result = array( "status"=>true, "msg" => "api key not exist!", "data" => false, "flag" => 1 );
             }
+            // if($results->data){
+            //     $result = array( "status"=>true, "msg" => "api key not exist!", "data" => false, "flag" => 1 );
+            // }else{
+            //     $result = array( "status"=>true, "msg" => "user website not create! ", "data" => false, "flag" => 2 );
+            // }
         }
 
-        wp_send_json($result,$result->code);
+        wp_send_json($result,$results->code);
 
     }
 
@@ -328,7 +485,8 @@ class WPAjax
             }else{
 
                 // 创建用户
-                $data -> name = get_option( 'woocommerce_store_name' ); // 获取商店名称
+                //$data -> name = get_option( 'woocommerce_store_name' ); // 获取商店名称
+                $data->name = substr($data->email,0,strpos($data->email,'@'));
                 $data -> phone = get_option( 'woocommerce_store_phone' ); // 获取商店电话
                 $data -> language = get_option( 'WPLANG' ); // 获取语言设置
                
@@ -392,6 +550,7 @@ class WPAjax
 
         }
         update_option("wd_api_key",$api_key);
+        update_option("wd_vs_init","");
 
         return $result;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace WarpDriven\WpCore;
+namespace WarpDrivenWpCore;
 
 class WPVisualSearchShortCode{
 

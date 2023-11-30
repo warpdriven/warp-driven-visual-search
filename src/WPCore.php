@@ -1,7 +1,14 @@
 <?php
 
-namespace WarpDriven\WpCore;
-use WarpDriven\PhpSdk\Helper;
+namespace WarpDrivenWpCore;
+include_once "WPHomePage.php";
+include_once "WPSettingPage.php";
+include_once "WPAjax.php";
+include_once "WPVisualSearch.php";
+use WarpDrivenWpCore\WPHomePage;
+use WarpDrivenWpCore\WPSettingPage;
+use WarpDrivenWpCore\WPAjax;
+use WarpDrivenWpCore\WPVisualSearch;
 class WPCore
 {
     public function __construct()

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WarpDriven Visually Similar Recommendations
-Plugin URI: https://wordpress.org/plugins/wd-vs-woo
+Plugin URI: https://warp-driven.com/plugins/wd-vs-woo
 Description: WarpDriven Visually Similar Recommendations
 Author: Warp Driven Technology
 Author URI: https://warp-driven.com/
@@ -9,9 +9,10 @@ Text Domain: wd-wgc-woo
 Domain Path: /languages/
 Version: 1.1.0
 */
-require_once "vendor/autoload.php";
 
-use WarpDriven\WpCore\WPCore;
+include_once "vendor/autoload.php";
+include_once 'src/WPCore.php';
+use WarpDrivenWpCore\WPCore;
 
 if (!defined('WD_WP_CORE_PLUGIN_FILE')) {
     define('WD_WP_CORE_PLUGIN_FILE', __FILE__);
@@ -30,6 +31,7 @@ if (!function_exists('wd_woo_plugin_vs_deactivation')) {
     function wd_woo_plugin_vs_deactivation()
     {
         delete_option('wd_api_key');
+        delete_option('wd_vs_init');
     }
 }
 
@@ -48,7 +50,8 @@ add_action('admin_enqueue_scripts', function () {
     wp_style_add_data('wd-woo-plugin-vs-style', 'rtl', 'replace');
     wp_enqueue_script('wd-woo-plugin-vs-script', plugins_url('/assets/js/backend.js', WD_WP_CORE_PLUGIN_FILE), array('jquery'), $plugin_version, true);
     wp_localize_script('wd-woo-plugin-vs-script', 'wd_woo_plugin_vs', array(
-        'ajax_url' => admin_url('admin-ajax.php')
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'wd_vs_init' => sanitize_text_field(get_option("wd_vs_init"))
     ));
 });
 
@@ -73,6 +76,7 @@ add_action('wp_enqueue_scripts', function () {
             'left'=>sanitize_text_field(get_option("wd_search_product_test_icon_left")),
             'right'=>sanitize_text_field(get_option("wd_search_product_test_icon_right")),
             'bottom'=>sanitize_text_field(get_option("wd_search_product_test_icon_bottom"))
-        )
+        ),
+        'wd_vs_init' => sanitize_text_field(get_option("wd_vs_init"))
     ));
 });
