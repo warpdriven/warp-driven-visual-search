@@ -1,5 +1,3 @@
-export * from "./toURL";
-
 // Shopline JSON
 export * from "./to-json-for-el";
 export * from "./get-json-product";

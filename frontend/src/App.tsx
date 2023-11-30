@@ -6,6 +6,7 @@ import { ReduxProvider } from "@/redux";
 // Pages Imports
 import { Detail } from "@/pages/detail";
 import { List } from "@/pages/list";
+import { Settings } from "@/pages/settings";
 
 export function App() {
   return (
@@ -13,6 +14,7 @@ export function App() {
       <QueryProvider>
         <ThemeProvider>
           <Detail />
+          <Settings />
           {import.meta.env.DEV && <List />}
         </ThemeProvider>
       </QueryProvider>
