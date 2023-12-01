@@ -15,7 +15,7 @@ void posthog;
 function renderReact() {
   const root = document.createElement("div");
   root.id = "warpdriven-recs-app";
-  root.style.display = "none";
+  // root.style.display = "none";
   document.body.append(root);
 
   ReactDOM.createRoot(root).render(
