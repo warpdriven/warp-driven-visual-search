@@ -4,6 +4,7 @@ namespace WarpDrivenWpCore;
 class  WPSettingPage
 {
 
+    
     public function __construct()
     {
         add_action("admin_init", array($this, "admin_register_wd_vs_woo_settings"));
