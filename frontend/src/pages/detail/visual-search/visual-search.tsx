@@ -1,8 +1,5 @@
-// React Imports
-import React from "react";
-
 // Components Imports
-import { RecsItem, RecsList } from "@/components/recs-list";
+import { RecsList } from "@/components/recs-list";
 
 // API Imports
 import { useAllProducts } from "@/hooks/api-woo";
