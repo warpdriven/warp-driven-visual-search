@@ -6,21 +6,32 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App.tsx";
 
-import posthog from "posthog-js";
+// Provider Imports
+import { QueryProvider } from "@/api/provider";
+import { ThemeProvider } from "@/theme";
+import { ReduxProvider } from "@/redux";
+
+// Toast Imports
+import { Toaster } from "react-hot-toast";
 
 renderReact();
-void posthog;
 
 // Render React App
 function renderReact() {
   const root = document.createElement("div");
   root.id = "warpdriven-recs-app";
-  // root.style.display = "none";
   document.body.append(root);
 
   ReactDOM.createRoot(root).render(
     <React.StrictMode>
-      <App />
+      <ReduxProvider>
+        <QueryProvider>
+          <Toaster position="bottom-left" />
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
+        </QueryProvider>
+      </ReduxProvider>
     </React.StrictMode>
   );
 }

@@ -1,17 +1,17 @@
-// Components Imoprts
-import { VisualSearch } from "./visual-search";
-
 // React Imports
 import React from "react";
-import ReactDOM from "react-dom";
+
+// Components Imports
+import { MutationSuspense } from "@/components";
 
 export function Detail() {
-  const vsNode = React.useMemo(() => {
-    const vsrEl = document.getElementById("warpdriven-recs-vsr");
-    if (!vsrEl) return null;
-
-    return ReactDOM.createPortal(<VisualSearch />, vsrEl);
-  }, []);
-
-  return <>{vsNode}</>;
+  return (
+    <>
+      <MutationSuspense containerId="warpdriven-recs-vsr">
+        <VisualSimilar />
+      </MutationSuspense>
+    </>
+  );
 }
+
+const VisualSimilar = React.lazy(() => import("./VisualSimilar"));

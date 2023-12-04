@@ -1,27 +1,31 @@
-// Provider Imports
-import { QueryProvider } from "@/api/provider";
-import { ThemeProvider } from "@/theme";
-import { ReduxProvider } from "@/redux";
-
 // Pages Imports
 import { Detail } from "@/pages/detail";
 import { List } from "@/pages/list";
 import { Settings } from "@/pages/settings";
 
-// Toast Imports
-import { Toaster } from "react-hot-toast";
+// PostHog Imports
+import { PostHogProvider } from "posthog-js/react";
+
+// API Imports
+import { useSettingsQuery } from "@/hooks/api-wpadmin";
 
 export function App() {
+  const query = useSettingsQuery();
+
   return (
-    <ReduxProvider>
-      <QueryProvider>
-        <ThemeProvider>
-          <Toaster position="bottom-left" />
-          <Detail />
-          <Settings />
-          {import.meta.env.DEV && <List />}
-        </ThemeProvider>
-      </QueryProvider>
-    </ReduxProvider>
+    <>
+      <PostHogProvider
+        apiKey={query.data?.data_server_key}
+        options={{
+          api_host: query.data
+            ? `https://data-${query.data.data_server}.warpdriven.ai`
+            : void 0,
+        }}
+      >
+        <Detail />
+        <Settings />
+        {import.meta.env.DEV && <List />}
+      </PostHogProvider>
+    </>
   );
 }
