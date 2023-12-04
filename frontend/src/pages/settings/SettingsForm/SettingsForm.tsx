@@ -1,17 +1,16 @@
 // MUI Imports
 import {
-  Box,
   Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
-  CircularProgress,
   FormControlLabel,
   Grid,
   Switch,
-  Typography,
   styled,
+  Skeleton,
+  Typography,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 
@@ -23,11 +22,13 @@ import { useForm, FormProvider, useController } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-// API Imports
+// Query Imports
+import { useQueryClient } from "@tanstack/react-query";
 import { useSettingsMutation } from "@/hooks/api-wpadmin";
+
+// API Imports
 import { warpdriven_recs_settings } from "@/api/wpadmin";
 import { Res } from "@/api/wpadmin/warpdriven_recs_settings";
-import { useQueryClient } from "@tanstack/react-query";
 
 // Toast Imports
 import { toast } from "react-hot-toast";
@@ -50,7 +51,7 @@ export function SettingsForm() {
           custom_js: queryData.custom_js || "",
           data_server: queryData.data_server || "",
           data_server_key: queryData.data_server_key || "",
-          is_test_mode: true,
+          is_test_mode: queryData.is_test_mode,
         };
       } catch (error) {
         console.error(error);
@@ -113,22 +114,23 @@ export function SettingsForm() {
     formCtx.reset();
   };
 
-  if (formCtx.formState.isLoading) {
+  // if (formCtx.formState.isLoading) {
+  if (true) {
     return (
-      <>
-        <Box
-          display={"flex"}
-          flexDirection={"column"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          minHeight={320}
-        >
-          <CircularProgress />
-          <Typography variant="body2" mt={4}>
-            Loading...
+      <StyledCard>
+        <CardHeader title="Loading..." />
+        <CardContent>
+          <Typography component="div" variant="h3">
+            <Skeleton />
           </Typography>
-        </Box>
-      </>
+          <Typography>
+            <Skeleton animation="wave" />
+          </Typography>
+          <Typography variant="body2">
+            <Skeleton animation={false} width={"60%"} />
+          </Typography>
+        </CardContent>
+      </StyledCard>
     );
   }
 
@@ -201,6 +203,8 @@ export function SettingsForm() {
 
 const StyledCard = styled(Card)(({ theme }) => {
   return {
+    marginTop: "1rem",
+
     '& input[type="text"]': {
       padding: "16.5px 14px",
       border: 0,

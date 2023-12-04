@@ -1,17 +1,36 @@
 // React Imports
 import React from "react";
-import ReactDOM from "react-dom";
 
 // Components Imports
-import { SettingsForm } from "./SettingsForm";
+import { MutationSuspense } from "@/components";
+
+// MUI Imports
+import { Box, CircularProgress, Typography } from "@mui/material";
 
 export function Settings() {
-  const mainNode = React.useMemo(() => {
-    const adminEl = document.getElementById("warpdriven-recs-admin");
-    if (!adminEl) return null;
-
-    return ReactDOM.createPortal(<SettingsForm />, adminEl);
-  }, []);
-
-  return <>{mainNode}</>;
+  return (
+    <>
+      <MutationSuspense
+        containerId="warpdriven-recs-admin"
+        fallback={
+          <Box
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            minHeight={320}
+          >
+            <CircularProgress />
+            <Typography variant="body2" mt={4}>
+              Loading...
+            </Typography>
+          </Box>
+        }
+      >
+        <SettingsForm />
+      </MutationSuspense>
+    </>
+  );
 }
+
+const SettingsForm = React.lazy(() => import("./SettingsForm"));
