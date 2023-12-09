@@ -15,11 +15,13 @@ export function MutationSuspense(props: MutationSuspenseProps) {
       <React.Suspense fallback={fallback}>{children}</React.Suspense>,
       container
     );
-  }, [container]);
+  }, [container, fallback, children]);
 
   React.useEffect(() => {
     const checkEl = () => {
-      setContainer(document.getElementById(containerId));
+      React.startTransition(() => {
+        setContainer(document.getElementById(containerId));
+      });
     };
 
     const observer = new MutationObserver(checkEl);
@@ -33,7 +35,7 @@ export function MutationSuspense(props: MutationSuspenseProps) {
 
       observer.disconnect();
     };
-  }, [setContainer]);
+  }, [setContainer, containerId]);
 
   return <>{childNode}</>;
 }

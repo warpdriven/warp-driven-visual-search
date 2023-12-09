@@ -1,7 +1,9 @@
+// Swiper Imports
 import Swiper from "swiper";
 import { Navigation } from "swiper/modules";
 import "swiper/scss";
 
+// Styles Imports
 import "@/assets/scss/recs.scss";
 
 // React Imports

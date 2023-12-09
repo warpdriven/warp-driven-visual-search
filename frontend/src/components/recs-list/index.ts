@@ -1,2 +1,2 @@
 export * from "./recs-list";
-// export * from "./recs-item";
+export * from "./recs-item";

@@ -1,31 +1,20 @@
-// Pages Imports
-import { Detail } from "@/pages/detail";
-import { List } from "@/pages/list";
-import { Settings } from "@/pages/settings";
+// Provider Imports
+import { QueryProvider } from "@/api/provider";
+import { ThemeProvider } from "@/theme";
 
-// PostHog Imports
-import { PostHogProvider } from "posthog-js/react";
+// Toast Imports
+import { Toaster } from "react-hot-toast";
 
-// API Imports
-import { useSettingsQuery } from "@/hooks/api-wpadmin";
+// Router Imports
+import { RootRoute } from "@/router";
 
 export function App() {
-  const query = useSettingsQuery();
-
   return (
-    <>
-      <PostHogProvider
-        apiKey={query.data?.data_server_key}
-        options={{
-          api_host: query.data
-            ? `https://data-${query.data.data_server}.warpdriven.ai`
-            : void 0,
-        }}
-      >
-        <Detail />
-        <Settings />
-        {import.meta.env.DEV && <List />}
-      </PostHogProvider>
-    </>
+    <QueryProvider>
+      <Toaster position="bottom-left" />
+      <ThemeProvider>
+        <RootRoute />
+      </ThemeProvider>
+    </QueryProvider>
   );
 }
