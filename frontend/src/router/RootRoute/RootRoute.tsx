@@ -1,6 +1,6 @@
 // Pages Imports
 import { Detail } from "@/pages/detail";
-import { Settings } from "@/pages/settings";
+// import { Settings } from "@/pages/settings";
 
 // Query Imports
 import { useSettingsQuery } from "@/hooks/api-wpadmin";
@@ -16,12 +16,12 @@ export function RootRoute() {
       apiKey={query.data?.data_server_key}
       options={{
         api_host: query.data?.data_server
-          ? `https://data-${query.data?.data_server}.warpdriven.ai`
+          ? `https://data-${query.data.data_server}.warpdriven.ai`
           : "https://app.posthog.com",
       }}
     >
       <Detail />
-      <Settings />
+      {/* <Settings /> */}
     </PostHogProvider>
   );
 }

@@ -7,7 +7,9 @@ export const axiosWpadmin = axios.create({
   withCredentials: true,
 });
 
-axiosWpadmin.interceptors.request.use((config) => config);
+axiosWpadmin.interceptors.request.use((config) => {
+  return config;
+});
 axiosWpadmin.interceptors.response.use(
   (res) => {
     const { data } = res;
