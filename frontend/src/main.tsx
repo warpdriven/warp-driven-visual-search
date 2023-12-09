@@ -6,14 +6,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App.tsx";
 
-// Provider Imports
-import { QueryProvider } from "@/api/provider";
-import { ThemeProvider } from "@/theme";
-import { ReduxProvider } from "@/redux";
-
-// Toast Imports
-import { Toaster } from "react-hot-toast";
-
 renderReact();
 
 // Render React App
@@ -24,14 +16,7 @@ function renderReact() {
 
   ReactDOM.createRoot(root).render(
     <React.StrictMode>
-      <ReduxProvider>
-        <QueryProvider>
-          <Toaster position="bottom-left" />
-          <ThemeProvider>
-            <App />
-          </ThemeProvider>
-        </QueryProvider>
-      </ReduxProvider>
+      <App />
     </React.StrictMode>
   );
 }

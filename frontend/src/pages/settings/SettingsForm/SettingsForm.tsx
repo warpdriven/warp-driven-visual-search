@@ -9,13 +9,12 @@ import {
   Grid,
   Switch,
   styled,
-  Skeleton,
-  Typography,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 
 // Components Imports
 import { ItemText } from "@/components/form";
+import { SkeletonCard } from "@/components/ui";
 
 // Form Imports
 import { useForm, FormProvider, useController } from "react-hook-form";
@@ -114,26 +113,12 @@ export function SettingsForm() {
     formCtx.reset();
   };
 
-  // if (formCtx.formState.isLoading) {
-  if (true) {
-    return (
-      <StyledCard>
-        <CardHeader title="Loading..." />
-        <CardContent>
-          <Typography component="div" variant="h3">
-            <Skeleton />
-          </Typography>
-          <Typography>
-            <Skeleton animation="wave" />
-          </Typography>
-          <Typography variant="body2">
-            <Skeleton animation={false} width={"60%"} />
-          </Typography>
-        </CardContent>
-      </StyledCard>
-    );
+  // API Loading
+  if (formCtx.formState.isLoading) {
+    return <SkeletonCard sx={{ marginTop: "1rem" }} />;
   }
 
+  // Main Node
   return (
     <>
       <StyledCard>

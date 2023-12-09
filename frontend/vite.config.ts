@@ -34,24 +34,37 @@ export default defineConfig((configEnv) => {
     },
 
     base: "./",
+    envDir: resolve(__dirname, "./"),
 
     build: {
       outDir: resolve(__dirname, "../dist"),
       emptyOutDir: true,
 
       manifest: false,
-      // sourcemap: true,
+      sourcemap: false,
+
+      chunkSizeWarningLimit: 500,
 
       rollupOptions: {
         input: {
           main: resolve(__dirname, "./src/main.tsx"),
         },
         output: {
+          manualChunks(id) {
+            return void id;
+          },
           entryFileNames: "warpdriven-recs-[name].js",
           assetFileNames: "[name][extname]",
           chunkFileNames: "[name]-[hash].js",
         },
       },
+
+      target: "modules",
+      minify: "esbuild",
+
+      cssTarget: ["es2020", "edge88", "firefox78", "chrome87", "safari14"],
+      cssMinify: "esbuild",
+      cssCodeSplit: false,
     },
 
     server: {
