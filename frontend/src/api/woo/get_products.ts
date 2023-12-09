@@ -7,3 +7,5 @@ export function get_products(req: AxiosRequestConfig) {
     ...req,
   });
 }
+
+export interface Res {}

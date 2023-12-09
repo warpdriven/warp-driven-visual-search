@@ -12,6 +12,7 @@ export function VisualSearch() {
     <>
       <RecsList title="Visual Similar Recommendation">
         {/* <RecsItem /> */}
+        {null}
       </RecsList>
     </>
   );

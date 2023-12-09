@@ -15,7 +15,9 @@ export function RootRoute() {
     <PostHogProvider
       apiKey={query.data?.data_server_key}
       options={{
-        api_host: `https://data-${query.data?.data_server}.warpdriven.ai`,
+        api_host: query.data?.data_server
+          ? `https://data-${query.data?.data_server}.warpdriven.ai`
+          : "https://app.posthog.com",
       }}
     >
       <Detail />

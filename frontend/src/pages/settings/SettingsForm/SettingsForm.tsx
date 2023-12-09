@@ -34,6 +34,7 @@ import { toast } from "react-hot-toast";
 
 export function SettingsForm() {
   const queryClient = useQueryClient();
+  const mutation = useSettingsMutation();
 
   const formCtx = useForm({
     async defaultValues() {
@@ -47,9 +48,9 @@ export function SettingsForm() {
 
         return {
           api_key: queryData.api_key || "",
-          custom_js: queryData.custom_js || "",
-          data_server: queryData.data_server || "",
           data_server_key: queryData.data_server_key || "",
+          data_server: queryData.data_server || "",
+          custom_js: queryData.custom_js || "",
           is_test_mode: queryData.is_test_mode,
         };
       } catch (error) {
@@ -57,9 +58,9 @@ export function SettingsForm() {
 
         return {
           api_key: "",
-          custom_js: "",
-          data_server: "",
           data_server_key: "",
+          data_server: "",
+          custom_js: "",
           is_test_mode: true,
         };
       }
@@ -68,9 +69,9 @@ export function SettingsForm() {
     resolver: yupResolver(
       yup.object().shape({
         api_key: yup.string().max(64).required(),
-        custom_js: yup.string().url().max(128),
+        data_server_key: yup.string().max(128).required(),
         data_server: yup.string().max(128),
-        data_server_key: yup.string().max(128),
+        custom_js: yup.string().url().max(128),
         is_test_mode: yup.boolean().required(),
       })
     ),
@@ -81,8 +82,6 @@ export function SettingsForm() {
     name: "is_test_mode",
     defaultValue: true,
   });
-
-  const mutation = useSettingsMutation();
 
   const handleSubmit = formCtx.handleSubmit((data) => {
     mutation.mutate(
@@ -109,11 +108,11 @@ export function SettingsForm() {
   });
 
   const handleReset = () => {
-    toast.success("Save successlly!");
     formCtx.reset();
+    toast.success("Save successlly!");
   };
 
-  // API Loading
+  // API Pending
   if (formCtx.formState.isLoading) {
     return <SkeletonCard sx={{ marginTop: "1rem" }} />;
   }
@@ -135,16 +134,16 @@ export function SettingsForm() {
               </Grid>
               <Grid item xs={12} md={6}>
                 <ItemText
-                  name="data_server"
-                  label="Data Server"
-                  placeholder="Data Server"
+                  name="data_server_key"
+                  label="Data Server Key"
+                  placeholder="Data Server Key"
                 />
               </Grid>
               <Grid item xs={12} md={6}>
                 <ItemText
-                  name="data_server_key"
-                  label="Data Server Key"
-                  placeholder="Data Server Key"
+                  name="data_server"
+                  label="Custom Data Server"
+                  placeholder="Data Server"
                 />
               </Grid>
               <Grid item xs={12} md={6}>
