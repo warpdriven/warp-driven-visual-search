@@ -28,6 +28,10 @@ class  WPSettingPage
 
     public function admin_register_wd_vs_woo_settings()
     {
-        register_setting("wd-vs-woo-settings-group", "wd_api_key");
+        register_setting("warp-driven-settings-group", "wd_api_key");
+        register_setting("warp-driven-settings-group", "wd_data_server_key");
+        register_setting("warp-driven-settings-group", "wd_data_server");
+        register_setting("warp-driven-settings-group", "wd_custom_js");
+        register_setting("warp-driven-settings-group", "wd_is_test_mode");        
     }
 }
