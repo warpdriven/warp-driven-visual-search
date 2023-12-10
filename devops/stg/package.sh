@@ -2,9 +2,6 @@ git pull
 
 composer upgrade
 
-npm install
-npm run build
-
 mkdir -p ./target/stg
 rm ./target/stg/*.zip
 ### vim .env files , set the value of WARP_MODEL as STG

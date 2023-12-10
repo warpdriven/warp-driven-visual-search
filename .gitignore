@@ -8,3 +8,5 @@ devops/.DS_Store
 vendor/
 composer.lock
 package-lock.json
+pnpm-lock.yaml
+dist
