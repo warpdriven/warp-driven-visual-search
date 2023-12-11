@@ -18,6 +18,7 @@ export interface Product {
   images: Image[];
   on_sale: boolean;
   purchasable: boolean;
+  variations: number[];
 }
 
 export interface Image {

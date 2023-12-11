@@ -2,7 +2,7 @@
 import { RecsList, RecsItem } from "@/components/recs-list";
 
 // API Imports
-import { useVisual } from "@/hooks/api-visual";
+// import { useVisual } from "@/hooks/api-visual";
 import { useProducts } from "@/hooks/api-woo";
 
 // Utils Imports
@@ -11,17 +11,26 @@ import { getJsonProduct } from "@/utils";
 // React Imports
 import React from "react";
 
+// MUI Imports
+import { Container } from "@mui/material";
+
 export function VisualSearch() {
   const product = getJsonProduct();
 
-  const vsrQuery = useVisual({
-    shop_variant_id: String(product?.id || ""),
-    top_k: 10,
-  });
+  // const vsrQuery = useVisual({
+  //   shop_variant_id: String(product?.id || ""),
+  //   top_k: 10,
+  // });
+
+  // const queries = useProducts(
+  //   vsrQuery.data?.map((item) => {
+  //     return item.product_id;
+  //   }) || []
+  // );
 
   const queries = useProducts(
-    vsrQuery.data?.map((item) => {
-      return item.product_id;
+    product?.variations.map((item) => {
+      return String(item);
     }) || []
   );
 
@@ -78,9 +87,11 @@ export function VisualSearch() {
     // Has products
     return (
       <>
-        <RecsList title="Visual Similar Recommendation">
-          {itemNodeList}
-        </RecsList>
+        <Container>
+          <RecsList title="Visual Similar Recommendation">
+            {itemNodeList}
+          </RecsList>
+        </Container>
       </>
     );
   }, [queries]);
