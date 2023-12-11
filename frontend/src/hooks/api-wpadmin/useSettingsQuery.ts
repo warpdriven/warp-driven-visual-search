@@ -2,13 +2,13 @@
 import { useQuery } from "@tanstack/react-query";
 
 // API Imports
-import { warpdriven_recs_settings } from "@/api/wpadmin";
+import { get_warp_driven_settings } from "@/api/wpadmin";
 
 export function useSettingsQuery() {
   return useQuery({
-    queryKey: ["warpdriven_recs_settings"],
+    queryKey: ["get_warp_driven_settings"],
     queryFn({ signal }) {
-      return warpdriven_recs_settings({ signal });
+      return get_warp_driven_settings({ signal });
     },
   });
 }
