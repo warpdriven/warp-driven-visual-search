@@ -21,6 +21,7 @@ export function ThemeProvider(props: React.PropsWithChildren) {
 
   const mode = "light";
   const whiteColor = "#fff";
+  const mainColor = mode === "light" ? "rgb(58, 53, 65)" : "rgb(231, 227, 252)";
 
   const theme = createTheme({
     breakpoints: breakpoints(),
@@ -94,6 +95,11 @@ export function ThemeProvider(props: React.PropsWithChildren) {
       },
 
       divider: alpha(grey[900], 0.12),
+      text: {
+        primary: alpha(mainColor, 0.87),
+        secondary: alpha(mainColor, 0.6),
+        disabled: alpha(mainColor, 0.38),
+      },
     },
   });
 

@@ -52,7 +52,7 @@ export function RecsItem(props: RecsItemProps) {
           //   data-__tracker-selector=".__sl-custom-track-product-item-16062138380188655368253900"
           //   data-__tracker-view-once="1"
           className="recommend-product-item shopline-element-product-item __sl-custom-track-product-list-item __sl-custom-track-product-item-16062138380188655368253900 hasColorCellected __sl-custom-track-product-recommend-item"
-          href={`${product.permalink}?wd=${suffixSearch}`}
+          href={toSuffixSearchURL(product.permalink, suffixSearch)}
         >
           <div
             className="recommend-product-item-image-wrapper"
@@ -86,6 +86,12 @@ export function RecsItem(props: RecsItemProps) {
       </div>
     </>
   );
+}
+
+function toSuffixSearchURL(params: string, suffixSearch: string) {
+  const url = new URL(params);
+  url.searchParams.set("wd", suffixSearch);
+  return url.href;
 }
 
 export interface RecsItemProps {
