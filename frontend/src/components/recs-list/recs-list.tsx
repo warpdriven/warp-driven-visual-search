@@ -18,22 +18,17 @@ export function RecsList(props: RecsListProps) {
   const prevRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const isWithoutFalsy = [
-      swiperRef.current,
-      nextRef.current,
-      prevRef.current,
-    ].every(Boolean);
-    if (!isWithoutFalsy) return;
+    if (!swiperRef.current) return;
 
-    const swiper = new Swiper(swiperRef.current!, {
+    const swiper = new Swiper(swiperRef.current, {
       modules: [Navigation],
       slidesPerView: 4,
       slidesPerGroup: 4,
       spaceBetween: 20,
 
       navigation: {
-        nextEl: nextRef.current!,
-        prevEl: prevRef.current!,
+        nextEl: nextRef.current,
+        prevEl: prevRef.current,
       },
     });
 
@@ -44,11 +39,7 @@ export function RecsList(props: RecsListProps) {
 
   return (
     <>
-      {/* <div
-        className="recommed-section-page-width recommend-collected recommend-inited"
-        data-ssr-product-recommend-bottom=""
-      > */}
-      <div id="recs" data-warpdriven-recs>
+      <div data-warpdriven-recs>
         <div
           className="product-list product-recommend-seed product-recommend __sl-custom-track-product-recommend-plugin"
           data-recommend-type="2"
@@ -78,7 +69,6 @@ export function RecsList(props: RecsListProps) {
           </div>
         </div>
       </div>
-      {/* </div> */}
     </>
   );
 }
