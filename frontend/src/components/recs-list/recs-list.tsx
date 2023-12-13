@@ -14,7 +14,7 @@ import { styled } from "@mui/material";
 
 export function RecsList(props: RecsListProps) {
   // ** Props
-  const { title, children } = props;
+  const { title, children, ...restProps } = props;
 
   const swiperRef = React.useRef<HTMLDivElement>(null);
   const nextRef = React.useRef<HTMLDivElement>(null);
@@ -42,7 +42,7 @@ export function RecsList(props: RecsListProps) {
 
   return (
     <>
-      <StyledDiv>
+      <StyledDiv {...restProps}>
         <div
           // data-recommend-type="2"
           // data-col-num="4"
@@ -83,8 +83,8 @@ const StyledDiv = styled("div")(({ theme }) => {
       backgroundImage: "none",
     },
     "& .product-list-title": {
-      fontSize: "1.5rem",
       color: theme.palette.text.primary,
+      fontSize: "1.375rem",
     },
   };
 });
