@@ -86,6 +86,9 @@ const StyledDiv = styled("div")(({ theme }) => {
       color: theme.palette.text.primary,
       fontSize: "1.375rem",
     },
+    "& *": {
+      userSelect: "none",
+    },
   };
 });
 
