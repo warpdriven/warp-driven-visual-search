@@ -9,6 +9,9 @@ import "@/assets/scss/recs.scss";
 // React Imports
 import React from "react";
 
+// MUI Imports
+import { styled } from "@mui/material";
+
 export function RecsList(props: RecsListProps) {
   // ** Props
   const { title, children } = props;
@@ -35,22 +38,22 @@ export function RecsList(props: RecsListProps) {
     return () => {
       swiper.destroy();
     };
-  }, []);
+  }, [swiperRef, nextRef, prevRef]);
 
   return (
     <>
-      <div data-warpdriven-recs>
+      <StyledDiv>
         <div
+          // data-recommend-type="2"
+          // data-col-num="4"
+          // data-__tracker-total-view-time="0"
+          // data-__tracker-last-view-started="0"
+          // data-__tracker-selector='[data-__tracker-id="vs93ek8uqig"]'
+          // data-__tracker-id="vs93ek8uqig"
+          // data-__tracker-viewed="1"
+          // data-__tracker-view-once="1"
+          // data-__tracker-view-success-once="1"
           className="product-list product-recommend-seed product-recommend __sl-custom-track-product-recommend-plugin"
-          data-recommend-type="2"
-          data-col-num="4"
-          data-__tracker-total-view-time="0"
-          data-__tracker-last-view-started="0"
-          data-__tracker-selector='[data-__tracker-id="vs93ek8uqig"]'
-          data-__tracker-id="vs93ek8uqig"
-          data-__tracker-viewed="1"
-          data-__tracker-view-once="1"
-          data-__tracker-view-success-once="1"
         >
           <div className="product-list-title product-section-title title5">
             {title}
@@ -68,10 +71,23 @@ export function RecsList(props: RecsListProps) {
             </div>
           </div>
         </div>
-      </div>
+      </StyledDiv>
     </>
   );
 }
+
+const StyledDiv = styled("div")(({ theme }) => {
+  return {
+    backgroundImage: "none",
+    "& .swiper-button-next": {
+      backgroundImage: "none",
+    },
+    "& .product-list-title": {
+      fontSize: "1.5rem",
+      color: theme.palette.text.primary,
+    },
+  };
+});
 
 export interface RecsListProps {
   title: React.ReactNode;
