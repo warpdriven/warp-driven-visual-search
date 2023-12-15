@@ -16,6 +16,8 @@ export function useProducts(ids: string[]) {
             queryFn({ signal }) {
               return get_warp_driven_settings({ signal });
             },
+
+            retry: false,
           });
 
           return await get_products({

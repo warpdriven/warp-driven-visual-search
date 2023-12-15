@@ -2,7 +2,7 @@
 import { RecsList, RecsItem } from "@/components/recs-list";
 
 // API Imports
-// import { useVisual } from "@/hooks/api-visual";
+import { useVisual } from "@/hooks/api-visual";
 import { useProducts } from "@/hooks/api-woo";
 
 // Utils Imports
@@ -17,20 +17,14 @@ import { Container } from "@mui/material";
 export function VisualSearch() {
   const product = getJsonProduct();
 
-  // const vsrQuery = useVisual({
-  //   shop_variant_id: String(product?.id || ""),
-  //   top_k: 10,
-  // });
-
-  // const queries = useProducts(
-  //   vsrQuery.data?.map((item) => {
-  //     return item.product_id;
-  //   }) || []
-  // );
+  const vsrQuery = useVisual({
+    shop_variant_id: String(product?.id || ""),
+    top_k: 10,
+  });
 
   const queries = useProducts(
-    product?.variations.map((item) => {
-      return String(item);
+    vsrQuery.data?.map((item) => {
+      return item.product_id;
     }) || []
   );
 
