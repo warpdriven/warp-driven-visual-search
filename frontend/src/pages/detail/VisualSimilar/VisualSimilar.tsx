@@ -3,7 +3,7 @@ import { RecsList, RecsItem } from "@/components/recs-list";
 
 // API Imports
 import { useVisual } from "@/hooks/api-visual";
-import { useProducts } from "@/hooks/api-woo";
+import { useProducts } from "@/hooks/api-wpadmin";
 
 // Utils Imports
 import { getJsonProduct } from "@/utils";
@@ -47,17 +47,14 @@ export function VisualSearch() {
          */
         return [
           data,
-          data?.on_sale,
-          data?.purchasable,
-          data?.id,
-          data?.name,
-          typeof data?.name === "string",
-          data?.price,
-          typeof data?.price === "string",
-          data?.permalink,
-          typeof data?.permalink === "string",
-          Array.isArray(data?.images),
-          data?.images.length,
+          data?.product_id,
+          data?.product_title,
+          typeof data?.product_title === "string",
+          // data?.main_image_url,
+          // typeof data?.price === "string",
+          data?.productlink,
+          typeof data?.productlink === "string",
+          data?.main_image_url,
         ].every(Boolean);
       })
       .map(({ data }) => {
@@ -65,7 +62,7 @@ export function VisualSearch() {
 
         return (
           <RecsItem
-            key={data.id}
+            key={data.product_id}
             product={data}
             suffixSearch="vsr_click"
             intersectionEventName="WarpDrivenVSRView"
