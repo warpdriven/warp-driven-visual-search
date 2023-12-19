@@ -8,7 +8,7 @@ import { useObserverIntersection } from "@/hooks";
 import posthog from "posthog-js";
 
 // API Imports
-import { Product } from "@/api/woo/get_products";
+import { Res } from "@/api/wpadmin/warpdriven_get_products";
 
 export function RecsItem(props: RecsItemProps) {
   // ** Props
@@ -26,7 +26,7 @@ export function RecsItem(props: RecsItemProps) {
 
     if (isWithoutFalsy) {
       posthog.capture(intersectionEventName, {
-        handle: product.id,
+        handle: product.product_id,
       });
 
       isShowedRef.current = true;
@@ -52,7 +52,7 @@ export function RecsItem(props: RecsItemProps) {
           //   data-__tracker-selector=".__sl-custom-track-product-item-16062138380188655368253900"
           //   data-__tracker-view-once="1"
           className="recommend-product-item shopline-element-product-item __sl-custom-track-product-list-item __sl-custom-track-product-item-16062138380188655368253900 hasColorCellected __sl-custom-track-product-recommend-item"
-          href={toSuffixSearchURL(product.permalink, suffixSearch)}
+          href={toSuffixSearchURL(product.productlink, suffixSearch)}
         >
           <div
             className="recommend-product-item-image-wrapper"
@@ -60,7 +60,7 @@ export function RecsItem(props: RecsItemProps) {
           >
             <div className="recommend-product-item-image-media card__inner">
               <div className="recommend-product-item-image">
-                <img src={product.images[0].src} alt={product.images[0].alt} />
+                <img src={product.main_image_url} alt={product.product_title} />
               </div>
             </div>
             {/* <div className="recommend-product-item-button-warpper">
@@ -72,12 +72,14 @@ export function RecsItem(props: RecsItemProps) {
 
           <div className="recommend-product-item-info">
             <div className="recommend-product-item-title product-grid-font  display-2-row">
-              {product.name}
+              {product.product_title}
             </div>
             <div className="recommend-product-item-price body-font display-center">
               <span className="sale-price ">
                 <span data-product-item-price="3900" data-from="">
-                  <span className="notranslate isolate">${product.price}</span>
+                  <span className="notranslate isolate">
+                    ${product.product_price}
+                  </span>
                 </span>
               </span>
             </div>
@@ -95,7 +97,7 @@ function toSuffixSearchURL(params: string, suffixSearch: string) {
 }
 
 export interface RecsItemProps {
-  product: Product;
+  product: Res;
   suffixSearch: string;
   intersectionEventName: string;
 }
