@@ -19,6 +19,7 @@ export interface Res {
   product_title: string;
   productlink: string;
   main_image_url: string;
+  product_price: string;
 
   product_sku: string;
   keywords: string[];

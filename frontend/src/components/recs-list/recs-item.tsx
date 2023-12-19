@@ -77,7 +77,9 @@ export function RecsItem(props: RecsItemProps) {
             <div className="recommend-product-item-price body-font display-center">
               <span className="sale-price ">
                 <span data-product-item-price="3900" data-from="">
-                  {/* <span className="notranslate isolate">${product.price}</span> */}
+                  <span className="notranslate isolate">
+                    ${product.product_price}
+                  </span>
                 </span>
               </span>
             </div>
