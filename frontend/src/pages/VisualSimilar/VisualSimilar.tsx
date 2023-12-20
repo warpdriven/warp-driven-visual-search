@@ -18,7 +18,7 @@ export function VisualSearch() {
   const product = getJsonProduct();
 
   const vsrQuery = useVisual({
-    shop_variant_id: String(product?.variations?.[0] || ""),
+    shop_variant_id: String(product?.id || ""),
     top_k: 10,
   });
 
