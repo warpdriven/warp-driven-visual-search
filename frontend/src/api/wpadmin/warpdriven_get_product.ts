@@ -2,12 +2,12 @@
 import { axiosWpadmin } from "./axios-wpadmin";
 import { AxiosRequestConfig } from "axios";
 
-export function warpdriven_get_products(req: AxiosRequestConfig) {
+export function warpdriven_get_product(req: AxiosRequestConfig) {
   const { params, ...restReq } = req;
 
   return axiosWpadmin<unknown, Res>({
     params: {
-      action: "warpdriven_get_products",
+      action: "warpdriven_get_product",
       ...params,
     },
     ...restReq,

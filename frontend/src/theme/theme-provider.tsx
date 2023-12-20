@@ -100,6 +100,24 @@ export function ThemeProvider(props: React.PropsWithChildren) {
         secondary: alpha(mainColor, 0.6),
         disabled: alpha(mainColor, 0.38),
       },
+
+      action: {
+        active: alpha(mainColor, 0.54),
+        activatedOpacity: 0.24,
+
+        disabled: alpha(mainColor, 0.26),
+        disabledOpacity: 0.38,
+        disabledBackground: alpha(mainColor, 0.12),
+
+        focus: alpha(mainColor, 0.12),
+        focusOpacity: 0.12,
+
+        hover: alpha(mainColor, 0.04),
+        hoverOpacity: 0.08,
+
+        selected: alpha(mainColor, 0.08),
+        selectedOpacity: 0.16,
+      },
     },
   });
 

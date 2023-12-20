@@ -3,7 +3,7 @@ import { RecsList, RecsItem } from "@/components/recs-list";
 
 // API Imports
 import { useVisual } from "@/hooks/api-visual";
-import { useProducts } from "@/hooks/api-wpadmin";
+import { useProducts, useSettingsQuery } from "@/hooks/api-wpadmin";
 
 // Utils Imports
 import { getJsonProduct } from "@/utils";
@@ -28,33 +28,22 @@ export function VisualSearch() {
     }) || []
   );
 
+  const query = useSettingsQuery();
+
   const mainNode = React.useMemo(() => {
     const itemNodeList = queries
       .filter(({ data }) => {
-        /**
-         * API Success
-         * Product is on sale
-         * Product is purchasable
-         * Product ID is truth
-         * Product name is truth
-         * Product name is a string
-         * Product price is truth
-         * Product price is a string
-         * Product permalink is truth
-         * Product permalink is a string
-         * Product images is a array
-         * Product images has items
-         */
         return [
           data,
           data?.product_id,
           data?.product_title,
-          typeof data?.product_title === "string",
-          // data?.main_image_url,
-          // typeof data?.price === "string",
+          data?.product_price,
           data?.productlink,
-          typeof data?.productlink === "string",
           data?.main_image_url,
+          typeof data?.product_title === "string",
+          typeof data?.product_price === "string",
+          typeof data?.productlink === "string",
+          typeof data?.main_image_url === "string",
         ].every(Boolean);
       })
       .map(({ data }) => {
@@ -69,6 +58,24 @@ export function VisualSearch() {
           ></RecsItem>
         );
       });
+
+    // API pending & failed
+    if (!query.data) {
+      return <></>;
+    }
+
+    // Tese mode enable
+    if (query.data.wd_is_test_mode === "on") {
+      const searchParams = new URLSearchParams(window.location.search);
+      const wd_demo = searchParams.get("wd_demo");
+
+      switch (wd_demo) {
+        case "true":
+          break;
+        default:
+          return <></>;
+      }
+    }
 
     // No products
     if (!itemNodeList.length) {
