@@ -10,11 +10,21 @@ renderReact();
 
 // Render React App
 function renderReact() {
-  const root = document.createElement("div");
-  root.id = "warpdriven-recs-app";
-  document.body.append(root);
+  const container = (() => {
+    // Get existed container
+    const existedEl = document.getElementById("warpdriven-recs-app");
+    if (existedEl) {
+      return existedEl;
+    }
 
-  ReactDOM.createRoot(root).render(
+    // Create a new container
+    const newEl = document.createElement("div");
+    newEl.id = "warpdriven-recs-app";
+    document.body.append(newEl);
+    return newEl;
+  })();
+
+  ReactDOM.createRoot(container).render(
     <React.StrictMode>
       <App />
     </React.StrictMode>

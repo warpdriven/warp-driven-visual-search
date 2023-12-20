@@ -1,36 +1,46 @@
-// Pages Imports
-import { Detail } from "@/pages/detail";
+// Components Imports
+import { MutationSuspense } from "@/components";
 
 // Query Imports
-import { useSettingsQuery } from "@/hooks/api-wpadmin";
+// import { useSettingsQuery } from "@/hooks/api-wpadmin";
 
 // PostHog Imports
-import { PostHogProvider } from "posthog-js/react";
+// import { PostHogProvider } from "posthog-js/react";
+
+// React Imports
+import React from "react";
 
 export function RootRoute() {
-  const query = useSettingsQuery();
+  // const query = useSettingsQuery();
 
-  // API pending & error
-  if (!query.data) {
-    return <></>;
-  }
+  // // API pending & error
+  // if (!query.data) {
+  //   return <></>;
+  // }
 
-  // Tese mode enable
-  if (query.data.is_test_mode === true) {
-    const searchParams = new URLSearchParams(window.location.search);
-    const wd_demo = searchParams.get("wd_demo");
+  // // Tese mode enable
+  // if (query.data.is_test_mode === true) {
+  //   const searchParams = new URLSearchParams(window.location.search);
+  //   const wd_demo = searchParams.get("wd_demo");
 
-    switch (wd_demo) {
-      case "true":
-        break;
-      default:
-        return <></>;
-    }
-  }
+  //   switch (wd_demo) {
+  //     case "true":
+  //       break;
+  //     default:
+  //       return <></>;
+  //   }
+  // }
 
   // Normal content
   return (
-    <PostHogProvider
+    <>
+      <MutationSuspense containerId="warpdriven-recs-vsr">
+        <VisualSimilar />
+      </MutationSuspense>
+      <MutationSuspense containerId="warpdriven-recs-admin">
+        <Admin />
+      </MutationSuspense>
+      {/* <PostHogProvider
       apiKey={query.data.data_server_key}
       options={{
         api_host: query.data.data_server
@@ -38,7 +48,11 @@ export function RootRoute() {
           : "https://app.posthog.com",
       }}
     >
-      <Detail />
-    </PostHogProvider>
+      
+    </PostHogProvider> */}
+    </>
   );
 }
+
+const Admin = React.lazy(() => import("@/pages/admin"));
+const VisualSimilar = React.lazy(() => import("@/pages/VisualSimilar"));
