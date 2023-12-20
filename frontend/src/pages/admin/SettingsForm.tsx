@@ -102,9 +102,6 @@ export function SettingsForm() {
           wd_custom_js: data.wd_custom_js || "",
           wd_is_test_mode: data.wd_is_test_mode ? "on" : "off",
         },
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
       },
       {
         onError(error) {
