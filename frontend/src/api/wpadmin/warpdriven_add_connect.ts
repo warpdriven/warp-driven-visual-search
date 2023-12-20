@@ -6,6 +6,7 @@ export function warpdriven_add_connect(req: Req) {
   const { params, ...restReq } = req;
 
   return axiosWpadmin<unknown, Res>({
+    method: "POST",
     params: {
       action: "warpdriven_add_connect",
       ...params,
