@@ -15,12 +15,26 @@ import { LoadingButton } from "@mui/lab";
 
 // Components Imports
 import { ConnectForm } from "./ConnectForm";
+import { ItemText } from "@/components/form";
 
 // Store Imports
 import { useSearchParams } from "@/hooks/store";
 
+// Form Imports
+import { FormProvider, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 export function Admin() {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const formCtx = useForm({
+    async defaultValues() {
+      return {};
+    },
+
+    resolver: yupResolver(yup.object().shape({})),
+  });
 
   // Connect mode
   const hasToken = searchParams.get("access_token");
@@ -30,11 +44,15 @@ export function Admin() {
 
   // Setting mode
   return (
-    <>
+    <FormProvider {...formCtx}>
       <StyledCard>
         <CardHeader title="WarpDriven Settings"></CardHeader>
         <CardContent>
-          <Grid container spacing={6}></Grid>
+          <Grid container spacing={6}>
+            <Grid item xs={12} sm={6}></Grid>
+            <Grid item xs={12} sm={6}></Grid>
+            <Grid item xs={12} sm={6}></Grid>
+          </Grid>
         </CardContent>
         <CardActions>
           <LoadingButton variant="contained">save</LoadingButton>
@@ -51,7 +69,7 @@ export function Admin() {
           </Button>
         </CardActions>
       </StyledCard>
-    </>
+    </FormProvider>
   );
 }
 

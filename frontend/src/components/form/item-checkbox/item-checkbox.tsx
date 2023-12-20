@@ -6,27 +6,29 @@ import { useFormContext, useController } from "react-hook-form";
 
 export function ItemCheckbox(props: ItemCheckboxProps) {
   // ** Props
-  const { name, value, ...restProps } = props;
+  const { name, value, disabled, ...restProps } = props;
 
   // Form Field
-  const { control } = useFormContext();
-  const { field } = useController({ name, control, defaultValue: false });
-  const fieldValue = field.value;
+  const formCtx = useFormContext();
+  const controller = useController({
+    name,
+    control: formCtx.control,
+    defaultValue: false,
+    disabled,
+  });
 
-  // Model & Change
-  const model = toModel(value, fieldValue);
   const handleChange: HandleChange = (evt, checked) => {
     void evt;
-    const nextFieldValue = toNextValue(checked, value, fieldValue);
-    field.onChange(nextFieldValue);
+    const nextFieldValue = toNextValue(checked, value, controller.field.value);
+    controller.field.onChange(nextFieldValue);
   };
 
   return (
     <Checkbox
-      {...restProps}
-      {...field}
-      checked={model}
+      {...controller.field}
+      checked={toModel(value, controller.field.value)}
       onChange={handleChange}
+      {...restProps}
     />
   );
 }
@@ -39,27 +41,23 @@ function toModel(value: unknown, fieldValue: unknown) {
   return list.includes(value);
 }
 
+function toNextValue(checked: boolean, value: unknown, fieldValue: unknown) {
+  if (typeof value === "undefined") {
+    return checked;
+  }
+
+  const list = toList(fieldValue);
+
+  if (list.includes(value)) {
+    return checked ? list : list.filter((el) => el !== value);
+  }
+
+  return checked ? [...list, value] : list;
+}
+
 function toList(fieldValue: unknown) {
   const isList = Array.isArray(fieldValue);
   return isList ? fieldValue : [];
-}
-
-function toNextValue(checked: boolean, value: unknown, fieldValue: unknown) {
-  const isVoid = value === void 0;
-  if (isVoid) return checked;
-
-  const list = toList(fieldValue);
-  const isHasExist = list.includes(value);
-
-  // Not Change
-  if (isHasExist && checked) return list;
-  if (!isHasExist && !checked) return list;
-
-  // Remove Checked
-  if (isHasExist && !checked) return list.filter((el) => el !== value);
-
-  // Add Checked
-  if (!isHasExist && checked) return [...list, value];
 }
 
 export interface ItemCheckboxProps extends CheckboxProps {
