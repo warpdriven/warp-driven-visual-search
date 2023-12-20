@@ -8,7 +8,7 @@ import { useObserverIntersection } from "@/hooks";
 import posthog from "posthog-js";
 
 // API Imports
-import { Res } from "@/api/wpadmin/warpdriven_get_products";
+import { Res } from "@/api/wpadmin/warpdriven_get_product";
 
 export function RecsItem(props: RecsItemProps) {
   // ** Props
