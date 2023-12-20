@@ -14,7 +14,7 @@ export function useSettingsMutation() {
     },
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: ["warpdriven_get_product"],
+        queryKey: ["warpdriven_get_settings"],
       });
     },
   });
