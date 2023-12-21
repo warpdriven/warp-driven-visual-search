@@ -1,5 +1,7 @@
 // Components Imports
-import { MutationSuspense } from "@/components";
+// import { MutationSuspense } from "@/components";
+import { VisualSimilar } from "@/pages/VisualSimilar";
+import { Admin } from "@/pages/admin";
 
 // Query Imports
 import { useSettingsQuery } from "@/hooks/api-wpadmin";
@@ -8,7 +10,10 @@ import { useSettingsQuery } from "@/hooks/api-wpadmin";
 import { PostHogProvider } from "posthog-js/react";
 
 // React Imports
-import React from "react";
+// import React from "react";
+
+// MUI Imports
+import { Portal } from "@mui/material";
 
 export function RootRoute() {
   const query = useSettingsQuery();
@@ -28,15 +33,20 @@ export function RootRoute() {
           : "https://app.posthog.com",
       }}
     >
-      <MutationSuspense containerId="warpdriven-recs-vsr">
-        <VisualSimilar />
-      </MutationSuspense>
-      <MutationSuspense containerId="warpdriven-recs-admin">
+      <Portal
+        container={() => {
+          return document.getElementById("warpdriven-recs-vsr");
+        }}
+      >
+        <VisualSimilar></VisualSimilar>
+      </Portal>
+      <Portal
+        container={() => {
+          return document.getElementById("warpdriven-recs-admin");
+        }}
+      >
         <Admin />
-      </MutationSuspense>
+      </Portal>
     </PostHogProvider>
   );
 }
-
-const Admin = React.lazy(() => import("@/pages/admin"));
-const VisualSimilar = React.lazy(() => import("@/pages/VisualSimilar"));

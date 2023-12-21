@@ -1,1 +1,1 @@
-export { VisualSearch as default } from "./VisualSimilar";
+export * from "./VisualSimilar";
