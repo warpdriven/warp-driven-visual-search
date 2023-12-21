@@ -6,6 +6,7 @@ export function warpdriven_add_connect(req: Req) {
   const { params, ...restReq } = req;
 
   return axiosWpadmin<unknown, Res>({
+    method: "POST",
     params: {
       action: "warpdriven_add_connect",
       ...params,
@@ -19,6 +20,7 @@ export type Req = AxiosRequestConfig<Data>;
 export interface Data {
   access_token: string;
   site_url: string;
+  env: string;
 }
 
 export interface Res {

@@ -27,6 +27,9 @@ import * as yup from "yup";
 // Components Imports
 import { ItemText } from "@/components/form";
 
+// Toast Imports
+import toast from "react-hot-toast";
+
 export function ConnectForm() {
   const [searchParams] = useSearchParams();
 
@@ -45,12 +48,29 @@ export function ConnectForm() {
   const mutation = useAddConnect();
 
   const handleSubmit = formCtx.handleSubmit((data) => {
-    mutation.mutate({
-      data: {
-        site_url: data.site_url,
-        access_token: searchParams.get("access_token") || "",
+    mutation.mutate(
+      {
+        data: {
+          site_url: data.site_url,
+          access_token: searchParams.get("access_token") || "",
+          env: searchParams.get("env") || "",
+        },
       },
-    });
+      {
+        onError(error) {
+          toast.error(error.message);
+        },
+        onSuccess() {
+          const url = new URL(
+            "/connection/my-connection",
+            searchParams.get("return_url") || "http://stg.warpdriven.ai"
+          );
+          url.searchParams.set("refresh_conn", "true");
+
+          window.open(url, "_parent");
+        },
+      }
+    );
   });
 
   return (

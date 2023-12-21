@@ -1,9 +1,6 @@
 // Utils Imports
 import { toJsonForEl } from "./to-json-for-el";
 
-// Types Imports
-import { Product } from "@/api/woo/get_products";
-
 export function getJsonProduct<TData = Product>() {
   // Empty Element
   const el = document.getElementById("warpdriven-recs-json-product");
@@ -13,4 +10,9 @@ export function getJsonProduct<TData = Product>() {
   }
 
   return toJsonForEl<TData>(el);
+}
+
+export interface Product {
+  id: number;
+  variations: number[];
 }

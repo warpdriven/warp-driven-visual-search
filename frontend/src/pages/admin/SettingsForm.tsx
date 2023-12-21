@@ -124,7 +124,7 @@ export function SettingsForm() {
 
   // API pending
   if (formCtx.formState.isLoading) {
-    return <SkeletonCard></SkeletonCard>;
+    return <SkeletonCard sx={{ mt: 4 }}></SkeletonCard>;
   }
 
   // Normal content

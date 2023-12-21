@@ -14,7 +14,7 @@ import React from "react";
 // MUI Imports
 import { Container } from "@mui/material";
 
-export function VisualSearch() {
+export function VisualSimilar() {
   const product = getJsonProduct();
 
   const vsrQuery = useVisual({
@@ -92,7 +92,7 @@ export function VisualSearch() {
         </Container>
       </>
     );
-  }, [queries]);
+  }, [queries, query.data]);
 
   return <>{mainNode}</>;
 }

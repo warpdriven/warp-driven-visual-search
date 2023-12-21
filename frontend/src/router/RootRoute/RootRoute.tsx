@@ -1,5 +1,7 @@
 // Components Imports
-import { MutationSuspense } from "@/components";
+// import { MutationSuspense } from "@/components";
+import { VisualSimilar } from "@/pages/VisualSimilar";
+import { Admin } from "@/pages/admin";
 
 // Query Imports
 import { useSettingsQuery } from "@/hooks/api-wpadmin";
@@ -9,6 +11,7 @@ import { PostHogProvider } from "posthog-js/react";
 
 // React Imports
 import React from "react";
+import ReactDOM from "react-dom";
 
 export function RootRoute() {
   const query = useSettingsQuery();
@@ -28,15 +31,37 @@ export function RootRoute() {
           : "https://app.posthog.com",
       }}
     >
-      <MutationSuspense containerId="warpdriven-recs-vsr">
-        <VisualSimilar />
-      </MutationSuspense>
-      <MutationSuspense containerId="warpdriven-recs-admin">
-        <Admin />
-      </MutationSuspense>
+      <Portal
+        container={() => {
+          return document.getElementById("warpdriven-recs-vsr");
+        }}
+      >
+        <VisualSimilar></VisualSimilar>
+      </Portal>
+      <Portal
+        container={() => {
+          return document.getElementById("warpdriven-recs-admin");
+        }}
+      >
+        <Admin></Admin>
+      </Portal>
     </PostHogProvider>
   );
 }
 
-const Admin = React.lazy(() => import("@/pages/admin"));
-const VisualSimilar = React.lazy(() => import("@/pages/VisualSimilar"));
+function Portal(props: PortalProps) {
+  const { container, children, ...restProps } = props;
+  void restProps;
+
+  const el = container();
+  if (el) {
+    return ReactDOM.createPortal(children, el);
+  }
+
+  return <></>;
+}
+
+export interface PortalProps {
+  container(): ReturnType<typeof document.getElementById>;
+  children: React.ReactNode;
+}
