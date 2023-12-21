@@ -20,6 +20,7 @@ export type Req = AxiosRequestConfig<Data>;
 export interface Data {
   access_token: string;
   site_url: string;
+  env: string;
 }
 
 export interface Res {
