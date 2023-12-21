@@ -10,10 +10,8 @@ import { useSettingsQuery } from "@/hooks/api-wpadmin";
 import { PostHogProvider } from "posthog-js/react";
 
 // React Imports
-// import React from "react";
-
-// MUI Imports
-import { Portal } from "@mui/material";
+import React from "react";
+import ReactDOM from "react-dom";
 
 export function RootRoute() {
   const query = useSettingsQuery();
@@ -45,8 +43,25 @@ export function RootRoute() {
           return document.getElementById("warpdriven-recs-admin");
         }}
       >
-        <Admin />
+        <Admin></Admin>
       </Portal>
     </PostHogProvider>
   );
+}
+
+function Portal(props: PortalProps) {
+  const { container, children, ...restProps } = props;
+  void restProps;
+
+  const el = container();
+  if (el) {
+    return ReactDOM.createPortal(children, el);
+  }
+
+  return <></>;
+}
+
+export interface PortalProps {
+  container(): ReturnType<typeof document.getElementById>;
+  children: React.ReactNode;
 }
