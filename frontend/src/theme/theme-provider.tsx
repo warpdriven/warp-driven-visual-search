@@ -2,8 +2,6 @@
 import {
   BreakpointsOptions,
   createTheme,
-  GlobalStyles,
-  ScopedCssBaseline,
   ThemeProvider as MuiThemeProvider,
   alpha,
 } from "@mui/material";
@@ -121,12 +119,7 @@ export function ThemeProvider(props: React.PropsWithChildren) {
     },
   });
 
-  return (
-    <MuiThemeProvider theme={theme}>
-      <GlobalStyles styles={{}} />
-      <ScopedCssBaseline>{children}</ScopedCssBaseline>
-    </MuiThemeProvider>
-  );
+  return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
 }
 
 function breakpoints(): BreakpointsOptions {
