@@ -241,7 +241,6 @@ class WDCreateApiMain
     }
 }
 $WdCreateApiMain = new WDCreateApiMain();
-//$WdCreateApiMain->getrequest();
 
 function warpdriven_get_settings()
 {
@@ -250,33 +249,12 @@ function warpdriven_get_settings()
     exit;
 }
 
-
 function warpdriven_set_settings()
 {
     $WdCreateApiMain = new WDCreateApiMain();
     $WdCreateApiMain->setoption();
     exit;
 }
-function warpdriven_add_connect()
-{
-    include(ABSPATH . '/wp-includes/pluggable.php');
-
-    $json_data = file_get_contents('php://input');
-    $_POST = json_decode($json_data, true);
-
-    $gateway_url = $_POST['env'];
-
-    $data['site_url'] = $_POST['site_url'];
-    $data['access_token'] = $_POST['access_token'];
-    $data['consumer_key'] = 'ck_' . wp_hash(wp_rand(1000, 9999999));
-    $data['consumer_secret'] = 'cs_' . wp_hash(wp_rand(1000, 9999999));
-    $method = '/connection/woocommerce/connect';
-
-    echo GoCurl($gateway_url . $method, 'post', $data);
-
-    exit;
-}
-
 
 function warpdriven_get_products()
 {
@@ -286,8 +264,6 @@ function warpdriven_get_products()
     $terms = array();
     if ($product->get_stock_status() == 'instock' && intval($product->get_price()) > 0)   //判断库存和价格
     {
-
-
         wp_send_json(array(
             "product_id" => $id,
             "product_sku" => $product->get_sku(),
@@ -312,12 +288,6 @@ add_action('wp_ajax_warpdriven_set_settings', 'warpdriven_set_settings');
 
 add_action('wp_ajax_warpdriven_get_settings', 'warpdriven_get_settings');
 add_action('wp_ajax_nopriv_warpdriven_get_settings', 'warpdriven_get_settings');
-
-
-
-add_action('wp_ajax_warpdriven_add_connect', 'warpdriven_add_connect');
-// add_action('wp_ajax_nopriv_warpdriven_add_connect', 'warpdriven_add_connect');
-
 
 // Function to display the custom menu content
 function custom_menu_page()
