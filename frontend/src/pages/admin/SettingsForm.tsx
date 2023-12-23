@@ -19,9 +19,15 @@ import {
   styled,
   FormControlLabel,
   Switch,
+  Link,
+  Tooltip,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { SaveOutlined, RefreshOutlined } from "@mui/icons-material";
+import {
+  SaveOutlined,
+  RefreshOutlined,
+  FeedbackOutlined,
+} from "@mui/icons-material";
 
 // Components Imports
 import { SkeletonCard } from "@/components/ui";
@@ -132,11 +138,42 @@ export function SettingsForm() {
     <FormProvider {...formCtx}>
       <StyledCard>
         <CardHeader
-          title="WarpDriven Settings"
-          subheader="hello wellcome to here"
+          title="WarpDriven AI Settings"
+          subheader={
+            <>
+              For more features, please visit{" "}
+              <Link
+                href="https://warpdriven.ai"
+                target="_blank"
+                underline="always"
+                sx={{ textDecorationLine: "underline" }}
+              >
+                WarpDriven AI
+              </Link>
+            </>
+          }
+          action={
+            <Tooltip title="Feedback">
+              <Button href="https://warpdriven.ai/ticket/" target="_blank">
+                <FeedbackOutlined></FeedbackOutlined>
+              </Button>
+            </Tooltip>
+          }
         ></CardHeader>
         <CardContent>
           <Grid container spacing={6}>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    {...testModeController.field}
+                    checked={testModeController.field.value}
+                  ></Switch>
+                }
+                label="Test mode"
+                labelPlacement="start"
+              ></FormControlLabel>
+            </Grid>
             <Grid item xs={12} sm={6}>
               <ItemText
                 name="wd_api_key"
@@ -161,18 +198,6 @@ export function SettingsForm() {
                 label="Custom JS"
                 type="url"
               ></ItemText>
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    {...testModeController.field}
-                    checked={testModeController.field.value}
-                  ></Switch>
-                }
-                label="Test mode"
-                labelPlacement="start"
-              ></FormControlLabel>
             </Grid>
           </Grid>
         </CardContent>
