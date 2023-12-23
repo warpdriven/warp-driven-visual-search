@@ -67,9 +67,8 @@ export function VisualSimilar() {
     // Tese mode enable
     if (query.data.wd_is_test_mode === "on") {
       const searchParams = new URLSearchParams(window.location.search);
-      const wd_demo = searchParams.get("wd_demo");
 
-      switch (wd_demo) {
+      switch (searchParams.get("wd_demo")) {
         case "true":
           break;
         default:

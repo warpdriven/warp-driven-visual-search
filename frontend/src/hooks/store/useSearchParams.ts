@@ -1,9 +1,11 @@
 // Zustand Imports
-import React from "react";
 import { create } from "zustand";
 import { useShallow } from "zustand/react/shallow";
 
-const useRouterStore = create<SearchParamsStore>((set) => {
+// React Imports
+import React from "react";
+
+export const useRouterStore = create<SearchParamsStore>((set) => {
   return {
     search: window.location.search,
     setSearch(search) {
@@ -28,7 +30,7 @@ export const useSearchParams = () => {
 
   const setSearchParams = React.useCallback(
     (action: Action) => {
-      const newSearch = (() => {
+      const searchParams = (() => {
         if (typeof action === "function") {
           return action(new URLSearchParams(window.location.search));
         }
@@ -36,14 +38,22 @@ export const useSearchParams = () => {
         return action;
       })();
 
-      const url = new URL(window.location.href);
-      url.search = newSearch.toString();
-      history.replaceState(null, "", url);
-
-      setSearch(url.search);
+      setSearch(searchParams.toString());
     },
     [setSearch]
   );
+
+  React.useEffect(() => {
+    const animateId = requestAnimationFrame(() => {
+      const url = new URL(window.location.href);
+      url.search = search;
+      history.replaceState(null, "", url);
+    });
+
+    return () => {
+      cancelAnimationFrame(animateId);
+    };
+  }, [search]);
 
   return [searchParams, setSearchParams] as [
     typeof searchParams,
