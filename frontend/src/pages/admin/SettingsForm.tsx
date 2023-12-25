@@ -1,5 +1,5 @@
 // Form Imports
-import { FormProvider, useController, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -18,7 +18,6 @@ import {
   Grid,
   styled,
   FormControlLabel,
-  Switch,
   Link,
   Tooltip,
 } from "@mui/material";
@@ -31,7 +30,7 @@ import {
 
 // Components Imports
 import { SkeletonCard } from "@/components/ui";
-import { ItemText } from "@/components/form";
+import { ItemText, ItemSwitch } from "@/components/form";
 
 // Toast Imports
 import toast from "react-hot-toast";
@@ -84,12 +83,6 @@ export function SettingsForm() {
         wd_is_test_mode: yup.boolean().required(),
       })
     ),
-  });
-
-  const testModeController = useController({
-    control: formCtx.control,
-    name: "wd_is_test_mode",
-    defaultValue: true,
   });
 
   const mutation = useSettingsMutation();
@@ -152,6 +145,7 @@ export function SettingsForm() {
               </Link>
             </>
           }
+          subheaderTypographyProps={{ variant: "body2" }}
           action={
             <Tooltip title="Feedback">
               <Button href="https://warpdriven.ai/ticket/" target="_blank">
@@ -164,12 +158,7 @@ export function SettingsForm() {
           <Grid container spacing={6}>
             <Grid item xs={12}>
               <FormControlLabel
-                control={
-                  <Switch
-                    {...testModeController.field}
-                    checked={testModeController.field.value}
-                  ></Switch>
-                }
+                control={<ItemSwitch name="wd_is_test_mode"></ItemSwitch>}
                 label="Test mode"
                 labelPlacement="start"
               ></FormControlLabel>

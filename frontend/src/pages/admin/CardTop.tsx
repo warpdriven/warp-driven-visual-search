@@ -20,17 +20,23 @@ export function CardTop() {
             <Logo width={56} height={56} />
             <Box>
               <Typography variant="h5">WarpDriven AI</Typography>
-              <Box display={"flex"} gap={2}>
+              <Box>
                 <Link
                   href="https://warp-driven.com/ticket"
+                  target="_blank"
+                  variant="body2"
                   underline="always"
                   sx={{ textDecorationLine: "underline" }}
                 >
                   Request Demo or Recommendation System Customisation
-                </Link>
-                <Typography variant="caption">Or</Typography>
+                </Link>{" "}
+                <Typography variant="body2" component={"span"}>
+                  Or
+                </Typography>{" "}
                 <Link
                   href="https://warp-driven.com/"
+                  target="_blank"
+                  variant="body2"
                   underline="always"
                   sx={{ textDecorationLine: "underline" }}
                 >

@@ -4,6 +4,7 @@ import {
   createTheme,
   ThemeProvider as MuiThemeProvider,
   alpha,
+  ScopedCssBaseline,
 } from "@mui/material";
 import { blue, green, grey, red, amber } from "@mui/material/colors";
 
@@ -119,7 +120,20 @@ export function ThemeProvider(props: React.PropsWithChildren) {
     },
   });
 
-  return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
+  return (
+    <MuiThemeProvider theme={theme}>
+      <ScopedCssBaseline
+        sx={{
+          bgcolor: "transparent",
+          ":where(& *)": {
+            boxSizing: "inherit",
+          },
+        }}
+      >
+        {children}
+      </ScopedCssBaseline>
+    </MuiThemeProvider>
+  );
 }
 
 function breakpoints(): BreakpointsOptions {
