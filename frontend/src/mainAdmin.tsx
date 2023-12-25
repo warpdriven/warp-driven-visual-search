@@ -4,10 +4,10 @@ import "vite/modulepreload-polyfill";
 // React Imports
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { App } from "./App.tsx";
+import { AdminApp } from "@/apps/adminApp";
 
 const container = (() => {
-  const containerId = "warpdriven-recs-app";
+  const containerId = "warpdriven-recs-admin";
 
   // Get existed container
   const existedEl = document.getElementById(containerId);
@@ -24,6 +24,6 @@ const container = (() => {
 
 ReactDOM.createRoot(container).render(
   <React.StrictMode>
-    <App />
+    <AdminApp />
   </React.StrictMode>
 );

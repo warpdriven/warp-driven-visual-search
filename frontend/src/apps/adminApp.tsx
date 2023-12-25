@@ -8,7 +8,7 @@ import { Toaster } from "react-hot-toast";
 // Router Imports
 import { RootRoute } from "@/router";
 
-export function App() {
+export function AdminApp() {
   return (
     <QueryProvider>
       <Toaster position="bottom-left" />

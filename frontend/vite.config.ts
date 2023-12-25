@@ -47,7 +47,8 @@ export default defineConfig((configEnv) => {
 
       rollupOptions: {
         input: {
-          main: resolve(__dirname, "./src/main.tsx"),
+          mainSite: resolve(__dirname, "./src/mainSite.tsx"),
+          mainAdmin: resolve(__dirname, "./src/mainAdmin.tsx"),
         },
         output: {
           manualChunks(id) {

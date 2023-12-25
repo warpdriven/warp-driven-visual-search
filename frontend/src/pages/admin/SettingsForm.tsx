@@ -227,8 +227,6 @@ export function SettingsForm() {
 
 const StyledCard = styled(Card)(({ theme }) => {
   return {
-    marginTop: theme.spacing(4),
-
     '& input[type="text"],& input[type="url"]': {
       padding: "16.5px 14px",
       border: 0,
