@@ -6,7 +6,6 @@ import { CardTop } from "./CardTop";
 import { Stack } from "@mui/material";
 
 export function Admin() {
-  // Setting mode
   return (
     <>
       <Stack spacing={4} sx={{ mt: 4, mr: 4 }}>

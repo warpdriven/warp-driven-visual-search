@@ -141,7 +141,7 @@ export function SettingsForm() {
           title="WarpDriven AI Settings"
           subheader={
             <>
-              For more features, please visit{" "}
+              Don't know how to use it? Please visit{" "}
               <Link
                 href="https://warpdriven.ai"
                 target="_blank"

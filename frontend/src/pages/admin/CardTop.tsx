@@ -1,12 +1,5 @@
 // MUI Imports
-import {
-  Card,
-  CardContent,
-  Box,
-  CardProps,
-  Typography,
-  Link,
-} from "@mui/material";
+import { Card, CardContent, Box, Typography, Link } from "@mui/material";
 
 // Components Imports
 import { Logo } from "@/components/ui";
@@ -14,12 +7,9 @@ import { Logo } from "@/components/ui";
 // React Imports
 // import React from "react";
 
-export function CardTop(props: CardTopProps) {
-  // ** Props
-  const { ...restProps } = props;
-
+export function CardTop() {
   return (
-    <Card {...restProps}>
+    <Card>
       <CardContent>
         <Box
           display={"flex"}
@@ -32,7 +22,7 @@ export function CardTop(props: CardTopProps) {
               <Typography variant="h5">WarpDriven AI</Typography>
               <Box display={"flex"} gap={2}>
                 <Link
-                  href="/ticket"
+                  href="https://warp-driven.com/ticket"
                   underline="always"
                   sx={{ textDecorationLine: "underline" }}
                 >
@@ -53,8 +43,4 @@ export function CardTop(props: CardTopProps) {
       </CardContent>
     </Card>
   );
-}
-
-export interface CardTopProps extends CardProps {
-  showStoreSelect?: boolean;
 }
