@@ -1,5 +1,5 @@
 // Provider Imports
-import { QueryProvider } from "@/api/provider";
+import { QueryProvider } from "@/plugins";
 import { ThemeProvider } from "@/theme";
 
 // Toast Imports

@@ -1,6 +1,6 @@
 // Provider Imports
-import { QueryProvider } from "@/api/provider";
 import { ThemeProvider } from "@/theme";
+import { PosthogProvider, QueryProvider } from "@/plugins";
 
 // Pages Imports
 import { VisualSimilar } from "@/pages/VisualSimilar";
@@ -12,13 +12,15 @@ export function SiteApp() {
   return (
     <QueryProvider>
       <ThemeProvider>
-        <Teleport
-          container={() => {
-            return document.getElementById("warpdriven-recs-vsr");
-          }}
-        >
-          <VisualSimilar></VisualSimilar>
-        </Teleport>
+        <PosthogProvider>
+          <Teleport
+            container={() => {
+              return document.getElementById("warpdriven-recs-vsr");
+            }}
+          >
+            <VisualSimilar></VisualSimilar>
+          </Teleport>
+        </PosthogProvider>
       </ThemeProvider>
     </QueryProvider>
   );

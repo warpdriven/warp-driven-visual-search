@@ -284,46 +284,52 @@ add_action('wp_ajax_warpdriven_get_product', 'warpdriven_get_products');
 add_action('wp_ajax_nopriv_warpdriven_get_products', 'warpdriven_get_products');
 
 add_action('wp_ajax_warpdriven_set_settings', 'warpdriven_set_settings');
-// add_action('wp_ajax_nopriv_warpdriven_set_settings', 'warpdriven_set_settings');
 
 add_action('wp_ajax_warpdriven_get_settings', 'warpdriven_get_settings');
 add_action('wp_ajax_nopriv_warpdriven_get_settings', 'warpdriven_get_settings');
 
 // Function to display the custom menu content
-function custom_menu_page()
+function warpdriven_menu_page()
 {
     echo '<div id="warpdriven-recs-admin"></div>';
 }
 // Function to create the custom menu
-function custom_admin_menu()
+function warpdriven_admin_menu()
 {
     // Add a new top-level menu
     add_menu_page(
-        'Yang Plugin Settings', // Page title
-        'Yang Plugin',          // Menu title
+        'WrapDriven AI Settings', // Page title
+        'WrapDriven AI',          // Menu title
         'manage_options',       // Capability required to access the menu
-        'warpdriven-recs-admin',     // Menu slug
-        'custom_menu_page',     // Callback function to display the menu content
+        'warpdriven-ai-settings',     // Menu slug
+        'warpdriven_menu_page',     // Callback function to display the menu content
         'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iNjAwLjAwMDAwMHB0IiBoZWlnaHQ9IjYwMC4wMDAwMDBwdCIgdmlld0JveD0iMCAwIDYwMC4wMDAwMDAgNjAwLjAwMDAwMCIKIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIG1lZXQiPgoKPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC4wMDAwMDAsNjAwLjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIKZmlsbD0iI2E3YWFhZCIgc3Ryb2tlPSJub25lIj4KPHBhdGggZD0iTTE0OTUgNDg0MCBsLTI4MCAtMjgwIDEwNTAgMCBjNjUzIDAgMTA5MyAtNCAxMTY1IC0xMSA2MTkgLTU2IDEwNzcKLTM0NSAxMjk5IC04MTkgMTg5IC00MDUgMTkyIC05NTMgNiAtMTM0MiAtMTggLTM4IC0zMCAtNjggLTI3IC02OCAzIDAgNDkgMzAKMTA0IDY2IDMxMSAyMDcgNTE2IDUxNyA1OTkgOTA0IDIwIDkxIDIzIDEzNSAyMyAzMjUgMSAyNDIgLTkgMzE1IC02NSA1MDAKLTE0NiA0NzYgLTUxNiA4MTQgLTEwMzggOTQ2IC0yMzAgNTkgLTIzOSA1OSAtMTQ0OSA1OSBsLTExMDcgMCAtMjgwIC0yODB6Ii8+CjxwYXRoIGQ9Ik04NDAgNDE4NSBsLTI4NSAtMjg1IDEwNzggMCBjNjc0IDAgMTExNCAtNCAxMTc1IC0xMCA3NjUgLTgyIDEyNjMKLTUxOCAxMzg4IC0xMjE1IDIwIC0xMTEgMjUgLTQyOCA4IC01MDAgbC0xMCAtNDAgLTc0IC0xNCBjLTYxIC0xMSAtMjkyIC0xNQotMTIwNSAtMTggbC0xMTMxIC00IC0yODQgLTI4NCAtMjg1IC0yODUgMTA0MCAwIGM2MDMgMCAxMDg4IDQgMTE1NSAxMCAzMjUgMjgKNTk0IDExOCA4MzQgMjc3IDEyOCA4NSAyMTggMTc0IDI5NSAyOTIgMTg0IDI4MCAyNjQgNjA2IDI0MCA5NzMgLTI1IDM5MCAtMTYzCjcwNCAtNDE5IDk1MiAtMjU2IDI0OSAtNTk1IDM5MCAtMTAyNSA0MjYgLTcxIDYgLTU0OSAxMCAtMTE2NSAxMCBsLTEwNDUgMAotMjg1IC0yODV6Ii8+CjxwYXRoIGQ9Ik0zOTQ1IDE2MDkgYy0xNjkgLTgxIC0zOTggLTEzOSAtNjIwIC0xNTggLTczIC03IC01MjYgLTExIC0xMTYwIC0xMQpsLTEwNDAgMCAtMjgwIC0yODAgLTI4MCAtMjgwIDEwOTIgMCBjMTE5NiAwIDEyMDcgMCAxNDM2IDU5IDM5MiAxMDIgNzEzIDMzMQo5MDcgNjQ5IDE4IDI5IDMxIDU0IDI5IDU2IC0yIDIgLTQwIC0xNCAtODQgLTM1eiIvPgo8L2c+Cjwvc3ZnPgo=' // Icon (optional)
     );
 }
 // Hook to add the custom menu
-add_action('admin_menu', 'custom_admin_menu');
+add_action('admin_menu', 'warpdriven_admin_menu');
 
 // Insert vite packaged results
-function load_assets($hook)
+function warpdriven_load_assets_for_site($hook)
 {
     $ver = '0.0.1';
     // wp_enqueue_script('vite', 'http://localhost:3002/vite-dev-react.js', array(), $ver, true);
     wp_enqueue_style('warpdriven-recs-style', plugin_dir_url(__FILE__) . 'dist/style.css', array(), $ver, false);
-    wp_enqueue_script('warpdriven-recs-main', plugin_dir_url(__FILE__) . 'dist/warpdriven-recs-main.js', array(), $ver, true);
+    wp_enqueue_script('warpdriven-recs-mainSite', plugin_dir_url(__FILE__) . 'dist/warpdriven-recs-mainSite.js', array(), $ver, true);
 }
-add_action('admin_enqueue_scripts', 'load_assets');
-add_action('wp_enqueue_scripts', 'load_assets');
+add_action('wp_enqueue_scripts', 'warpdriven_load_assets_for_site');
+
+function warpdriven_load_assets_for_admin(){
+    $ver = '0.0.1';
+    // wp_enqueue_script('vite', 'http://localhost:3002/vite-dev-react.js', array(), $ver, true);
+    wp_enqueue_style('warpdriven-recs-style', plugin_dir_url(__FILE__) . 'dist/style.css', array(), $ver, false);
+    wp_enqueue_script('warpdriven-recs-mainAdmin', plugin_dir_url(__FILE__) . 'dist/warpdriven-recs-mainAdmin.js', array(), $ver, true);
+}
+add_action('admin_enqueue_scripts', 'warpdriven_load_assets_for_admin');
 
 function to_script_module($tag, $handle)
 {
-    if (strpos($tag, 'warpdriven-recs-main.js') !== false) {
+    if (strpos($tag, 'warpdriven-recs-main') !== false) {
         $tag = str_replace('<script', '<script type="module"', $tag);
     }
     return $tag;
