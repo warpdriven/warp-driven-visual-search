@@ -51,11 +51,11 @@ export default defineConfig((configEnv) => {
           mainAdmin: resolve(__dirname, "./src/mainAdmin.tsx"),
         },
         output: {
-          manualChunks(id) {
-            if (id.includes("/pages/admin")) {
-              return "admin";
-            }
-          },
+          // manualChunks(id) {
+          //   if (id.includes("/pages/admin")) {
+          //     return "admin";
+          //   }
+          // },
           entryFileNames: "warpdriven-recs-[name].js",
           chunkFileNames: "[name]-[hash].js",
           assetFileNames: "[name][extname]",
