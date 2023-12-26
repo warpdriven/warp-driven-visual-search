@@ -14,5 +14,8 @@ export function getJsonProduct<TData = Product>() {
 
 export interface Product {
   id: number;
+  title: string;
+  price: string;
+  url: string;
   variations: number[];
 }

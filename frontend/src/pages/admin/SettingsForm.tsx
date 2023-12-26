@@ -4,8 +4,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 // Query Imports
-import { useQueryClient } from "@tanstack/react-query";
-import { warpdriven_get_settings } from "@/api/wpadmin";
 import { useSettingsMutation } from "@/hooks/api-wpadmin";
 
 // MUI Imports
@@ -29,14 +27,16 @@ import {
 } from "@mui/icons-material";
 
 // Components Imports
-import { SkeletonCard } from "@/components/ui";
 import { ItemText, ItemSwitch } from "@/components/form";
 
 // Toast Imports
 import toast from "react-hot-toast";
 
+// Utils Imports
+import { getJsonSettings } from "@/utils";
+
 export function SettingsForm() {
-  const queryClient = useQueryClient();
+  const settings = getJsonSettings();
 
   const formCtx = useForm<{
     wd_api_key: string;
@@ -45,33 +45,12 @@ export function SettingsForm() {
     wd_custom_js?: string;
     wd_is_test_mode: boolean;
   }>({
-    async defaultValues() {
-      try {
-        const prev = await queryClient.fetchQuery({
-          queryKey: ["warpdriven_get_settings"],
-          queryFn({ signal }) {
-            return warpdriven_get_settings({ signal });
-          },
-        });
-
-        return {
-          wd_api_key: prev.wd_api_key,
-          wd_data_server_key: prev.wd_data_server_key,
-          wd_data_server: prev.wd_data_server,
-          wd_custom_js: prev.wd_custom_js,
-          wd_is_test_mode: prev.wd_is_test_mode === "on",
-        };
-      } catch (error) {
-        console.error(error);
-
-        return {
-          wd_api_key: "",
-          wd_data_server_key: "",
-          wd_data_server: "",
-          wd_custom_js: "",
-          wd_is_test_mode: true,
-        };
-      }
+    defaultValues: {
+      wd_api_key: settings?.wd_api_key || "",
+      wd_data_server_key: settings?.wd_data_server_key || "",
+      wd_data_server: settings?.wd_data_server || "",
+      wd_custom_js: settings?.wd_custom_js || "",
+      wd_is_test_mode: settings?.wd_is_test_mode === "on",
     },
 
     resolver: yupResolver(
@@ -120,11 +99,6 @@ export function SettingsForm() {
       }
     );
   });
-
-  // API pending
-  if (formCtx.formState.isLoading) {
-    return <SkeletonCard sx={{ mt: 4 }}></SkeletonCard>;
-  }
 
   // Normal content
   return (
