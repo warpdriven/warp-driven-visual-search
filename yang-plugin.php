@@ -313,7 +313,22 @@ add_action('admin_menu', 'warpdriven_admin_menu');
 function warpdriven_load_assets_for_site($hook)
 {
     $ver = '0.0.1';
-    // wp_enqueue_script('vite', 'http://localhost:3002/vite-dev-react.js', array(), $ver, true);
+
+    // Dev mode
+    $dev_mode = false;
+    if($dev_mode){
+        wp_enqueue_script('vite', 'http://localhost:3002/vite-dev-react.js', array(), $ver, true);
+        return;
+    }
+
+    // Custom assets JS
+    $wd_custom_js = get_option('wd_custom_js');
+    if($wd_custom_js){
+        wp_enqueue_script('warpdriven-recs-mainSite', $wd_custom_js, array(), $ver, true);
+        return;
+    }
+
+    // Fallback assets
     wp_enqueue_style('warpdriven-recs-style', plugin_dir_url(__FILE__) . 'dist/style.css', array(), $ver, false);
     wp_enqueue_script('warpdriven-recs-mainSite', plugin_dir_url(__FILE__) . 'dist/warpdriven-recs-mainSite.js', array(), $ver, true);
 }
@@ -321,7 +336,15 @@ add_action('wp_enqueue_scripts', 'warpdriven_load_assets_for_site');
 
 function warpdriven_load_assets_for_admin(){
     $ver = '0.0.1';
-    // wp_enqueue_script('vite', 'http://localhost:3002/vite-dev-react.js', array(), $ver, true);
+
+    // Dev mode
+    $dev_mode = false;
+    if($dev_mode){
+        wp_enqueue_script('vite', 'http://localhost:3002/vite-dev-react.js', array(), $ver, true);
+        return;
+    }
+
+    // Fallback assets
     wp_enqueue_style('warpdriven-recs-style', plugin_dir_url(__FILE__) . 'dist/style.css', array(), $ver, false);
     wp_enqueue_script('warpdriven-recs-mainAdmin', plugin_dir_url(__FILE__) . 'dist/warpdriven-recs-mainAdmin.js', array(), $ver, true);
 }
@@ -339,23 +362,7 @@ add_filter('script_loader_tag', 'to_script_module', 10, 2);
 // Define the shortcode
 function custom_shortcode_function()
 {
-
-    $product_id = get_the_ID();
-    $product = wc_get_product($product_id);
-    $json_data = json_encode(array(
-        'id' => $product_id,
-        'title' => $product->get_name(),
-        // 'image_url' => $product->get_image_url(),
-        "price" => $product->get_price(),
-        'url' => $product->get_permalink(),
-        // "description" => $product->get_description(),
-        'variations' => $product->get_children()
-    ));
-
-    return '<script id="warpdriven-recs-json-product" type="application/json">'
-        . $json_data .
-        '</script>' .
-        '<div id="warpdriven-recs-vsr"></div>';
+    return '<div id="warpdriven-recs-vsr"></div>';
 }
 add_shortcode('warpdriven-recs-vsr', 'custom_shortcode_function');
 
@@ -366,14 +373,48 @@ function render_warpdriven_visual_similar()
 }
 add_action('woocommerce_after_single_product', 'render_warpdriven_visual_similar');
 
-// 添加脚部 HTML
-function add_custom_footer_content()
+// Wordpress footer content
+function warpdriven_footer_content()
 {
-    echo '<div id="custom-footer-content">';
-    echo '<p>This is my custom footer content added by the Custom Footer Plugin.</p>';
-    echo '</div>';
+    // Output plugin settings
+    $page_type = 'fallback';
+    if (is_product()) {
+        $page_type = 'product';
+    } 
+    if (is_shop()) {
+        $page_type = 'shop';
+    }  
+    // if(is_admin()){
+    //     $page_type = 'admin';
+    // }
+    $settings_json = json_encode(array(
+        'page_type' => $page_type,
+        'wd_api_key' => get_option('wd_api_key'),
+        'wd_data_server_key' => get_option('wd_data_server_key'),
+        'wd_data_server' => get_option('wd_data_server'),
+        'wd_custom_js' => get_option('wd_custom_js'),
+        'wd_is_test_mode' => get_option('wd_is_test_mode'),
+    ));
+
+    echo '<script id="warpdriven-recs-json-settings-main" type="application/json">'
+        .$settings_json.
+        '</script>';
+
+    // Output product information
+    $product_id = get_the_ID();
+    $product = wc_get_product($product_id);
+    $product_json = json_encode(array(
+        'id' => $product_id,
+        'title' => $product->get_name(),
+        'price' => $product->get_price(),
+        'url' => $product->get_permalink(),
+        'variations' => $product->get_children()
+    ));
+    echo '<script id="warpdriven-recs-json-product" type="application/json">'
+        . $product_json .
+        '</script>';
 }
-add_action('wp_footer', 'add_custom_footer_content');
+add_action('wp_footer', 'warpdriven_footer_content');
 
 // Add ajax for validate the plugin is installed
 // function warpdriven_validate_plugin_installed()
