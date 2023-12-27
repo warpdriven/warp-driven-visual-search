@@ -383,10 +383,11 @@ function warpdriven_footer_content()
     } 
     if (is_shop()) {
         $page_type = 'shop';
-    }  
-    // if(is_admin()){
-    //     $page_type = 'admin';
-    // }
+    }
+    if(is_admin()){
+        $page_type = 'admin';
+    }
+
     $settings_json = json_encode(array(
         'page_type' => $page_type,
         'wd_api_key' => get_option('wd_api_key'),
@@ -401,6 +402,9 @@ function warpdriven_footer_content()
         '</script>';
 
     // Output product information
+    if($page_type !== 'product'){
+        return;
+    }
     $product_id = get_the_ID();
     $product = wc_get_product($product_id);
     $product_json = json_encode(array(
@@ -410,11 +414,13 @@ function warpdriven_footer_content()
         'url' => $product->get_permalink(),
         'variations' => $product->get_children()
     ));
+
     echo '<script id="warpdriven-recs-json-product" type="application/json">'
         . $product_json .
         '</script>';
 }
 add_action('wp_footer', 'warpdriven_footer_content');
+add_action('admin_footer', 'warpdriven_footer_content');
 
 // Add ajax for validate the plugin is installed
 // function warpdriven_validate_plugin_installed()
