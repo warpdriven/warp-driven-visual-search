@@ -5,10 +5,18 @@ import { useShallow } from "zustand/react/shallow";
 // React Imports
 import React from "react";
 
-export const useRouterStore = create<SearchParamsStore>((set) => {
+export const useRouterStore = create<SearchParamsStore>((set, get) => {
   return {
     search: window.location.search,
-    setSearch(search) {
+    setSearch(action) {
+      const search = (() => {
+        if (typeof action === "function") {
+          return action(get().search);
+        }
+
+        return action;
+      })();
+
       return set({ search });
     },
   };
@@ -30,15 +38,13 @@ export const useSearchParams = () => {
 
   const setSearchParams = React.useCallback(
     (action: Action) => {
-      const searchParams = (() => {
+      setSearch((prevSearch) => {
         if (typeof action === "function") {
-          return action(new URLSearchParams(window.location.search));
+          return action(new URLSearchParams(prevSearch)).toString();
         }
 
-        return action;
-      })();
-
-      setSearch(searchParams.toString());
+        return action.toString();
+      });
     },
     [setSearch]
   );
@@ -63,8 +69,10 @@ export const useSearchParams = () => {
 
 export interface SearchParamsStore {
   search: string;
-  setSearch(search: string): void;
+  setSearch(search: SetSearchAction): void;
 }
+type SetSearchAction = string | SetSearchFunctionAction;
+type SetSearchFunctionAction = (search: string) => string;
 
 type Action = URLSearchParams | FunctionAction;
 type FunctionAction = (prev: URLSearchParams) => URLSearchParams;

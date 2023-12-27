@@ -7,6 +7,9 @@ import { Logo } from "@/components/ui";
 // React Imports
 // import React from "react";
 
+// Store Imports
+// import { useSearchParams } from "@/hooks/store";
+
 export function CardTop() {
   return (
     <Card>
