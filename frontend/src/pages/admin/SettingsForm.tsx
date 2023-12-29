@@ -1,11 +1,9 @@
 // Form Imports
-import { FormProvider, useController, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 // Query Imports
-import { useQueryClient } from "@tanstack/react-query";
-import { warpdriven_get_settings } from "@/api/wpadmin";
 import { useSettingsMutation } from "@/hooks/api-wpadmin";
 
 // MUI Imports
@@ -18,20 +16,27 @@ import {
   Grid,
   styled,
   FormControlLabel,
-  Switch,
+  Link,
+  Tooltip,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { SaveOutlined, RefreshOutlined } from "@mui/icons-material";
+import {
+  SaveOutlined,
+  RefreshOutlined,
+  FeedbackOutlined,
+} from "@mui/icons-material";
 
 // Components Imports
-import { SkeletonCard } from "@/components/ui";
-import { ItemText } from "@/components/form";
+import { ItemText, ItemSwitch } from "@/components/form";
 
 // Toast Imports
 import toast from "react-hot-toast";
 
+// Utils Imports
+import { getJsonSettings } from "@/utils";
+
 export function SettingsForm() {
-  const queryClient = useQueryClient();
+  const settings = getJsonSettings();
 
   const formCtx = useForm<{
     wd_api_key: string;
@@ -40,33 +45,12 @@ export function SettingsForm() {
     wd_custom_js?: string;
     wd_is_test_mode: boolean;
   }>({
-    async defaultValues() {
-      try {
-        const prev = await queryClient.fetchQuery({
-          queryKey: ["warpdriven_get_settings"],
-          queryFn({ signal }) {
-            return warpdriven_get_settings({ signal });
-          },
-        });
-
-        return {
-          wd_api_key: prev.wd_api_key,
-          wd_data_server_key: prev.wd_data_server_key,
-          wd_data_server: prev.wd_data_server,
-          wd_custom_js: prev.wd_custom_js,
-          wd_is_test_mode: prev.wd_is_test_mode === "on",
-        };
-      } catch (error) {
-        console.error(error);
-
-        return {
-          wd_api_key: "",
-          wd_data_server_key: "",
-          wd_data_server: "",
-          wd_custom_js: "",
-          wd_is_test_mode: true,
-        };
-      }
+    defaultValues: {
+      wd_api_key: settings?.wd_api_key || "",
+      wd_data_server_key: settings?.wd_data_server_key || "",
+      wd_data_server: settings?.wd_data_server || "",
+      wd_custom_js: settings?.wd_custom_js || "",
+      wd_is_test_mode: settings?.wd_is_test_mode === "on",
     },
 
     resolver: yupResolver(
@@ -78,12 +62,6 @@ export function SettingsForm() {
         wd_is_test_mode: yup.boolean().required(),
       })
     ),
-  });
-
-  const testModeController = useController({
-    control: formCtx.control,
-    name: "wd_is_test_mode",
-    defaultValue: true,
   });
 
   const mutation = useSettingsMutation();
@@ -122,21 +100,43 @@ export function SettingsForm() {
     );
   });
 
-  // API pending
-  if (formCtx.formState.isLoading) {
-    return <SkeletonCard sx={{ mt: 4 }}></SkeletonCard>;
-  }
-
   // Normal content
   return (
     <FormProvider {...formCtx}>
       <StyledCard>
         <CardHeader
-          title="WarpDriven Settings"
-          subheader="hello wellcome to here"
+          title="WarpDriven AI Settings"
+          subheader={
+            <>
+              Don't know how to use it? Please visit{" "}
+              <Link
+                href="https://warpdriven.ai"
+                target="_blank"
+                underline="always"
+                sx={{ textDecorationLine: "underline" }}
+              >
+                WarpDriven AI
+              </Link>
+            </>
+          }
+          subheaderTypographyProps={{ variant: "body2" }}
+          action={
+            <Tooltip title="Feedback">
+              <Button href="https://warpdriven.ai/ticket/" target="_blank">
+                <FeedbackOutlined></FeedbackOutlined>
+              </Button>
+            </Tooltip>
+          }
         ></CardHeader>
         <CardContent>
           <Grid container spacing={6}>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={<ItemSwitch name="wd_is_test_mode"></ItemSwitch>}
+                label="Test mode"
+                labelPlacement="start"
+              ></FormControlLabel>
+            </Grid>
             <Grid item xs={12} sm={6}>
               <ItemText
                 name="wd_api_key"
@@ -161,18 +161,6 @@ export function SettingsForm() {
                 label="Custom JS"
                 type="url"
               ></ItemText>
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    {...testModeController.field}
-                    checked={testModeController.field.value}
-                  ></Switch>
-                }
-                label="Test mode"
-                labelPlacement="start"
-              ></FormControlLabel>
             </Grid>
           </Grid>
         </CardContent>
@@ -202,8 +190,6 @@ export function SettingsForm() {
 
 const StyledCard = styled(Card)(({ theme }) => {
   return {
-    marginTop: theme.spacing(4),
-
     '& input[type="text"],& input[type="url"]': {
       padding: "16.5px 14px",
       border: 0,

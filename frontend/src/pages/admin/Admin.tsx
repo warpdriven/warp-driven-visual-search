@@ -1,19 +1,17 @@
 // Components Imports
-import { ConnectForm } from "./ConnectForm";
 import { SettingsForm } from "./SettingsForm";
+import { CardTop } from "./CardTop";
 
-// Store Imports
-import { useSearchParams } from "@/hooks/store";
+// MUI Imports
+import { Stack } from "@mui/material";
 
 export function Admin() {
-  const [searchParams] = useSearchParams();
-
-  // Connect mode
-  const hasToken = searchParams.get("access_token");
-  if (hasToken) {
-    return <ConnectForm></ConnectForm>;
-  }
-
-  // Setting mode
-  return <SettingsForm></SettingsForm>;
+  return (
+    <>
+      <Stack spacing={4} sx={{ mt: 4, mr: 4 }}>
+        <CardTop></CardTop>
+        <SettingsForm></SettingsForm>
+      </Stack>
+    </>
+  );
 }

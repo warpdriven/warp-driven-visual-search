@@ -47,15 +47,18 @@ export default defineConfig((configEnv) => {
 
       rollupOptions: {
         input: {
-          main: resolve(__dirname, "./src/main.tsx"),
+          mainSite: resolve(__dirname, "./src/mainSite.tsx"),
+          mainAdmin: resolve(__dirname, "./src/mainAdmin.tsx"),
         },
         output: {
-          manualChunks(id) {
-            return void id;
-          },
+          // manualChunks(id) {
+          //   if (id.includes("/pages/admin")) {
+          //     return "admin";
+          //   }
+          // },
           entryFileNames: "warpdriven-recs-[name].js",
-          assetFileNames: "[name][extname]",
           chunkFileNames: "[name]-[hash].js",
+          assetFileNames: "[name][extname]",
         },
       },
 
@@ -82,13 +85,11 @@ export default defineConfig((configEnv) => {
             return path;
           },
         },
+
         "/wp-json/wc/v3": {
           target: "https://stg.emutree.com.au",
           changeOrigin: true,
           ws: true,
-          // rewrite(path) {
-          //   return path.replace(/^\/woo/, "");
-          // },
         },
       },
     },

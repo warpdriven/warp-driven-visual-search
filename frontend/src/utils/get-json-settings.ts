@@ -13,8 +13,10 @@ export function getJsonSettings() {
 }
 
 export interface Settings {
-  data_server: string;
-  data_server_key: string;
-  recommender_api_key: string;
-  is_test_mode: boolean;
+  page_type: "product" | "shop" | "admin" | "fallback";
+  wd_api_key: string;
+  wd_data_server_key: string;
+  wd_data_server: string;
+  wd_custom_js: string;
+  wd_is_test_mode: "on" | "off";
 }
