@@ -79,7 +79,52 @@ Add your shop with a new connection, then copy the **RECOMMENDER API KEY** in th
 
 ### 5. Go to the Wordpress Warp Driven Visual Search Plugin Setting
 
-Click the button “**I COPIED MY API KEY**“ and paste your copied API Key into the text box then confirm it.
+Please follow the steps below:
+
+1. Open your WordPress website.
+2. Access the backend dashboard.
+3. In the left navigation menu, select the "WarpDriven AI" option to open the plugin settings page.
+4. Fill out the form according to the following rules:
+
+   a. Fill in the Recommendation API Key (this is mandatory).
+
+   b. Fill in the Data Server Key (this is not mandatory, but the data dashboard function depends on it).
+
+   c. Turn off Test mode.
+
+### Additional information:
+
+#### Regarding the Recommendation API Key
+
+You can find it at <https://warpdriven.ai/connection/my-connection/>. Please note that if you have connected multiple websites on our platform, the Recommendation API Key for each website is different and cannot be used interchangeably.
+
+#### Regarding the Data Server Key
+
+By default, we do not generate a Data Server Key when establishing a connection with your website, so you cannot obtain it in the same way as the Recommendation API Key. Please contact us at <https://warpdriven.ai/ticket/> to obtain it.
+
+#### Regarding Test mode
+
+The main function of this plugin is to add a product recommendation component to your product detail pages. If you want to view the functionality of the recommendation component without disturbing buyers, enable Test mode. When Test mode is enabled, the recommendation component will only work when the browser address bar's query parameter includes wd_demo=true.
+
+#### For example
+
+- When Test mode is enabled:
+
+    <https://yourstore.com/product/product-slug>, the recommendation component will not be displayed.
+    <https://yourstore.com/product/product-slug?wd_demo=true>, the recommendation component will be displayed as usual.
+    <https://yourstore.com/product/product-slug?else_search=else_value&wd_demo=true>, the recommendation component will be displayed as usual.
+
+- When Test mode is disabled:
+
+    The recommendation component will be displayed to buyers only if you have correctly filled in the Recommendation API Key, and your products have been initialized successfully.
+
+#### Regarding Custom Data Server
+
+By default, the functionality of recommendation components on all websites is centrally stored on the same server. If you, for security reasons or to customize the recommendation algorithm for your products, want us to handle your data separately, please contact us at <https://warpdriven.ai/ticket/> to obtain it.
+
+#### Regarding Custom JS
+
+By default, the style of the recommendation component may not match your website's design, or you may need some more advanced features. If you want us to customize the product recommendation component specifically for your website, please contact us at <https://warpdriven.ai/ticket/> to obtain it.
 
 ### 6. Choose products and init them
 
