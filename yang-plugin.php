@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: Yang Plugin
-Plugin URI: https://gitee.com/Swz082421/wordpress-vite
-Description: Wordpress plugin for vite
-Author: YangLee
-Author URI: https://gitee.com/Swz082421
+Plugin Name: WarpDriven AI
+Plugin URI: https://warp-driven.com/plugins/wd-vs-woo
+Description: WarpDriven Visually Similar Recommendations
+Author: Warp Driven Technology
+Author URI: https://warp-driven.com/
 Version: 0.0.1
 */
 if (!defined('ABSPATH')) {
@@ -85,23 +85,6 @@ class  WPSettingPage
     public function __construct()
     {
         add_action("admin_init", array($this, "admin_register_wd_vs_woo_settings"));
-        // add_action("admin_menu", array($this, "admin_wd_vs_woo_menu"));
-    }
-
-    public function admin_wd_vs_woo_menu()
-    {
-        add_options_page(
-            "WarpDriven VSR Setting Options",
-            "WarpDriven VSR",
-            "manage_options",
-            "wd-vs-woo-menu",
-            array($this, "admin_wd_vs_woo_options")
-        );
-    }
-
-    public function admin_wd_vs_woo_options()
-    {
-        include(plugin_dir_path(__FILE__) . "templates/optionspage.php");
     }
 
     public function admin_register_wd_vs_woo_settings()
@@ -117,47 +100,18 @@ $Wdinit = new WPSettingPage();
 
 class WDCreateApiMain
 {
-
     public function __construct()
-    {
-        if (in_array("woocommerce/woocommerce.php", apply_filters("active_plugins", get_option("active_plugins")))) {
-            add_action('wp_ajax_create_rest_api_key', array($this, "create_api"));
-        }
-        register_setting("warp-driven-settings-group", "wd_consumer_key");
-        register_setting("warp-driven-settings-group", "wd_consumer_secret");
-    }
+    {}
 
-
-    public function getoption()
-    {
-
-        $group['wd_api_key'] = get_option('wd_api_key');
-        $group['wd_data_server_key'] = get_option('wd_data_server_key');
-        $group['wd_data_server'] = get_option('wd_data_server');
-        $group['wd_custom_js'] = get_option('wd_custom_js');
-        $group['wd_is_test_mode'] = get_option('wd_is_test_mode');
-        wp_send_json($group);
-    }
-
-    function getrequest()
-    {
-
-        include(ABSPATH . '/wp-includes/pluggable.php');
-
-        $json_data = file_get_contents('php://input');
-        $_POST = json_decode($json_data, true);
-
-        $gateway_url = 'https://api-stg.warpdriven.ai';
-
-        $data['site_url'] = $_POST['site_url'];
-        $data['access_token'] = $_POST['access_token'];
-        $data['consumer_key'] = 'ck_' . wp_hash(wp_rand(1000, 9999999));
-
-        $data['consumer_secret'] = 'cs_' . wp_hash(wp_rand(1000, 9999999));
-        $method = '/connection/woocommerce/connect';
-
-        wp_send_json(GoCurl($gateway_url . $method, 'post', $data));
-    }
+    // public function getoption()
+    // {
+    //     $group['wd_api_key'] = get_option('wd_api_key');
+    //     $group['wd_data_server_key'] = get_option('wd_data_server_key');
+    //     $group['wd_data_server'] = get_option('wd_data_server');
+    //     $group['wd_custom_js'] = get_option('wd_custom_js');
+    //     $group['wd_is_test_mode'] = get_option('wd_is_test_mode');
+    //     return $group;
+    // }
 
     public function setoption()
     {
@@ -172,82 +126,8 @@ class WDCreateApiMain
         $arr['msg'] = 'success';
         wp_send_json($arr);
     }
-
-    public function create_api()
-    {
-
-        global $wpdb;
-
-        try {
-            $consumer_key    = 'ck_' . wc_rand_hash();
-            $consumer_secret = 'cs_' . wc_rand_hash();
-
-
-            $users_query = new WP_User_Query(array(
-                'role' => 'administrator',
-                'orderby' => 'display_name'
-            ));  // query to get admin users
-            $results = $users_query->get_results();
-            if ($results) {
-
-                if ($results && count($results) > 0) {
-                    $user = $results[0];
-
-                    $data = array(
-                        'user_id'         => $user->ID,
-                        'description'     => "VS_REST_API_KEY",
-                        'permissions'     => "read_write",
-                        'consumer_key'    => wc_api_hash($consumer_key),
-                        'consumer_secret' => $consumer_secret,
-                        'truncated_key'   => substr($consumer_key, -7),
-                    );
-
-                    $wpdb->insert(
-                        $wpdb->prefix . 'woocommerce_api_keys',
-                        $data,
-                        array(
-                            '%d',
-                            '%s',
-                            '%s',
-                            '%s',
-                            '%s',
-                            '%s',
-                        )
-                    );
-
-                    if (0 === $wpdb->insert_id) {
-                        throw new Exception(__('There was an error generating your API Key.', 'woocommerce'));
-                    }
-
-                    $key_id                      = $wpdb->insert_id;
-                    $response                    = $data;
-                    $response['consumer_key']    = $consumer_key;
-                    $response['consumer_secret'] = $consumer_secret;
-                    $response['message']         = __('API Key generated successfully. Make sure to copy your new keys now as the secret key will be hidden once you leave this page.', 'woocommerce');
-                    $response['revoke_url']      = '<a style="color: #a00; text-decoration: none;" href="' . esc_url(wp_nonce_url(add_query_arg(array('revoke-key' => $key_id), admin_url('admin.php?page=wc-settings&tab=advanced&section=keys')), 'revoke')) . '">' . __('Revoke key', 'woocommerce') . '</a>';
-
-                    delete_option("wd_consumer_key");
-                    add_option("wd_consumer_key", $consumer_key);
-                    delete_option("wd_consumer_secret");
-                    add_option("wd_consumer_secret", $consumer_secret);
-                }
-            } else {
-                throw new Exception(__('Not find Sa user.', 'woocommerce'));
-            }
-        } catch (Exception $e) {
-            wp_send_json(array('message' => $e->getMessage()));
-        }
-        wp_send_json($response);
-    }
 }
 $WdCreateApiMain = new WDCreateApiMain();
-
-function warpdriven_get_settings()
-{
-    $WdCreateApiMain = new WDCreateApiMain();
-    $WdCreateApiMain->getoption();
-    exit;
-}
 
 function warpdriven_set_settings()
 {
@@ -280,13 +160,9 @@ function warpdriven_get_products()
     }
 }
 
+add_action('wp_ajax_warpdriven_set_settings', 'warpdriven_set_settings');
 add_action('wp_ajax_warpdriven_get_product', 'warpdriven_get_products');
 add_action('wp_ajax_nopriv_warpdriven_get_products', 'warpdriven_get_products');
-
-add_action('wp_ajax_warpdriven_set_settings', 'warpdriven_set_settings');
-
-add_action('wp_ajax_warpdriven_get_settings', 'warpdriven_get_settings');
-add_action('wp_ajax_nopriv_warpdriven_get_settings', 'warpdriven_get_settings');
 
 // Function to display the custom menu content
 function warpdriven_menu_page()
