@@ -42,34 +42,46 @@ In the search field type “Warp Driven” and click “Warp Driven Recommendati
 ### MANUAL INSTALLATION VIA THE WORDPRESS INTERFACE
 
 1. Download the plugin zip file to your computer
-1. Go to the WordPress admin panel menu Plugins > Add New
-1. Choose upload
-1. Upload the plugin zip file, the plugin will now be installed
-1. After installation has finished, click the ‘activate plugin’ link
+2. Go to the WordPress admin panel menu Plugins > Add New
+3. Choose upload
+4. Upload the plugin zip file, the plugin will now be installed
+5. After installation has finished, click the ‘activate plugin’ link
 
 ### MANUAL INSTALLATION VIA FTP
 
 1. Download the plugin file to your computer and unzip it
-1. Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your WordPress installation’s wp-content/plugins/ directory.
-1. Activate the plugin from the Plugins menu within the WordPress admin.
+2. Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your WordPress installation’s wp-content/plugins/ directory.
+3. Activate the plugin from the Plugins menu within the WordPress admin.
 
 ## 2. Register a WarpDriven account
 
 Got to WarpDriven AI website: [https://warpdriven.ai](https://warpdriven.ai), register a new account
 
-## 3. Apply to try the Recommendation System
-
-Please submit your request here:
-
-[https://warpdriven.ai/recommender/dashboard/](https://warpdriven.ai/recommender/dashboard/)
-
-## 4. Add your shop and get the API Key
+## 3. Connect your shop and get the API Key
 
 [https://warpdriven.ai/connection/new-connection/](https://warpdriven.ai/connection/new-connection/)
 
-Add your shop with a new connection, then copy the **RECOMMENDER API KEY** in the My Connections table.
+Connect your WooCommerce shop, after confirmed the authorization in your shop website, you will see the **RECOMMENDER API KEY** in the My Connections table.
 
-## 5. Wordpress Warp Driven Recommendation System Plugin Setting
+Up to now, you can practice the product description copywriting functions in GPT Copywriting page.
+
+## 4. Apply to try the Recommendation System
+
+WarpDriven Recommendation System is a semi-customised SaaS platform.
+
+Please submit your request here:
+[https://warpdriven.ai/recommender/dashboard/](https://warpdriven.ai/recommender/dashboard/)
+
+Once got approved, you will see the recommendation system dashboard and settings pages.
+
+Then you can do next:
+
+## 5. Choose products and init them
+
+- Got to Recommendation Settings page: [https://warpdriven.ai/recommender/settings/](https://warpdriven.ai/recommender/settings/)
+- Choose all product categories you preferred in your shop, then click the start button to init the products with WarpDriven Recommender API.
+
+## 6. Wordpress Warp Driven Recommendation System Plugin Setting
 
 Please follow the steps below:
 
@@ -82,9 +94,9 @@ Please follow the steps below:
 
    b. Fill in the Data Server Key (this is not mandatory, but the data dashboard function depends on it).
 
-   c. Turn off Test mode.
+   c. Turn off Test mode if you passed the testing. If not, just read the Regarding Test Mode part first.
 
-### Additional information:
+### Additional information
 
 #### Regarding the Recommendation API Key
 
@@ -94,11 +106,9 @@ You can find it at <https://warpdriven.ai/connection/my-connection/>. Please not
 
 By default, we do not generate a Data Server Key when establishing a connection with your website, so you cannot obtain it in the same way as the Recommendation API Key. Please contact us at <https://warpdriven.ai/ticket/> to obtain it.
 
-#### Regarding Test mode
+#### Regarding Test Mode
 
 The main function of this plugin is to add a product recommendation component to your product detail pages. If you want to view the functionality of the recommendation component without disturbing buyers, enable Test mode. When Test mode is enabled, the recommendation component will only work when the browser address bar's query parameter includes wd_demo=true.
-
-#### For example
 
 - When Test mode is enabled:
 
@@ -118,13 +128,9 @@ By default, the functionality of recommendation components on all websites is ce
 
 By default, the style of the recommendation component may not match your website's design, or you may need some more advanced features. If you want us to customize the product recommendation component specifically for your website, please contact us at <https://warpdriven.ai/ticket/> to obtain it.
 
-## 6. Choose products and init them
+## 7 Testing Stage
 
-- Got to Recommendation init page: [https://warpdriven.ai/recommender/settings/](https://warpdriven.ai/recommender/settings/)
-- Choose all product categories you preferred, then click the start button to init the products with WarpDriven Recommender API.
-- After the process finished, you can go to the product detail page to see the Recommendation System results!
-
-That’s it!
+That’s it! After the init process finished (it may take a little long time which depends on the inited product number), you can go to the product detail page to see the Recommendation System results!
 
 Any technical questions, please don’t hesitate to contact us:
 
