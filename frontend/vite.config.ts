@@ -34,24 +34,40 @@ export default defineConfig((configEnv) => {
     },
 
     base: "./",
+    envDir: resolve(__dirname, "./"),
 
     build: {
       outDir: resolve(__dirname, "../dist"),
       emptyOutDir: true,
 
       manifest: false,
-      // sourcemap: true,
+      sourcemap: false,
+
+      chunkSizeWarningLimit: 500,
 
       rollupOptions: {
         input: {
-          main: resolve(__dirname, "./src/main.tsx"),
+          mainSite: resolve(__dirname, "./src/mainSite.tsx"),
+          mainAdmin: resolve(__dirname, "./src/mainAdmin.tsx"),
         },
         output: {
+          // manualChunks(id) {
+          //   if (id.includes("/pages/admin")) {
+          //     return "admin";
+          //   }
+          // },
           entryFileNames: "warpdriven-recs-[name].js",
-          assetFileNames: "[name][extname]",
           chunkFileNames: "[name]-[hash].js",
+          assetFileNames: "[name][extname]",
         },
       },
+
+      target: "modules",
+      minify: "esbuild",
+
+      cssTarget: ["es2020", "edge88", "firefox78", "chrome87", "safari14"],
+      cssMinify: "esbuild",
+      cssCodeSplit: false,
     },
 
     server: {
@@ -69,13 +85,11 @@ export default defineConfig((configEnv) => {
             return path;
           },
         },
+
         "/wp-json/wc/v3": {
           target: "https://stg.emutree.com.au",
           changeOrigin: true,
           ws: true,
-          // rewrite(path) {
-          //   return path.replace(/^\/woo/, "");
-          // },
         },
       },
     },

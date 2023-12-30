@@ -1,63 +1,59 @@
+// Swiper Imports
 import Swiper from "swiper";
 import { Navigation } from "swiper/modules";
 import "swiper/scss";
 
+// Styles Imports
 import "@/assets/scss/recs.scss";
 
 // React Imports
 import React from "react";
 
+// MUI Imports
+import { styled } from "@mui/material";
+
 export function RecsList(props: RecsListProps) {
   // ** Props
-  const { title, children } = props;
+  const { title, children, ...restProps } = props;
 
   const swiperRef = React.useRef<HTMLDivElement>(null);
   const nextRef = React.useRef<HTMLDivElement>(null);
   const prevRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const isWithoutFalsy = [
-      swiperRef.current,
-      nextRef.current,
-      prevRef.current,
-    ].every(Boolean);
-    if (!isWithoutFalsy) return;
+    if (!swiperRef.current) return;
 
-    const swiper = new Swiper(swiperRef.current!, {
+    const swiper = new Swiper(swiperRef.current, {
       modules: [Navigation],
       slidesPerView: 4,
       slidesPerGroup: 4,
       spaceBetween: 20,
 
       navigation: {
-        nextEl: nextRef.current!,
-        prevEl: prevRef.current!,
+        nextEl: nextRef.current,
+        prevEl: prevRef.current,
       },
     });
 
     return () => {
       swiper.destroy();
     };
-  }, []);
+  }, [swiperRef, nextRef, prevRef]);
 
   return (
     <>
-      {/* <div
-        className="recommed-section-page-width recommend-collected recommend-inited"
-        data-ssr-product-recommend-bottom=""
-      > */}
-      <div id="recs" data-warpdriven-recs>
+      <StyledDiv {...restProps}>
         <div
+          // data-recommend-type="2"
+          // data-col-num="4"
+          // data-__tracker-total-view-time="0"
+          // data-__tracker-last-view-started="0"
+          // data-__tracker-selector='[data-__tracker-id="vs93ek8uqig"]'
+          // data-__tracker-id="vs93ek8uqig"
+          // data-__tracker-viewed="1"
+          // data-__tracker-view-once="1"
+          // data-__tracker-view-success-once="1"
           className="product-list product-recommend-seed product-recommend __sl-custom-track-product-recommend-plugin"
-          data-recommend-type="2"
-          data-col-num="4"
-          data-__tracker-total-view-time="0"
-          data-__tracker-last-view-started="0"
-          data-__tracker-selector='[data-__tracker-id="vs93ek8uqig"]'
-          data-__tracker-id="vs93ek8uqig"
-          data-__tracker-viewed="1"
-          data-__tracker-view-once="1"
-          data-__tracker-view-success-once="1"
         >
           <div className="product-list-title product-section-title title5">
             {title}
@@ -75,11 +71,26 @@ export function RecsList(props: RecsListProps) {
             </div>
           </div>
         </div>
-      </div>
-      {/* </div> */}
+      </StyledDiv>
     </>
   );
 }
+
+const StyledDiv = styled("div")(({ theme }) => {
+  return {
+    backgroundImage: "none",
+    "& .swiper-button-next": {
+      backgroundImage: "none",
+    },
+    "& .product-list-title": {
+      color: theme.palette.text.primary,
+      fontSize: "1.375rem",
+    },
+    "& *": {
+      userSelect: "none",
+    },
+  };
+});
 
 export interface RecsListProps {
   title: React.ReactNode;

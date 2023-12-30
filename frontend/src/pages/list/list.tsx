@@ -27,9 +27,6 @@ import { Scrollbar } from "@/components/ui";
 // Hooks Imports
 import { useObserverIntersection } from "@/hooks";
 
-// Query Imports
-// import { useIsFetching } from "@tanstack/react-query";
-
 const wooSelector =
   "#product-list-container > .product-item-list > .shopline-element-product-item";
 const warpSelector =

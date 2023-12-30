@@ -12,12 +12,10 @@ export function getJsonProduct<TData = Product>() {
   return toJsonForEl<TData>(el);
 }
 
-interface Product {
-  id: string;
-  handle: string;
-  variants: Variant[];
-}
-
-interface Variant {
-  id: string;
+export interface Product {
+  id: number;
+  title: string;
+  price: string;
+  url: string;
+  variations: number[];
 }
