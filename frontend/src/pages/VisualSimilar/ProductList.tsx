@@ -3,19 +3,17 @@ import { RecsList, RecsItem } from "@/components/recs-list";
 
 // API Imports
 import { useVisual } from "@/hooks/api-visual";
-import { useProducts, useSettingsQuery } from "@/hooks/api-wpadmin";
+import { useProducts } from "@/hooks/api-wpadmin";
 
 // Utils Imports
-import { getJsonProduct } from "@/utils";
-
-// React Imports
-import React from "react";
+import { getJsonProduct, getJsonSettings } from "@/utils";
 
 // MUI Imports
 import { Container } from "@mui/material";
 
 export function ProductList() {
   const product = getJsonProduct();
+  const settings = getJsonSettings();
 
   const vsrQuery = useVisual({
     shop_variant_id: String(product?.variations?.[0] || product?.id),
@@ -28,9 +26,32 @@ export function ProductList() {
     }) || []
   );
 
-  const query = useSettingsQuery();
+  // API pending
+  if (vsrQuery.isPending) {
+    return null;
+  }
 
-  const mainNode = React.useMemo(() => {
+  // API failed
+  if (vsrQuery.isError) {
+    return null;
+  }
+
+  // Checking settings
+  if (!settings) {
+    return null;
+  }
+
+  // Tese mode enable
+  if (settings.wd_is_test_mode === "on") {
+    switch (new URLSearchParams(window.location.search).get("wd_demo")) {
+      case "true":
+        break;
+      default:
+        return null;
+    }
+  }
+
+  const mainNode = (() => {
     const itemNodeList = queries
       .filter(({ data }) => {
         return [
@@ -59,23 +80,6 @@ export function ProductList() {
         );
       });
 
-    // API pending & failed
-    if (!query.data) {
-      return null;
-    }
-
-    // Tese mode enable
-    if (query.data.wd_is_test_mode === "on") {
-      const searchParams = new URLSearchParams(window.location.search);
-
-      switch (searchParams.get("wd_demo")) {
-        case "true":
-          break;
-        default:
-          return null;
-      }
-    }
-
     // No products
     if (!itemNodeList.length) {
       return null;
@@ -83,15 +87,13 @@ export function ProductList() {
 
     // Has products
     return (
-      <>
-        <Container>
-          <RecsList title="Visual Similar Recommendation">
-            {itemNodeList}
-          </RecsList>
-        </Container>
-      </>
+      <Container>
+        <RecsList title="Visual Similar Recommendation">
+          {itemNodeList}
+        </RecsList>
+      </Container>
     );
-  }, [queries, query.data]);
+  })();
 
   return <>{mainNode}</>;
 }
