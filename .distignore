@@ -4,3 +4,8 @@
 /node_modules
 .distignore
 .gitignore
+/devops
+/frontend
+/src
+.env
+composer.json
