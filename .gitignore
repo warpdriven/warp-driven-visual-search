@@ -3,7 +3,7 @@ target/
 devops/.DS_Store
 /.wordpress-org
 /.git
-/.github
+# /.github
 .distignore
 vendor/
 composer.lock
