@@ -143,7 +143,7 @@ function warpdriven_set_settings()
     exit;
 }
 
-function warpdriven_get_products()
+function warpdriven_get_product()
 {
     $id = (int)$_GET["id"];
     $product = wc_get_product(intval($id));
@@ -168,8 +168,8 @@ function warpdriven_get_products()
 }
 
 add_action('wp_ajax_warpdriven_set_settings', 'warpdriven_set_settings');
-add_action('wp_ajax_warpdriven_get_product', 'warpdriven_get_products');
-add_action('wp_ajax_nopriv_warpdriven_get_products', 'warpdriven_get_products');
+add_action('wp_ajax_warpdriven_get_product', 'warpdriven_get_product');
+add_action('wp_ajax_nopriv_warpdriven_get_product', 'warpdriven_get_product');
 
 // Function to display the custom menu content
 function warpdriven_menu_page()
