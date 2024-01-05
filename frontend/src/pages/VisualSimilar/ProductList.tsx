@@ -88,7 +88,7 @@ export function ProductList() {
     // Has products
     return (
       <Container>
-        <RecsList title="Visual Similar Recommendation">
+        <RecsList title="Visually Similar Recommendations">
           {itemNodeList}
         </RecsList>
       </Container>
