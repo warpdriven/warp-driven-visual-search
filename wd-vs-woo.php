@@ -7,7 +7,7 @@ Author: Warp Driven Technology
 Author URI: https://warp-driven.com/
 Text Domain: wd-wgc-woo
 Domain Path: /languages/
-Version: 0.0.5
+Version: 0.0.6
 */
 
 if (!defined('ABSPATH')) {
@@ -40,7 +40,6 @@ function GoCurl($url, $type, $data = false, &$err_msg = null, $timeout = 20, $ce
     $option[CURLOPT_RETURNTRANSFER] = TRUE;
     $option[CURLOPT_TIMEOUT] = $timeout;
     $option[CURLOPT_HTTPHEADER] = $headers;
-
 
     if ($data) {
         if ($type == 'POST') {
@@ -109,16 +108,6 @@ class WDCreateApiMain
     {
     }
 
-    // public function getoption()
-    // {
-    //     $group['wd_api_key'] = get_option('wd_api_key');
-    //     $group['wd_data_server_key'] = get_option('wd_data_server_key');
-    //     $group['wd_data_server'] = get_option('wd_data_server');
-    //     $group['wd_custom_js'] = get_option('wd_custom_js');
-    //     $group['wd_is_test_mode'] = get_option('wd_is_test_mode');
-    //     return $group;
-    // }
-
     public function setoption()
     {
         $json_data = file_get_contents('php://input');
@@ -138,38 +127,61 @@ $WdCreateApiMain = new WDCreateApiMain();
 
 function warpdriven_set_settings()
 {
+    $request_method = $_SERVER['REQUEST_METHOD'];
+    if ($request_method !== 'POST') {
+        exit;
+        return;
+    }
+
     $WdCreateApiMain = new WDCreateApiMain();
     $WdCreateApiMain->setoption();
     exit;
 }
 
-function warpdriven_get_product()
-{
-    $id = (int)$_GET["id"];
-    $product = wc_get_product(intval($id));
+add_action('wp_ajax_warpdriven_set_settings', 'warpdriven_set_settings');
 
-    $terms = array();
-    if ($product->get_stock_status() == 'instock' && intval($product->get_price()) > 0)   //判断库存和价格
-    {
-        wp_send_json(array(
-            "product_id" => $id,
-            "product_sku" => $product->get_sku(),
-            "product_title" => $product->get_name(),
-            "product_price" => $product->get_price(),
-            "product_image_html" => $product->get_image(),
-            'main_image_url' => wp_get_attachment_image_url($product->get_image_id(), 'full'),
-            "keywords" => $terms,
-            "product_description" => $product->get_description(),
-            "productlink" => get_permalink($id),
-            "product_short_description" => $product->get_short_description()
-        ));
+function warpdriven_get_products()
+{
+    $request_method = $_SERVER['REQUEST_METHOD'];
+    if ($request_method !== 'POST') {
         exit;
+        return;
     }
+
+    $json_data = file_get_contents('php://input');
+    $data = json_decode($json_data, true);
+
+    $ids = $data['ids'];
+    $prodataarr = array();
+    if (is_array($ids)) {
+
+        foreach ($ids as $key => $vo) {
+
+            $product = wc_get_product(intval($vo));
+            if ($product->get_stock_status() == 'instock' && intval($product->get_price()) > 0)   //判断库存和价格
+            {
+                $prodataarr[$key] = array(
+                    "product_id" => $vo,
+                    "product_sku" => $product->get_sku(),
+                    "product_title" => $product->get_name(),
+                    "product_price" => $product->get_price(),
+
+                    'main_image_url' => wp_get_attachment_image_url($product->get_image_id(), 'full'),
+
+                    "productlink" => get_permalink($vo),
+
+                );
+
+            }
+
+        }
+    }
+    wp_send_json($prodataarr);
+    exit;
 }
 
-add_action('wp_ajax_warpdriven_set_settings', 'warpdriven_set_settings');
-add_action('wp_ajax_warpdriven_get_product', 'warpdriven_get_product');
-add_action('wp_ajax_nopriv_warpdriven_get_product', 'warpdriven_get_product');
+add_action('wp_ajax_warpdriven_get_products', 'warpdriven_get_products', 1, 3);
+add_action('wp_ajax_nopriv_warpdriven_get_products', 'warpdriven_get_products', 1, 3);
 
 // Function to display the custom menu content
 function warpdriven_menu_page()

@@ -3,26 +3,25 @@ import { RecsList, RecsItem } from "@/components/recs-list";
 
 // API Imports
 import { useVisual } from "@/hooks/api-visual";
-import { useProducts } from "@/hooks/api-wpadmin";
+import { useProductsQuery } from "@/hooks/api-wpadmin";
 
 // Utils Imports
-import { getJsonProduct, getJsonSettings } from "@/utils";
+import { getJsonProduct } from "@/utils";
 
 // MUI Imports
 import { Container } from "@mui/material";
 
 export function ProductList() {
   const product = getJsonProduct();
-  const settings = getJsonSettings();
 
   const vsrQuery = useVisual({
     shop_variant_id: String(product?.variations?.[0] || product?.id),
     top_k: 10,
   });
 
-  const queries = useProducts(
+  const productsQuery = useProductsQuery(
     vsrQuery.data?.map((item) => {
-      return item.product_id;
+      return Number(item.product_id);
     }) || []
   );
 
@@ -31,29 +30,22 @@ export function ProductList() {
     return null;
   }
 
+  if (productsQuery.isPending) {
+    return null;
+  }
+
   // API failed
   if (vsrQuery.isError) {
     return null;
   }
 
-  // Checking settings
-  if (!settings) {
+  if (productsQuery.isError) {
     return null;
   }
 
-  // Tese mode enable
-  if (settings.wd_is_test_mode === "on") {
-    switch (new URLSearchParams(window.location.search).get("wd_demo")) {
-      case "true":
-        break;
-      default:
-        return null;
-    }
-  }
-
   const mainNode = (() => {
-    const itemNodeList = queries
-      .filter(({ data }) => {
+    const itemNodeList = Object.values(productsQuery.data)
+      .filter((data) => {
         return [
           data,
           data?.product_id,
@@ -67,9 +59,7 @@ export function ProductList() {
           typeof data?.main_image_url === "string",
         ].every(Boolean);
       })
-      .map(({ data }) => {
-        if (!data) return null;
-
+      .map((data) => {
         return (
           <RecsItem
             key={data.product_id}
