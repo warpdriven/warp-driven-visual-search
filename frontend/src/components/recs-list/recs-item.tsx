@@ -8,7 +8,7 @@ import { useObserverIntersection } from "@/hooks";
 import posthog from "posthog-js";
 
 // API Imports
-import { Res } from "@/api/wpadmin/warpdriven_get_product";
+import { Product } from "@/api/wpadmin/warpdriven_get_products";
 
 export function RecsItem(props: RecsItemProps) {
   // ** Props
@@ -97,7 +97,7 @@ function toSuffixSearchURL(params: string, suffixSearch: string) {
 }
 
 export interface RecsItemProps {
-  product: Res;
+  product: Product;
   suffixSearch: string;
   intersectionEventName: string;
 }
