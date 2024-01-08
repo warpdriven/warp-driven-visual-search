@@ -29,8 +29,8 @@ export function PosthogProvider(props: React.PropsWithChildren) {
         : "https://app.posthog.com",
     });
 
-    if (settings.admin_email) {
-      posthog.identify(settings.admin_email);
+    if (settings.user_email) {
+      posthog.identify(settings.user_email);
     }
 
     // Capture event only once per mount

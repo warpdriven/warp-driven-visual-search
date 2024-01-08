@@ -7,7 +7,7 @@ Author: Warp Driven Technology
 Author URI: https://warp-driven.com/
 Text Domain: wd-wgc-woo
 Domain Path: /languages/
-Version: 0.0.7
+Version: 0.0.8
 */
 
 if (!defined('ABSPATH')) {
@@ -291,9 +291,15 @@ function warpdriven_footer_content()
         $page_type = 'admin';
     }
 
+    $user_email = '';
+    $current_user = wp_get_current_user();
+    if ( $current_user->exists() ) {
+        $user_email = $current_user->user_email;
+    }
+    
     $settings_json = json_encode(array(
         'page_type' => $page_type,
-        'admin_email' => get_option('admin_email'),
+        'user_email' => $user_email,
         'wd_api_key' => get_option('wd_api_key'),
         'wd_data_server_key' => get_option('wd_data_server_key'),
         'wd_data_server' => get_option('wd_data_server'),
