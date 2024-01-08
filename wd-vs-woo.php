@@ -7,7 +7,7 @@ Author: Warp Driven Technology
 Author URI: https://warp-driven.com/
 Text Domain: wd-wgc-woo
 Domain Path: /languages/
-Version: 0.0.6
+Version: 0.0.7
 */
 
 if (!defined('ABSPATH')) {
