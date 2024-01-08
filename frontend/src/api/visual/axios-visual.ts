@@ -13,7 +13,7 @@ axiosVisual.interceptors.request.use((config) => {
   const settings = getJsonSettings();
 
   if (settings) {
-    config.headers.setAuthorization(settings.wd_api_key, false);
+    config.headers.set("X-API-Key", settings.wd_api_key, false);
   }
 
   return config;
