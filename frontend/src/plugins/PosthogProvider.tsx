@@ -16,6 +16,11 @@ export function PosthogProvider(props: React.PropsWithChildren) {
 
   React.useEffect(() => {
     const settings = getJsonSettings();
+
+    if (import.meta.env.DEV) {
+      console.log(settings);
+    }
+
     if (!settings) return;
 
     posthog.init(settings.wd_data_server_key, {
@@ -23,6 +28,10 @@ export function PosthogProvider(props: React.PropsWithChildren) {
         ? `https://data-${settings.wd_data_server}.warpdriven.ai`
         : "https://app.posthog.com",
     });
+
+    if (settings.admin_email) {
+      posthog.identify(settings.admin_email);
+    }
 
     // Capture event only once per mount
     if (sended.current) return;

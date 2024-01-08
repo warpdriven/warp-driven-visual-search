@@ -293,6 +293,7 @@ function warpdriven_footer_content()
 
     $settings_json = json_encode(array(
         'page_type' => $page_type,
+        'admin_email' => get_option('admin_email'),
         'wd_api_key' => get_option('wd_api_key'),
         'wd_data_server_key' => get_option('wd_data_server_key'),
         'wd_data_server' => get_option('wd_data_server'),

@@ -13,7 +13,9 @@ export function getJsonSettings() {
 }
 
 export interface Settings {
+  admin_email: string;
   page_type: "product" | "shop" | "admin" | "fallback";
+
   wd_api_key: string;
   wd_data_server_key: string;
   wd_data_server: string;
