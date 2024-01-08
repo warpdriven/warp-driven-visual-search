@@ -13,6 +13,8 @@ export function getJsonSettings() {
 }
 
 export interface Settings {
+  collection: string | number;
+  collection_products: Array<string | number>;
   page_type: "product" | "shop" | "admin" | "fallback";
   user_email: string;
 

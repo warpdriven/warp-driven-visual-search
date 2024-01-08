@@ -1,1 +1,1 @@
-export * from "./internal_search";
+export { internal_search } from "./internal_search";

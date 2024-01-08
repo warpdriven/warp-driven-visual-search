@@ -4,12 +4,12 @@ import axios, { AxiosError } from "axios";
 // Utils Imports
 import { getJsonSettings } from "@/utils";
 
-export const axiosVisual = axios.create({
-  baseURL: import.meta.env.VITE_VS_URL,
+export const axiosRecommender = axios.create({
+  baseURL: import.meta.env.VITE_VS_RECOMMENDER,
   timeout: 1000 * 60,
 });
 
-axiosVisual.interceptors.request.use((config) => {
+axiosRecommender.interceptors.request.use((config) => {
   const settings = getJsonSettings();
 
   if (settings) {
@@ -18,13 +18,13 @@ axiosVisual.interceptors.request.use((config) => {
 
   return config;
 });
-axiosVisual.interceptors.response.use(
+axiosRecommender.interceptors.response.use(
   (res) => {
     const { data } = res;
+
     return data;
   },
-  (err: AxiosError) => {
-    const { message } = err;
-    throw new Error(message);
+  (error: AxiosError) => {
+    throw new Error(error.message);
   }
 );
