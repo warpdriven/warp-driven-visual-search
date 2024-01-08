@@ -7,7 +7,7 @@ Author: Warp Driven Technology
 Author URI: https://warp-driven.com/
 Text Domain: wd-wgc-woo
 Domain Path: /languages/
-Version: 0.0.6
+Version: 0.0.8
 */
 
 if (!defined('ABSPATH')) {
@@ -287,12 +287,46 @@ function warpdriven_footer_content()
     if (is_shop()) {
         $page_type = 'shop';
     }
+    if(is_product_category()){
+        $page_type = 'shop';
+    }
+    if(is_product_tag()){
+        $page_type = 'shop';
+    }
     if (is_admin()) {
         $page_type = 'admin';
     }
 
+    // Get current user email
+    $user_email = '';
+    $current_user = wp_get_current_user();
+    if ( $current_user->exists() ) {
+        $user_email = $current_user->user_email;
+    }
+
+    // Get product list
+    $collection = '';
+    $collection_products = array();
+    if (is_product_category()) {
+        $collection = get_queried_object()->term_id;
+    }
+    if (is_product_tag()) {
+        $collection = get_queried_object()->term_id;
+    }
+    while(have_posts()){
+        the_post();
+        $product = wc_get_product(get_the_ID());
+        if($product instanceof WC_Product){
+            array_push($collection_products, $product->get_id());
+        }
+    }
+    
+    // Output json
     $settings_json = json_encode(array(
+        'collection' => $collection,
+        'collection_products' => $collection_products,
         'page_type' => $page_type,
+        'user_email' => $user_email,
         'wd_api_key' => get_option('wd_api_key'),
         'wd_data_server_key' => get_option('wd_data_server_key'),
         'wd_data_server' => get_option('wd_data_server'),
