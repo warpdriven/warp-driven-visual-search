@@ -40,13 +40,18 @@ export function PosthogProvider(props: React.PropsWithChildren) {
 
     switch (settings.page_type) {
       case "product":
-        posthog.capture("product_view", {
-          product_id: product?.id,
+        posthog.capture("pdp_view", {
+          product: {
+            id: product?.id,
+          },
         });
         break;
 
       case "shop":
-        posthog.capture("shop_view");
+        posthog.capture("plp_view", {
+          collection: "",
+          collection_products: [],
+        });
         break;
 
       case "fallback":
