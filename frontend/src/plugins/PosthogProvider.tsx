@@ -49,8 +49,8 @@ export function PosthogProvider(props: React.PropsWithChildren) {
 
       case "shop":
         posthog.capture("plp_view", {
-          collection: "",
-          collection_products: [],
+          collection: settings.collection,
+          collection_products: settings.collection_products,
         });
         break;
 

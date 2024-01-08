@@ -2,7 +2,7 @@
 import { RecsList, RecsItem } from "@/components/recs-list";
 
 // API Imports
-import { useVisual } from "@/hooks/api-visual";
+import { useCollaborationFilter } from "@/hooks/api-recommender";
 import { useProductsQuery } from "@/hooks/api-wpadmin";
 
 // Utils Imports
@@ -11,17 +11,17 @@ import { getJsonProduct } from "@/utils";
 // MUI Imports
 import { Container } from "@mui/material";
 
-export function ProductList() {
+export function CollaborationFilter() {
   const product = getJsonProduct();
 
-  const vsrQuery = useVisual({
-    shop_variant_id: String(product?.variations?.[0] || product?.id),
+  const vsrQuery = useCollaborationFilter({
+    shop_product_id: String(product?.id),
     top_k: 10,
   });
 
   const productsQuery = useProductsQuery(
     vsrQuery.data?.map((item) => {
-      return Number(item.product_id);
+      return Number(item.shop_product_id);
     }) || []
   );
 
@@ -65,7 +65,7 @@ export function ProductList() {
             key={data.product_id}
             product={data}
             suffixSearch="vsr_click"
-            intersectionEventName="WarpDrivenVSRView"
+            intersectionEventName="WarpDrivenCFView"
           ></RecsItem>
         );
       });
@@ -78,9 +78,7 @@ export function ProductList() {
     // Has products
     return (
       <Container>
-        <RecsList title="Visually Similar Recommendations">
-          {itemNodeList}
-        </RecsList>
+        <RecsList title="Collaboration Filter">{itemNodeList}</RecsList>
       </Container>
     );
   })();
