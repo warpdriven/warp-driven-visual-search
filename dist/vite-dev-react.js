@@ -25,7 +25,12 @@ void ((port = 5173) => {
     }
   })();
 
-  if (!settings) return;
+  if (!settings) {
+    console.error("Can not get settings");
+    return;
+  }
+
+  console.log("recs settings", settings);
 
   const mainTag = document.createElement("script");
   mainTag.type = "module";
@@ -34,11 +39,10 @@ void ((port = 5173) => {
     case "admin":
       mainTag.src = `http://localhost:${port}/src/mainAdmin.tsx`;
       break;
-    case "product":
-      mainTag.src = `http://localhost:${port}/src/mainSite.tsx`;
-      break;
+    // case "product":
+    //   break;
     default:
-      return;
+      mainTag.src = `http://localhost:${port}/src/mainSite.tsx`;
   }
 
   document.body.append(reactRefreshTag, viteTag, mainTag);
