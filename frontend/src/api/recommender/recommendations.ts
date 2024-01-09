@@ -2,9 +2,9 @@
 import { AxiosRequestConfig } from "axios";
 import { axiosRecommender } from "./axiosRecommender";
 
-export function get_cf_recommendations(req: Req) {
+export function recommendations(req: Req) {
   return axiosRecommender<unknown, Res>({
-    url: "/recommender/get_cf_recommendations",
+    url: "/recommender/recommendations",
     ...req,
   });
 }
@@ -15,7 +15,6 @@ export type Req = AxiosRequestConfig & {
 
 export interface Params {
   shop_product_id: string | number;
-  top_k: string | number;
   user_id: string;
   recalls?: "cv" | "cf" | "cv|cf" | "cf|cv";
 }

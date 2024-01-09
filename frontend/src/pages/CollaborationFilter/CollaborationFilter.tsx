@@ -2,7 +2,7 @@
 import { RecsList, RecsItem } from "@/components/recs-list";
 
 // API Imports
-import { useCollaborationFilter } from "@/hooks/api-recommender";
+import { useRecommendations } from "@/hooks/api-recommender";
 import { useProductsQuery } from "@/hooks/api-wpadmin";
 
 // Utils Imports
@@ -17,10 +17,9 @@ export function CollaborationFilter() {
 
   const posthog = usePostHog();
 
-  const cfQuery = useCollaborationFilter({
+  const cfQuery = useRecommendations({
     shop_product_id: String(product?.id),
     user_id: posthog.get_distinct_id(),
-    top_k: 10,
     recalls: "cf",
   });
 
