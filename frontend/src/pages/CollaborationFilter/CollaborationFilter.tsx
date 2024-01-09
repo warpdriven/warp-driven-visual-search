@@ -78,7 +78,9 @@ export function CollaborationFilter() {
     // Has products
     return (
       <Container>
-        <RecsList title="Collaboration Filter">{itemNodeList}</RecsList>
+        <RecsList title="Customers who viewed this item also viewed">
+          {itemNodeList}
+        </RecsList>
       </Container>
     );
   })();

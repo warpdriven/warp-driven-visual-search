@@ -263,7 +263,7 @@ add_filter('script_loader_tag', 'to_script_module', 10, 2);
 // Define the shortcode
 function custom_shortcode_function()
 {
-    return '<div id="warpdriven-recs-vsr"></div>';
+    return '<div id="warpdriven-recs-vsr"></div><div id="warpdriven-recs-cf"></div>';
 }
 
 add_shortcode('warpdriven-recs-vsr', 'custom_shortcode_function');
