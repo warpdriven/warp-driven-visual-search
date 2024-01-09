@@ -18,7 +18,11 @@ export interface Params {
   top_k: string | number;
 }
 
-export type Res = Row[];
+export interface Res {
+  data: Row[];
+  msg: string;
+  status: boolean;
+}
 
 export interface Row {
   shop_product_id: string;

@@ -14,19 +14,19 @@ import { Container } from "@mui/material";
 export function CollaborationFilter() {
   const product = getJsonProduct();
 
-  const vsrQuery = useCollaborationFilter({
+  const cfQuery = useCollaborationFilter({
     shop_product_id: String(product?.id),
     top_k: 10,
   });
 
   const productsQuery = useProductsQuery(
-    vsrQuery.data?.map((item) => {
+    cfQuery.data?.data?.map((item) => {
       return Number(item.shop_product_id);
     }) || []
   );
 
   // API pending
-  if (vsrQuery.isPending) {
+  if (cfQuery.isPending) {
     return null;
   }
 
@@ -35,7 +35,7 @@ export function CollaborationFilter() {
   }
 
   // API failed
-  if (vsrQuery.isError) {
+  if (cfQuery.isError) {
     return null;
   }
 
