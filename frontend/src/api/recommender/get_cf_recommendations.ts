@@ -16,6 +16,8 @@ export type Req = AxiosRequestConfig & {
 export interface Params {
   shop_product_id: string | number;
   top_k: string | number;
+  user_id: string;
+  recalls?: "cv" | "cf" | "cv|cf" | "cf|cv";
 }
 
 export interface Res {

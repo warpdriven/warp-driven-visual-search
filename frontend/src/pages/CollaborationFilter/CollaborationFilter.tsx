@@ -10,13 +10,18 @@ import { getJsonProduct } from "@/utils";
 
 // MUI Imports
 import { Container } from "@mui/material";
+import { usePostHog } from "posthog-js/react";
 
 export function CollaborationFilter() {
   const product = getJsonProduct();
 
+  const posthog = usePostHog();
+
   const cfQuery = useCollaborationFilter({
     shop_product_id: String(product?.id),
+    user_id: posthog.get_distinct_id(),
     top_k: 10,
+    recalls: "cf",
   });
 
   const productsQuery = useProductsQuery(
