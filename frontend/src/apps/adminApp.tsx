@@ -5,8 +5,8 @@ import { ThemeProvider } from "@/theme";
 // Toast Imports
 import { Toaster } from "react-hot-toast";
 
-// Router Imports
-import { RootRoute } from "@/router";
+// Page Imports
+import { Admin } from "@/pages/admin";
 
 // Store Imports
 import { useSearchParams } from "@/hooks/store";
@@ -16,19 +16,20 @@ export function AdminApp() {
   const [searchParms] = useSearchParams();
 
   if (searchParms.get("page") !== "warpdriven-ai-settings") {
-    return <></>;
+    return null;
   }
 
   const settings = getJsonSettings();
+
   if (settings?.page_type !== "admin") {
-    return <></>;
+    return null;
   }
 
   return (
     <QueryProvider>
-      <Toaster position="bottom-left" />
+      <Toaster position="bottom-left"></Toaster>
       <ThemeProvider>
-        <RootRoute />
+        <Admin></Admin>
       </ThemeProvider>
     </QueryProvider>
   );
