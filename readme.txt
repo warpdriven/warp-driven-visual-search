@@ -3,8 +3,8 @@ Contributors: Warp Driven Technology
 Donate link: https://warp-driven.com/
 Requires at least: 5.9
 Requires PHP: 5.6
-Tested up to: 6.1
-Stable tag: 0.0.1
+Tested up to: 6.4.2
+Stable tag: 0.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,7 +65,7 @@ In the search field type “Warp Driven” and click “Warp Driven Visual Searc
 
 ### 2. Register a WarpDriven account
 
-Got to official website: [https://warp-driven.com](https://warp-driven.com), register a new account
+Got to WarpDriven AI website: [https://warpdriven.ai](https://warpdriven.ai), register a new account
 
 ### 3. Choose a plan and subscribe it
 

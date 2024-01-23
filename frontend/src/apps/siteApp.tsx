@@ -2,24 +2,15 @@
 import { ThemeProvider } from "@/theme";
 import { PosthogProvider, QueryProvider } from "@/plugins";
 
-// Pages Imports
-import { VisualSimilar } from "@/pages/VisualSimilar";
-
-// Components Imports
-import { Teleport } from "@/components/ui";
+// Router Imports
+import { RootRoute } from "@/router";
 
 export function SiteApp() {
   return (
     <QueryProvider>
       <ThemeProvider>
         <PosthogProvider>
-          <Teleport
-            container={() => {
-              return document.getElementById("warpdriven-recs-vsr");
-            }}
-          >
-            <VisualSimilar></VisualSimilar>
-          </Teleport>
+          <RootRoute></RootRoute>
         </PosthogProvider>
       </ThemeProvider>
     </QueryProvider>

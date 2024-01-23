@@ -16,6 +16,11 @@ export function PosthogProvider(props: React.PropsWithChildren) {
 
   React.useEffect(() => {
     const settings = getJsonSettings();
+
+    if (import.meta.env.DEV) {
+      console.log(settings);
+    }
+
     if (!settings) return;
 
     posthog.init(settings.wd_data_server_key, {
@@ -24,6 +29,10 @@ export function PosthogProvider(props: React.PropsWithChildren) {
         : "https://app.posthog.com",
     });
 
+    if (settings.user_email) {
+      posthog.identify(settings.user_email);
+    }
+
     // Capture event only once per mount
     if (sended.current) return;
 
@@ -31,13 +40,18 @@ export function PosthogProvider(props: React.PropsWithChildren) {
 
     switch (settings.page_type) {
       case "product":
-        posthog.capture("product_view", {
-          product_id: product?.id,
+        posthog.capture("pdp_view", {
+          product: {
+            id: product?.id,
+          },
         });
         break;
 
       case "shop":
-        posthog.capture("shop_view");
+        posthog.capture("plp_view", {
+          collection: settings.collection,
+          collection_products: settings.collection_products,
+        });
         break;
 
       case "fallback":

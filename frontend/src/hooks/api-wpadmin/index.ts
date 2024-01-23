@@ -1,4 +1,2 @@
-export * from "./useProducts";
-
-export * from "./useSettingsQuery";
+export * from "./useProductsQuery";
 export * from "./useSettingsMutation";

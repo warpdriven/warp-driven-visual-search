@@ -10,29 +10,27 @@ import { getJsonProduct } from "@/utils";
 
 // MUI Imports
 import { Container } from "@mui/material";
-
-// Posthog Imports
 import { usePostHog } from "posthog-js/react";
 
-export function VisualSimilar() {
+export function CollaborationFilter() {
   const product = getJsonProduct();
 
   const posthog = usePostHog();
 
-  const vsrQuery = useRecommendations({
+  const cfQuery = useRecommendations({
     shop_product_id: String(product?.id),
-    recalls: "cv",
     user_id: posthog.get_distinct_id(),
+    recalls: "cf",
   });
 
   const productsQuery = useProductsQuery(
-    vsrQuery.data?.data.map((item) => {
+    cfQuery.data?.data?.map((item) => {
       return Number(item.shop_product_id);
     }) || []
   );
 
   // API pending
-  if (vsrQuery.isPending) {
+  if (cfQuery.isPending) {
     return null;
   }
 
@@ -41,7 +39,7 @@ export function VisualSimilar() {
   }
 
   // API failed
-  if (vsrQuery.isError) {
+  if (cfQuery.isError) {
     return null;
   }
 
@@ -71,7 +69,7 @@ export function VisualSimilar() {
             key={data.product_id}
             product={data}
             suffixSearch="vsr_click"
-            intersectionEventName="WarpDrivenVSRView"
+            intersectionEventName="WarpDrivenCFView"
           ></RecsItem>
         );
       });
@@ -84,7 +82,7 @@ export function VisualSimilar() {
     // Has products
     return (
       <Container>
-        <RecsList title="Visually Similar Recommendations">
+        <RecsList title="Customers who viewed this item also viewed">
           {itemNodeList}
         </RecsList>
       </Container>
