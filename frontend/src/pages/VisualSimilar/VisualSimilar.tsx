@@ -2,7 +2,7 @@
 import { RecsList, RecsItem } from "@/components/recs-list";
 
 // API Imports
-import { useVisual } from "@/hooks/api-visual";
+import { useRecommendations } from "@/hooks/api-recommender";
 import { useProductsQuery } from "@/hooks/api-wpadmin";
 
 // Utils Imports
@@ -11,17 +11,23 @@ import { getJsonProduct } from "@/utils";
 // MUI Imports
 import { Container } from "@mui/material";
 
+// Posthog Imports
+import { usePostHog } from "posthog-js/react";
+
 export function VisualSimilar() {
   const product = getJsonProduct();
 
-  const vsrQuery = useVisual({
-    shop_variant_id: String(product?.variations?.[0] || product?.id),
-    top_k: 10,
+  const posthog = usePostHog();
+
+  const vsrQuery = useRecommendations({
+    shop_product_id: String(product?.id),
+    recalls: "cv",
+    user_id: posthog.get_distinct_id(),
   });
 
   const productsQuery = useProductsQuery(
-    vsrQuery.data?.map((item) => {
-      return Number(item.product_id);
+    vsrQuery.data?.data.map((item) => {
+      return Number(item.shop_product_id);
     }) || []
   );
 

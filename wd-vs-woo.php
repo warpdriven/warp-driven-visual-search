@@ -212,7 +212,7 @@ function warpdriven_load_assets_for_site($hook)
     $ver = '0.0.1';
 
     // Dev mode
-    $dev_mode = true;
+    $dev_mode = false;
     if ($dev_mode) {
         wp_enqueue_script('vite', 'http://localhost:3002/vite-dev-react.js', array(), $ver, true);
         return;
@@ -263,7 +263,7 @@ add_filter('script_loader_tag', 'to_script_module', 10, 2);
 // Define the shortcode
 function custom_shortcode_function()
 {
-    return '<div id="warpdriven-recs-vsr"></div>';
+    return '<div id="warpdriven-recs-vsr"></div><div id="warpdriven-recs-cf"></div>';
 }
 
 add_shortcode('warpdriven-recs-vsr', 'custom_shortcode_function');

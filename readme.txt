@@ -65,7 +65,7 @@ In the search field type “Warp Driven” and click “Warp Driven Visual Searc
 
 ### 2. Register a WarpDriven account
 
-Got to official website: [https://warp-driven.com](https://warp-driven.com), register a new account
+Got to WarpDriven AI website: [https://warpdriven.ai](https://warpdriven.ai), register a new account
 
 ### 3. Choose a plan and subscribe it
 

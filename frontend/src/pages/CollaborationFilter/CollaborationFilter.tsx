@@ -2,7 +2,7 @@
 import { RecsList, RecsItem } from "@/components/recs-list";
 
 // API Imports
-import { useCollaborationFilter } from "@/hooks/api-recommender";
+import { useRecommendations } from "@/hooks/api-recommender";
 import { useProductsQuery } from "@/hooks/api-wpadmin";
 
 // Utils Imports
@@ -10,23 +10,27 @@ import { getJsonProduct } from "@/utils";
 
 // MUI Imports
 import { Container } from "@mui/material";
+import { usePostHog } from "posthog-js/react";
 
 export function CollaborationFilter() {
   const product = getJsonProduct();
 
-  const vsrQuery = useCollaborationFilter({
+  const posthog = usePostHog();
+
+  const cfQuery = useRecommendations({
     shop_product_id: String(product?.id),
-    top_k: 10,
+    user_id: posthog.get_distinct_id(),
+    recalls: "cf",
   });
 
   const productsQuery = useProductsQuery(
-    vsrQuery.data?.map((item) => {
+    cfQuery.data?.data?.map((item) => {
       return Number(item.shop_product_id);
     }) || []
   );
 
   // API pending
-  if (vsrQuery.isPending) {
+  if (cfQuery.isPending) {
     return null;
   }
 
@@ -35,7 +39,7 @@ export function CollaborationFilter() {
   }
 
   // API failed
-  if (vsrQuery.isError) {
+  if (cfQuery.isError) {
     return null;
   }
 
@@ -78,7 +82,9 @@ export function CollaborationFilter() {
     // Has products
     return (
       <Container>
-        <RecsList title="Collaboration Filter">{itemNodeList}</RecsList>
+        <RecsList title="Customers who viewed this item also viewed">
+          {itemNodeList}
+        </RecsList>
       </Container>
     );
   })();

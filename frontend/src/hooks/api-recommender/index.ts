@@ -1,1 +1,1 @@
-export * from "./useCollaborationFilter";
+export * from "./useRecommendations";
