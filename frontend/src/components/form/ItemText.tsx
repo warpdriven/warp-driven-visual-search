@@ -26,6 +26,6 @@ export function ItemText(props: ItemTextProps) {
       error={!!controller.fieldState.error}
       helperText={controller.fieldState.error?.message}
       {...restProps}
-    />
+    ></TextField>
   );
 }
