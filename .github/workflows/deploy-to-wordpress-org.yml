@@ -1,16 +1,20 @@
 name: Deploy to WordPress.org
 on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
   # push:
   #   tags:
   #     - "v*"
   # pull_request:
   #   tags:
   #     - "v*"
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
-  workflow_dispatch:
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   deploy:
