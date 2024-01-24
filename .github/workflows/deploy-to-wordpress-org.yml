@@ -28,6 +28,8 @@ jobs:
           node-version: "20"
       - name: Enable pnpm
         run: corepack enable
+      - name: Current working directory
+        run: cd ./frontend
       - name: Install dependencies
         run: pnpm i
       - name: Vite build
