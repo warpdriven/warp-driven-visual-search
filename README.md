@@ -112,13 +112,13 @@ The main function of this plugin is to add a product recommendation component to
 
 - When Test mode is enabled:
 
-    <https://yourstore.com/product/product-slug>, the recommendation component will not be displayed.
-    <https://yourstore.com/product/product-slug?wd_demo=true>, the recommendation component will be displayed as usual.
-    <https://yourstore.com/product/product-slug?else_search=else_value&wd_demo=true>, the recommendation component will be displayed as usual.
+  <https://yourstore.com/product/product-slug>, the recommendation component will not be displayed.
+  <https://yourstore.com/product/product-slug?wd_demo=true>, the recommendation component will be displayed as usual.
+  <https://yourstore.com/product/product-slug?else_search=else_value&wd_demo=true>, the recommendation component will be displayed as usual.
 
 - When Test mode is disabled:
 
-    The recommendation component will be displayed to buyers only if you have correctly filled in the Recommendation API Key, and your products have been initialized successfully.
+  The recommendation component will be displayed to buyers only if you have correctly filled in the Recommendation API Key, and your products have been initialized successfully.
 
 #### Regarding Custom Data Server
 
@@ -167,7 +167,7 @@ Requires PHP: 5.6
 
 Tested up to: 6.1
 
-Stable tag: 0.0.1
+Stable tag: 0.0.10
 
 License: GPLv2 or later
 

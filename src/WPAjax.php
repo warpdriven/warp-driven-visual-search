@@ -23,11 +23,12 @@ class WPAjax
     function add_ajax()
     {
         $ajax_events = array(
-            'get_woo_products_html_by_vs'
+            'get_woo_products_html_by_vs',
+            'get_warp_driven_settings'
         );
         foreach ($ajax_events as $ajax_event) {
-            add_action('wp_ajax_wd_' . $ajax_event, array($this, $ajax_event));
-            add_action('wp_ajax_nopriv_wd_' . $ajax_event, array($this, $ajax_event));
+            add_action('wp_ajax_' . $ajax_event, array($this, $ajax_event));
+            add_action('wp_ajax_nopriv_' . $ajax_event, array($this, $ajax_event));
         }
     }
 
@@ -61,6 +62,20 @@ class WPAjax
                 "count" => count($products),
                 "html" => $body,
                 "products" => $products
+            )
+        );
+    }
+
+    public function get_warp_driven_settings(){
+        wp_send_json(
+            array(
+                "api_key" => get_option('wd_api_key'),
+                "data_server_key" => get_option('wd_data_server_key'),
+                "data_server" => get_option('wd_data_server'),
+                "custom_js" => get_option('wd_custom_js'),
+                "is_test_mode" => get_option('wd_is_test_mode')=='on',
+                "consumer_key" => get_option('wd_consumer_key'),
+                "consumer_secret" => get_option('wd_consumer_secret')
             )
         );
     }

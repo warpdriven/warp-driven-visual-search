@@ -1,17 +1,37 @@
 name: Deploy to WordPress.org
 on:
   push:
-    tags:
-      - "v*"
+    branches: ["main"]
   pull_request:
-    tags:
-      - "v*"
+    branches: ["main"]
+  workflow_dispatch:
+  # push:
+  #   tags:
+  #     - "v*"
+  # pull_request:
+  #   tags:
+  #     - "v*"
+
+concurrency:
+  group: "wordpress.org"
+  cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install dependencies
+        run: pnpm i
+      - name: Vite build
+        run: pnpm build
 
       - name: WordPress Plugin Deploy
         uses: nk-o/action-wordpress-plugin-deploy@master
