@@ -19,6 +19,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.merged == true }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,6 +29,8 @@ jobs:
           node-version: "20"
       - name: Enable pnpm
         run: corepack enable
+      - name: Current working directory
+        run: cd ./frontend
       - name: Install dependencies
         run: pnpm i
       - name: Vite build
