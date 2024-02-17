@@ -16,16 +16,22 @@ export type Req = AxiosRequestConfig & {
 export interface Params {
   shop_product_id: string | number;
   user_id: string;
-  recalls?: "cv" | "cf" | "cv|cf" | "cf|cv";
+  top_k: number;
+  /**
+   * @field rec_number
+   * 1: home & cf;
+   * 10: plp & cf;
+   * 20: pdp & cf;
+   * 21: pdp & cv;
+   * 22: pdp & nlp;
+   * 23: pdp & cf,nlp;
+   */
+  rec_number: number;
 }
 
-export interface Res {
-  data: Row[];
-  msg: string;
-  status: boolean;
-}
+export type Res = Row[];
 
 export interface Row {
   shop_product_id: string;
-  score: number;
+  count: number;
 }

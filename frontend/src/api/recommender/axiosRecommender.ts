@@ -20,9 +20,7 @@ axiosRecommender.interceptors.request.use((config) => {
 });
 axiosRecommender.interceptors.response.use(
   (res) => {
-    const { data } = res;
-
-    return data;
+    return res.data.data;
   },
   (error: AxiosError) => {
     throw new Error(error.message);
