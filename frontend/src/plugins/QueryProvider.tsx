@@ -1,5 +1,5 @@
 // Query Imports
-import { QueryClient, DefaultOptions } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 
@@ -19,43 +19,24 @@ export function QueryProvider(props: React.PropsWithChildren) {
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: queries(),
-    mutations: mutations(),
+    queries: {
+      staleTime: 1000 * 60,
+      gcTime: 1000 * 60 * 2,
+
+      refetchOnMount: true,
+      refetchOnWindowFocus: true,
+      refetchOnReconnect: true,
+
+      retry: 1,
+      retryDelay(attemptIndex) {
+        return Math.min(1000 * 2 ** attemptIndex, 1000 * 8);
+      },
+    },
+    mutations: {},
   },
 });
 
-// Persist client
 const persister = createAsyncStoragePersister({
   storage: sessionStorage,
   key: import.meta.env.VITE_QUERY_PERSISTER_KEY,
-});
-
-// Client configuration
-function queries(): DefaultOptions["queries"] {
-  return {
-    staleTime: 1000 * 60,
-    gcTime: 1000 * 60 * 2,
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
-    refetchOnReconnect: true,
-    retryDelay(attemptIndex) {
-      return Math.min(1000 * 2 ** attemptIndex, 1000 * 8);
-    },
-  };
-}
-
-function mutations(): DefaultOptions["mutations"] {
-  return {};
-}
-
-// ** Defaults
-queryClient.setQueryDefaults(["unique"], {
-  async queryFn() {
-    return { msg: "hello world" };
-  },
-});
-queryClient.setMutationDefaults(["post-demo"], {
-  async mutationFn() {
-    return { msg: "successly" };
-  },
 });
