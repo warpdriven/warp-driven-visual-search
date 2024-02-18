@@ -21,17 +21,17 @@ export function VisualSimilar() {
 
   const vsrQuery = useRecommendations({
     shop_product_id: String(product?.id),
-    recalls: "cv",
     user_id: posthog.get_distinct_id(),
+    rec_number: 21,
+    top_k: 20,
   });
 
   const productsQuery = useProductsQuery(
-    vsrQuery.data?.data.map((item) => {
+    vsrQuery.data?.map?.((item) => {
       return Number(item.shop_product_id);
     }) || []
   );
 
-  // API pending
   if (vsrQuery.isPending) {
     return null;
   }
@@ -40,7 +40,6 @@ export function VisualSimilar() {
     return null;
   }
 
-  // API failed
   if (vsrQuery.isError) {
     return null;
   }
@@ -49,39 +48,33 @@ export function VisualSimilar() {
     return null;
   }
 
-  const mainNode = (() => {
-    const itemNodeList = Object.values(productsQuery.data)
-      .filter((data) => {
-        return [
-          data,
-          data?.product_id,
-          data?.product_title,
-          data?.product_price,
-          data?.productlink,
-          data?.main_image_url,
-          typeof data?.product_title === "string",
-          typeof data?.product_price === "string",
-          typeof data?.productlink === "string",
-          typeof data?.main_image_url === "string",
-        ].every(Boolean);
-      })
-      .map((data) => {
-        return (
-          <RecsItem
-            key={data.product_id}
-            product={data}
-            suffixSearch="vsr_click"
-            intersectionEventName="WarpDrivenVSRView"
-          ></RecsItem>
-        );
-      });
+  const itemNodeList = Object.values(productsQuery.data)
+    .filter((data) => {
+      return [
+        data,
+        data?.product_id,
+        data?.product_title,
+        data?.product_price,
+        data?.productlink,
+        data?.main_image_url,
+        typeof data?.product_title === "string",
+        typeof data?.product_price === "string",
+        typeof data?.productlink === "string",
+        typeof data?.main_image_url === "string",
+      ].every(Boolean);
+    })
+    .map((data) => {
+      return (
+        <RecsItem
+          key={data.product_id}
+          product={data}
+          suffixSearch="vsr_click"
+          intersectionEventName="WarpDrivenVSRView"
+        ></RecsItem>
+      );
+    });
 
-    // No products
-    if (!itemNodeList.length) {
-      return null;
-    }
-
-    // Has products
+  if (itemNodeList.length) {
     return (
       <Container>
         <RecsList title="Visually Similar Recommendations">
@@ -89,7 +82,7 @@ export function VisualSimilar() {
         </RecsList>
       </Container>
     );
-  })();
+  }
 
-  return <>{mainNode}</>;
+  return null;
 }

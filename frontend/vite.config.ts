@@ -79,11 +79,11 @@ export default defineConfig((configEnv) => {
       proxy: {
         "/wp-admin/admin-ajax.php": {
           target: "https://stg.emutree.com.au",
-          changeOrigin: true,
-          ws: true,
           rewrite(path) {
             return path;
           },
+          changeOrigin: true,
+          ws: true,
         },
 
         "/wp-json/wc/v3": {

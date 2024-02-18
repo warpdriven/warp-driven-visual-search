@@ -1,7 +1,7 @@
 // Form Imports
 import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 // Query Imports
 import { useSettingsMutation } from "@/hooks/api-wpadmin";
@@ -18,8 +18,8 @@ import {
   FormControlLabel,
   Link,
   Tooltip,
+  CardProps,
 } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
 import {
   SaveOutlined,
   RefreshOutlined,
@@ -38,13 +38,7 @@ import { getJsonSettings } from "@/utils";
 export function SettingsForm() {
   const settings = getJsonSettings();
 
-  const formCtx = useForm<{
-    wd_api_key: string;
-    wd_data_server_key: string;
-    wd_data_server?: string;
-    wd_custom_js?: string;
-    wd_is_test_mode: boolean;
-  }>({
+  const formCtx = useForm<FormValues>({
     defaultValues: {
       wd_api_key: settings?.wd_api_key || "",
       wd_data_server_key: settings?.wd_data_server_key || "",
@@ -53,57 +47,58 @@ export function SettingsForm() {
       wd_is_test_mode: settings?.wd_is_test_mode === "on",
     },
 
-    resolver: yupResolver(
-      yup.object().shape({
-        wd_api_key: yup.string().max(128).required(),
-        wd_data_server_key: yup.string().max(128).required(),
-        wd_data_server: yup.string().max(128),
-        wd_custom_js: yup.string().url().max(256),
-        wd_is_test_mode: yup.boolean().required(),
-      })
-    ),
+    resolver: zodResolver(schema),
   });
 
   const mutation = useSettingsMutation();
 
-  const handleReset = () => {
-    formCtx.reset();
-  };
-
-  const handleSubmit = formCtx.handleSubmit((data) => {
-    mutation.mutate(
-      {
-        data: {
-          wd_api_key: data.wd_api_key,
-          wd_data_server_key: data.wd_data_server_key,
-          wd_data_server: data.wd_data_server || "",
-          wd_custom_js: data.wd_custom_js || "",
-          wd_is_test_mode: data.wd_is_test_mode ? "on" : "off",
-        },
-      },
-      {
-        onError(error) {
-          toast.error(error.message);
-        },
-        onSuccess(data, req) {
-          formCtx.reset({
-            wd_api_key: req.data?.wd_api_key || "",
-            wd_data_server_key: req.data?.wd_data_server_key || "",
-            wd_data_server: req.data?.wd_data_server || "",
-            wd_custom_js: req.data?.wd_custom_js || "",
-            wd_is_test_mode: req.data?.wd_is_test_mode === "on",
-          });
-
-          toast.success(data.msg);
-        },
-      }
-    );
-  });
-
-  // Normal content
   return (
     <FormProvider {...formCtx}>
-      <StyledCard>
+      <StyledCard
+        component="form"
+        onSubmit={formCtx.handleSubmit(
+          (data) => {
+            return new Promise<void>((resolve) => {
+              mutation.mutate(
+                {
+                  data: {
+                    wd_api_key: data.wd_api_key,
+                    wd_data_server_key: data.wd_data_server_key,
+                    wd_data_server: data.wd_data_server,
+                    wd_custom_js: data.wd_custom_js,
+                    wd_is_test_mode: data.wd_is_test_mode ? "on" : "off",
+                  },
+                },
+                {
+                  onSettled() {
+                    resolve();
+                  },
+                  onError(error) {
+                    toast.error(error.message);
+                  },
+                  onSuccess(data, req) {
+                    formCtx.reset({
+                      wd_api_key: req.data?.wd_api_key || "",
+                      wd_data_server_key: req.data?.wd_data_server_key || "",
+                      wd_data_server: req.data?.wd_data_server || "",
+                      wd_custom_js: req.data?.wd_custom_js || "",
+                      wd_is_test_mode: req.data?.wd_is_test_mode === "on",
+                    });
+
+                    toast.success(data.msg);
+                  },
+                }
+              );
+            });
+          },
+          (error) => {
+            console.error(error);
+          }
+        )}
+        onReset={() => {
+          formCtx.reset();
+        }}
+      >
         <CardHeader
           title="WarpDriven AI Settings"
           subheader={
@@ -166,16 +161,16 @@ export function SettingsForm() {
         </CardContent>
 
         <CardActions>
-          <LoadingButton
-            onClick={handleSubmit}
-            loading={mutation.isPending}
+          <Button
+            type={"submit"}
+            disabled={mutation.isPending}
             variant="contained"
             startIcon={<SaveOutlined />}
           >
             save
-          </LoadingButton>
+          </Button>
           <Button
-            onClick={handleReset}
+            type={"reset"}
             variant="outlined"
             color="secondary"
             startIcon={<RefreshOutlined></RefreshOutlined>}
@@ -188,7 +183,7 @@ export function SettingsForm() {
   );
 }
 
-const StyledCard = styled(Card)(({ theme }) => {
+const StyledCard = styled(Card)<CardProps>(({ theme }) => {
   return {
     '& input[type="text"],& input[type="url"]': {
       padding: "16.5px 14px",
@@ -207,3 +202,13 @@ const StyledCard = styled(Card)(({ theme }) => {
     },
   };
 });
+
+const schema = z.object({
+  wd_api_key: z.string().min(1).max(128),
+  wd_data_server_key: z.string().min(1).max(128),
+  wd_data_server: z.string().max(128),
+  wd_custom_js: z.string().url().max(256).or(z.string().length(0)),
+  wd_is_test_mode: z.boolean(),
+});
+
+type FormValues = z.infer<typeof schema>;
