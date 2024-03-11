@@ -3,7 +3,7 @@ import React from "react";
 
 export function useObserverResize<TRef extends Element>(
   elRef: React.RefObject<TRef>,
-  options?: ResizeObserverOptions
+  options?: ResizeObserverOptions,
 ) {
   // Prepare State
   const [entry, setEntry] = React.useState<ResizeObserverEntry | null>(null);

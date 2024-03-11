@@ -1,7 +1,3 @@
-// Vite Imports
-import "vite/modulepreload-polyfill";
-
-// React Imports
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { AdminApp } from "@/apps/adminApp";
@@ -20,9 +16,9 @@ ReactDOM.createRoot(
     document.body.append(newEl);
 
     return newEl;
-  })()
+  })(),
 ).render(
   <React.StrictMode>
-    <AdminApp></AdminApp>
-  </React.StrictMode>
+    <AdminApp />
+  </React.StrictMode>,
 );

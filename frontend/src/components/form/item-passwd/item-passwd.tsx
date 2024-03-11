@@ -1,25 +1,17 @@
-// MUI Imports
 import {
   FormControl,
   FormHelperText,
   InputLabel,
   OutlinedInput,
-  OutlinedInputProps,
 } from "@mui/material";
-
-// Form Imports
-import { useFormContext, useController } from "react-hook-form";
-
-// React Imports
 import React from "react";
-
-// Components Imports
+import { useFormContext, useController } from "react-hook-form";
 import { ToggleIcon } from "./ToggleIcon";
+import type { OutlinedInputProps } from "@mui/material";
 
 export type ItemPasswdProps = OutlinedInputProps & { name: string };
 
 export function ItemPasswd(props: ItemPasswdProps) {
-  // ** Props
   const { name, label, required, sx, disabled, ...restProps } = props;
 
   // Form Hooks

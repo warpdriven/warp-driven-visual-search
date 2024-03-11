@@ -1,21 +1,15 @@
-// MUI Imports
 import {
-  BreakpointsOptions,
   createTheme,
   ThemeProvider as MuiThemeProvider,
   alpha,
   ScopedCssBaseline,
 } from "@mui/material";
 import { blue, green, grey, red, amber } from "@mui/material/colors";
-
-// Theme Imports
-import { shadowsMap } from "./shadowsMap";
-
-// React Imports
 import React from "react";
+import { shadowsMap } from "./shadowsMap";
+import type { BreakpointsOptions } from "@mui/material";
 
 export function ThemeProvider(props: React.PropsWithChildren) {
-  // ** Props
   const { children } = props;
 
   const mode = "light";

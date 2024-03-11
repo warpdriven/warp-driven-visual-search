@@ -1,14 +1,5 @@
-// MUI Imports
 import { Card, CardContent, Box, Typography, Link } from "@mui/material";
-
-// Components Imports
 import { Logo } from "@/components/ui";
-
-// React Imports
-// import React from "react";
-
-// Store Imports
-// import { useSearchParams } from "@/hooks/store";
 
 export function CardTop() {
   return (

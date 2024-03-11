@@ -1,8 +1,4 @@
-// React Imports
-import React from "react";
-import ReactDOM from "react-dom";
-
-// MUI Imports
+import { FilterCenterFocusOutlined, CloseOutlined } from "@mui/icons-material";
 import {
   IconButton,
   Drawer,
@@ -17,15 +13,12 @@ import {
   Skeleton,
   Container,
   useMediaQuery,
-  Theme,
 } from "@mui/material";
-import { FilterCenterFocusOutlined, CloseOutlined } from "@mui/icons-material";
-
-// Components Imports
+import React from "react";
+import ReactDOM from "react-dom";
 import { Scrollbar } from "@/components/ui";
-
-// Hooks Imports
 import { useObserverIntersection } from "@/hooks";
+import type { Theme } from "@mui/material";
 
 const wooSelector =
   "#product-list-container > .product-item-list > .shopline-element-product-item";
@@ -64,7 +57,7 @@ export function List() {
         >
           <FilterCenterFocusOutlined fontSize="small" />
         </IconButton>,
-        item
+        item,
       );
     });
   }, [elList, handleOpenDrawer]);

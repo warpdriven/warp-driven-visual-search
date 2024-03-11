@@ -3,7 +3,7 @@ import React from "react";
 
 export function useObserverMutation<TRef extends Element>(
   ref: React.RefObject<TRef>,
-  options?: MutationObserverInit
+  options?: MutationObserverInit,
 ) {
   // Prepare State
   const [record, setRecord] = React.useState<MutationRecord | null>(null);

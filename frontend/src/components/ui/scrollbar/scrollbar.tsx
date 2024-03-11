@@ -1,146 +1,164 @@
-// Perfect Scrollbar Imports
+import { Box } from "@mui/material";
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
-
-// Hooks Imports
-import { useObserverResize } from "@/hooks";
-
-// React Imports
 import React from "react";
+import type { BoxProps } from "@mui/material";
 
-export const Scrollbar = React.forwardRef<HTMLDivElement, ScrollbarProps>(
-  (props, ref) => {
-    // ** Props
-    const { options, style, children, ...restProps } = props;
+export function Scrollbar(props: Props) {
+  const {
+    children,
+    options,
+    onPsScrollX,
+    onPsScrollY,
+    onPsScrollUp,
+    onPsScrollDown,
+    onPsScrollLeft,
+    onPsScrollRight,
+    onPsXReachStart,
+    onPsXReachEnd,
+    onPsYReachStart,
+    onPsYReachEnd,
+    ...restProps
+  } = props;
 
-    const containerRef = React.useRef<HTMLDivElement>(null);
-    const contentRef = React.useRef<HTMLDivElement>(null);
-    const psRef = React.useRef<PerfectScrollbar | null>(null);
-    const containerEntry = useObserverResize(containerRef);
-    const contentEntry = useObserverResize(contentRef);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const contentRef = React.useRef<HTMLDivElement>(null);
+  const psRef = React.useRef<PerfectScrollbar | null>(null);
 
-    // Forward ref to outer
-    React.useImperativeHandle(
-      ref,
-      () => {
-        const el = containerRef.current;
-        if (!el) {
-          throw new Error("Excepted a HTMLDivElement, got a falsy!");
-        }
+  React.useEffect(() => {
+    const containerEl = containerRef.current;
 
-        return el;
-      },
-      [containerRef]
-    );
+    if (!(containerEl instanceof HTMLElement)) {
+      return;
+    }
 
-    // Initilized perfect scrollbar instance
-    React.useEffect(() => {
-      const el = containerRef.current;
-      if (!el) return;
+    const contentEl = contentRef.current;
 
-      psRef.current = new PerfectScrollbar(el, options);
+    if (!(contentEl instanceof HTMLElement)) {
+      return;
+    }
 
-      return () => {
-        psRef.current?.destroy();
-        psRef.current = null;
-      };
-    }, [containerRef, options, psRef]);
+    const observer = new ResizeObserver(() => {
+      if (contentEl.clientHeight > containerEl.clientHeight) {
+        psRef.current
+          ? psRef.current.update()
+          : (() => {
+              psRef.current = new PerfectScrollbar(containerEl, options);
+            })();
 
-    // Update perfect scrollbar instance after container or content resize
-    React.useEffect(() => {
-      void { containerEntry, contentEntry };
-
-      psRef.current?.update();
-    }, [containerEntry, contentEntry, psRef]);
-
-    // Bind scrollbar event handler
-    React.useEffect(() => {
-      const el = containerRef.current;
-      if (!el) return;
-
-      const controller = new AbortController();
-      const { signal } = controller;
-
-      if (props.onPsScrollY) {
-        el.addEventListener("ps-scroll-y", props.onPsScrollY, { signal });
-      }
-      if (props.onPsScrollX) {
-        el.addEventListener("ps-scroll-x", props.onPsScrollX, { signal });
-      }
-      if (props.onPsScrollUp) {
-        el.addEventListener("ps-scroll-up", props.onPsScrollUp, { signal });
-      }
-      if (props.onPsScrollDown) {
-        el.addEventListener("ps-scroll-down", props.onPsScrollDown, { signal });
-      }
-      if (props.onPsScrollLeft) {
-        el.addEventListener("ps-scroll-left", props.onPsScrollLeft, { signal });
-      }
-      if (props.onPsScrollRight) {
-        el.addEventListener("ps-scroll-right", props.onPsScrollRight, {
-          signal,
-        });
-      }
-      if (props.onPsYReachStart) {
-        el.addEventListener("ps-y-reach-start", props.onPsYReachStart, {
-          signal,
-        });
-      }
-      if (props.onPsYReachEnd) {
-        el.addEventListener("ps-y-reach-end", props.onPsYReachEnd, { signal });
-      }
-      if (props.onPsXReachStart) {
-        el.addEventListener("ps-x-reach-start", props.onPsXReachStart, {
-          signal,
-        });
-      }
-      if (props.onPsXReachEnd) {
-        el.addEventListener("ps-x-reach-end", props.onPsXReachEnd, { signal });
+        return;
       }
 
-      return () => {
-        controller.abort();
-      };
-    }, [
-      containerRef,
-      props.onPsScrollY,
-      props.onPsScrollX,
-      props.onPsScrollUp,
-      props.onPsScrollDown,
-      props.onPsScrollLeft,
-      props.onPsScrollRight,
-      props.onPsYReachStart,
-      props.onPsYReachEnd,
-      props.onPsXReachStart,
-      props.onPsXReachEnd,
-    ]);
+      psRef.current?.destroy();
+      psRef.current = null;
+    });
 
-    return (
-      <div
-        ref={containerRef}
-        style={{ position: "relative", height: "100%", ...style }}
-        {...restProps}
-      >
-        <div ref={contentRef}>{children}</div>
-      </div>
-    );
-  }
-);
+    observer.observe(containerEl);
+    observer.observe(contentEl);
 
-export interface ScrollbarProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > {
-  options?: PerfectScrollbar.Options;
-  onPsScrollY?(evt: Event): void;
-  onPsScrollX?(evt: Event): void;
-  onPsScrollUp?(evt: Event): void;
-  onPsScrollDown?(evt: Event): void;
-  onPsScrollLeft?(evt: Event): void;
-  onPsScrollRight?(evt: Event): void;
-  onPsYReachStart?(evt: Event): void;
-  onPsYReachEnd?(evt: Event): void;
-  onPsXReachStart?(evt: Event): void;
-  onPsXReachEnd?(evt: Event): void;
+    return () => {
+      psRef.current?.destroy();
+      psRef.current = null;
+      observer.disconnect();
+    };
+  }, [options]);
+
+  React.useEffect(() => {
+    const containerEl = containerRef.current;
+
+    if (!(containerEl instanceof HTMLElement)) {
+      return;
+    }
+
+    const map = new Map<string, (evt: Event) => void>();
+
+    if (typeof onPsScrollX === "function") {
+      map.set("ps-scroll-x", onPsScrollX);
+    }
+
+    if (typeof onPsScrollY === "function") {
+      map.set("ps-scroll-y", onPsScrollY);
+    }
+
+    if (typeof onPsScrollUp === "function") {
+      map.set("ps-scroll-up", onPsScrollUp);
+    }
+
+    if (typeof onPsScrollDown === "function") {
+      map.set("ps-scroll-down", onPsScrollDown);
+    }
+
+    if (typeof onPsScrollLeft === "function") {
+      map.set("ps-scroll-left", onPsScrollLeft);
+    }
+
+    if (typeof onPsScrollRight === "function") {
+      map.set("ps-scroll-right", onPsScrollRight);
+    }
+
+    if (typeof onPsXReachStart === "function") {
+      map.set("ps-x-reach-start", onPsXReachStart);
+    }
+
+    if (typeof onPsXReachEnd === "function") {
+      map.set("ps-x-reach-end", onPsXReachEnd);
+    }
+
+    if (typeof onPsYReachStart === "function") {
+      map.set("ps-y-reach-start", onPsYReachStart);
+    }
+
+    if (typeof onPsYReachEnd === "function") {
+      map.set("ps-y-reach-end", onPsYReachEnd);
+    }
+
+    const controller = new AbortController();
+
+    map.forEach((handler, name) => {
+      containerEl.addEventListener(name, handler, {
+        signal: controller.signal,
+      });
+    });
+
+    return () => {
+      controller.abort();
+    };
+  }, [
+    onPsScrollX,
+    onPsScrollY,
+    onPsScrollUp,
+    onPsScrollDown,
+    onPsScrollLeft,
+    onPsScrollRight,
+    onPsXReachStart,
+    onPsXReachEnd,
+    onPsYReachStart,
+    onPsYReachEnd,
+  ]);
+
+  return (
+    <Box
+      ref={containerRef}
+      position={"relative"}
+      height={"100%"}
+      {...restProps}
+    >
+      <Box ref={contentRef}>{children}</Box>
+    </Box>
+  );
 }
+
+type Props = BoxProps &
+  Partial<{
+    options: PerfectScrollbar.Options;
+    onPsScrollX(evt: Event): void;
+    onPsScrollY(evt: Event): void;
+    onPsScrollUp(evt: Event): void;
+    onPsScrollDown(evt: Event): void;
+    onPsScrollLeft(evt: Event): void;
+    onPsScrollRight(evt: Event): void;
+    onPsXReachStart(evt: Event): void;
+    onPsXReachEnd(evt: Event): void;
+    onPsYReachStart(evt: Event): void;
+    onPsYReachEnd(evt: Event): void;
+  }>;

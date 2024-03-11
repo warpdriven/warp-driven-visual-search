@@ -21,8 +21,8 @@ export const useThemeStore = create(
     {
       name: import.meta.env.VITE_REDUX_PERSISTER_KEY,
       storage: createJSONStorage(() => globalThis.sessionStorage),
-    }
-  )
+    },
+  ),
 );
 
 export interface ThemeStore {

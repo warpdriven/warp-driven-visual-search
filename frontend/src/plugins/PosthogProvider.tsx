@@ -1,15 +1,9 @@
-// PostHog Imports
-import { PostHogProvider } from "posthog-js/react";
 import posthog from "posthog-js";
-
-// React Imports
+import { PostHogProvider } from "posthog-js/react";
 import React from "react";
-
-// Utils Imports
 import { getJsonProduct, getJsonSettings } from "@/utils";
 
 export function PosthogProvider(props: React.PropsWithChildren) {
-  // ** Props
   const { children } = props;
 
   const sended = React.useRef(false);
@@ -34,7 +28,9 @@ export function PosthogProvider(props: React.PropsWithChildren) {
     }
 
     // Capture event only once per mount
-    if (sended.current) return;
+    if (sended.current) {
+      return;
+    }
 
     const product = getJsonProduct();
 

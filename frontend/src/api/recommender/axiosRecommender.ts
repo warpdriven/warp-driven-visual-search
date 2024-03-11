@@ -1,8 +1,6 @@
-// Axios Imports
-import axios, { AxiosError } from "axios";
-
-// Utils Imports
+import axios from "axios";
 import { getJsonSettings } from "@/utils";
+import type { AxiosError } from "axios";
 
 export const axiosRecommender = axios.create({
   baseURL: import.meta.env.VITE_VS_RECOMMENDER,
@@ -24,5 +22,5 @@ axiosRecommender.interceptors.response.use(
   },
   (error: AxiosError) => {
     throw new Error(error.message);
-  }
+  },
 );
