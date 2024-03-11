@@ -1,11 +1,8 @@
-// MUI Imports
-import { Switch, SwitchProps } from "@mui/material";
-
-// Form Imports
+import { Switch } from "@mui/material";
 import { useFormContext, useController } from "react-hook-form";
+import type { SwitchProps } from "@mui/material";
 
 export function ItemSwitch(props: ItemSwitchProps) {
-  // ** Props
   const { name, disabled, ...restProps } = props;
 
   const formCtx = useFormContext();
@@ -26,7 +23,7 @@ export function ItemSwitch(props: ItemSwitchProps) {
         controller.field.onChange(checked);
       }}
       {...restProps}
-    ></Switch>
+    />
   );
 }
 

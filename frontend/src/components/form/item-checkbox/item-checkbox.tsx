@@ -1,11 +1,8 @@
-// MUI Imports
-import { Checkbox, CheckboxProps } from "@mui/material";
-
-// Form Imports
+import { Checkbox } from "@mui/material";
 import { useFormContext, useController } from "react-hook-form";
+import type { CheckboxProps } from "@mui/material";
 
 export function ItemCheckbox(props: ItemCheckboxProps) {
-  // ** Props
   const { name, value, disabled, ...restProps } = props;
 
   // Form Field

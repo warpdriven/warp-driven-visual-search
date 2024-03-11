@@ -1,12 +1,9 @@
-// Form Imports
-import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-
-// Query Imports
-import { useSettingsMutation } from "@/hooks/api-wpadmin";
-
-// MUI Imports
+import {
+  SaveOutlined,
+  RefreshOutlined,
+  FeedbackOutlined,
+} from "@mui/icons-material";
 import {
   Card,
   CardHeader,
@@ -18,22 +15,14 @@ import {
   FormControlLabel,
   Link,
   Tooltip,
-  CardProps,
 } from "@mui/material";
-import {
-  SaveOutlined,
-  RefreshOutlined,
-  FeedbackOutlined,
-} from "@mui/icons-material";
-
-// Components Imports
-import { ItemText, ItemSwitch } from "@/components/form";
-
-// Toast Imports
+import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-
-// Utils Imports
+import { z } from "zod";
+import { ItemText, ItemSwitch } from "@/components/form";
+import { useSettingsMutation } from "@/hooks/api-wpadmin";
 import { getJsonSettings } from "@/utils";
+import type { CardProps } from "@mui/material";
 
 export function SettingsForm() {
   const settings = getJsonSettings();
@@ -87,13 +76,13 @@ export function SettingsForm() {
 
                     toast.success(data.msg);
                   },
-                }
+                },
               );
             });
           },
           (error) => {
             console.error(error);
-          }
+          },
         )}
         onReset={() => {
           formCtx.reset();

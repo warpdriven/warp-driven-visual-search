@@ -1,12 +1,7 @@
 // MUI Imports
-import {
-  Skeleton,
-  Card,
-  CardHeader,
-  CardContent,
-  CardProps,
-} from "@mui/material";
+import { Skeleton, Card, CardHeader, CardContent } from "@mui/material";
 import React from "react";
+import type { CardProps } from "@mui/material";
 
 export const SkeletonCard = React.forwardRef<HTMLDivElement, CardProps>(
   (props, ref) => {
@@ -36,5 +31,5 @@ export const SkeletonCard = React.forwardRef<HTMLDivElement, CardProps>(
         </CardContent>
       </Card>
     );
-  }
+  },
 );

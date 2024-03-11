@@ -1,9 +1,9 @@
 // Components Imports
-import { SettingsForm } from "./SettingsForm";
+import { Stack } from "@mui/material";
 import { CardTop } from "./CardTop";
+import { SettingsForm } from "./SettingsForm";
 
 // MUI Imports
-import { Stack } from "@mui/material";
 
 export function Admin() {
   return (

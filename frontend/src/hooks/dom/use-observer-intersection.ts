@@ -2,11 +2,11 @@
 import React from "react";
 
 export function useObserverIntersection<TEl extends Element>(
-  ref: React.RefObject<TEl>
+  ref: React.RefObject<TEl>,
 ) {
   // Prepare State
   const [entry, setEntry] = React.useState<IntersectionObserverEntry | null>(
-    null
+    null,
   );
 
   // Observer Element Effect

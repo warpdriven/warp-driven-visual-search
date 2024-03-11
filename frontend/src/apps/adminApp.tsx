@@ -1,15 +1,8 @@
-// Provider Imports
+import { Toaster } from "react-hot-toast";
+import { useSearchParams } from "@/hooks/store";
+import { Admin } from "@/pages/admin";
 import { QueryProvider } from "@/plugins";
 import { ThemeProvider } from "@/theme";
-
-// Toast Imports
-import { Toaster } from "react-hot-toast";
-
-// Page Imports
-import { Admin } from "@/pages/admin";
-
-// Store Imports
-import { useSearchParams } from "@/hooks/store";
 import { getJsonSettings } from "@/utils";
 
 export function AdminApp() {
@@ -27,9 +20,9 @@ export function AdminApp() {
 
   return (
     <QueryProvider>
-      <Toaster position="bottom-left"></Toaster>
+      <Toaster position="bottom-left" />
       <ThemeProvider>
-        <Admin></Admin>
+        <Admin />
       </ThemeProvider>
     </QueryProvider>
   );

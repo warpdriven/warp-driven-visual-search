@@ -1,9 +1,9 @@
 // Zustand Imports
+import React from "react";
 import { create } from "zustand";
 import { useShallow } from "zustand/react/shallow";
 
 // React Imports
-import React from "react";
 
 export const useRouterStore = create<SearchParamsStore>((set, get) => {
   return {
@@ -29,7 +29,7 @@ export const useSearchParams = () => {
         search: store.search,
         setSearch: store.setSearch,
       };
-    })
+    }),
   );
 
   const searchParams = React.useMemo(() => {
@@ -46,7 +46,7 @@ export const useSearchParams = () => {
         return action.toString();
       });
     },
-    [setSearch]
+    [setSearch],
   );
 
   React.useEffect(() => {
@@ -63,7 +63,7 @@ export const useSearchParams = () => {
 
   return [searchParams, setSearchParams] as [
     typeof searchParams,
-    typeof setSearchParams
+    typeof setSearchParams,
   ];
 };
 

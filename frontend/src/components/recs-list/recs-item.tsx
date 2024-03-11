@@ -1,17 +1,9 @@
-// React Imports
-import React from "react";
-
-// Hooks Imports
-import { useObserverIntersection } from "@/hooks";
-
-// Posthog Imports
 import posthog from "posthog-js";
-
-// API Imports
-import { Product } from "@/api/wpadmin/warpdriven_get_products";
+import React from "react";
+import { useObserverIntersection } from "@/hooks";
+import type { Product } from "@/api/wpadmin/warpdriven_get_products";
 
 export function RecsItem(props: RecsItemProps) {
-  // ** Props
   const { product, suffixSearch, intersectionEventName } = props;
 
   const elRef = React.useRef<HTMLAnchorElement>(null);
