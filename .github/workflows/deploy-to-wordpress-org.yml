@@ -1,20 +1,16 @@
 name: Deploy to WordPress.org
 on:
+  # push:
+  #   branches: ["main"]
+  # pull_request:
+  #   branches: ["main"]
+  workflow_dispatch:
   push:
-    branches: ["main"]
     tags:
       - "v*"
   pull_request:
-    branches: ["main"]
     tags:
       - "v*"
-  workflow_dispatch:
-  # push:
-  #   tags:
-  #     - "v*"
-  # pull_request:
-  #   tags:
-  #     - "v*"
 
 concurrency:
   group: "wordpress.org"
@@ -35,11 +31,11 @@ jobs:
         run: corepack enable
       - name: Current working directory
         run: |
-             pwd
-             ls
-             cd ./frontend
-             pnpm i
-             pnpm build
+          pwd
+          ls
+          cd ./frontend
+          pnpm i
+          pnpm build
 
       - name: WordPress Plugin Deploy
         uses: nk-o/action-wordpress-plugin-deploy@master
