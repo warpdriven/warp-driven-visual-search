@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
-        run: |
+      - run: |
           cd ./frontend
           pnpm i
           pnpm build
