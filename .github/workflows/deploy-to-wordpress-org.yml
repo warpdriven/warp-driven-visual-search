@@ -30,11 +30,12 @@ jobs:
       - name: Enable pnpm
         run: corepack enable
       - name: Current working directory
-        run: cd ./frontend
-      - name: Install dependencies
-        run: pnpm i
-      - name: Vite build
-        run: pnpm build
+        run: |
+             pwd
+             ls
+             cd ./frontend
+             pnpm i
+             pnpm build
 
       - name: WordPress Plugin Deploy
         uses: nk-o/action-wordpress-plugin-deploy@master
