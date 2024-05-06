@@ -1,5 +1,5 @@
-// Axios Imports
-import axios, { AxiosError } from "axios";
+import axios from "axios";
+import type { AxiosError } from "axios";
 
 export const axiosWpadmin = axios.create({
   baseURL: "/wp-admin/admin-ajax.php",

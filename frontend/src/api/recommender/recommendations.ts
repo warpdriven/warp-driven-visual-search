@@ -1,6 +1,5 @@
-// Axios Imports
-import { AxiosRequestConfig } from "axios";
 import { axiosRecommender } from "./axiosRecommender";
+import type { AxiosRequestConfig } from "axios";
 
 export function recommendations(req: Req) {
   return axiosRecommender<unknown, Res>({

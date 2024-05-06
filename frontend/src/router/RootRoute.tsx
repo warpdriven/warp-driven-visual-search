@@ -1,22 +1,15 @@
-// Pages Imports
-import { VisualSimilar } from "@/pages/VisualSimilar";
-import { CollaborationFilter } from "@/pages/CollaborationFilter";
-
-// Components Imports
 import { Teleport } from "@/components/ui";
-
-// Utils Imports
+import { CollaborationFilter } from "@/pages/CollaborationFilter";
+import { VisualSimilar } from "@/pages/VisualSimilar";
 import { getJsonSettings } from "@/utils";
 
 export function RootRoute() {
   const settings = getJsonSettings();
 
-  // Checking settings
   if (!settings) {
     return null;
   }
 
-  // Tese mode enable
   if (settings.wd_is_test_mode === "on") {
     switch (new URLSearchParams(window.location.search).get("wd_demo")) {
       case "true":
@@ -26,7 +19,6 @@ export function RootRoute() {
     }
   }
 
-  // Normal content
   return (
     <>
       <Teleport

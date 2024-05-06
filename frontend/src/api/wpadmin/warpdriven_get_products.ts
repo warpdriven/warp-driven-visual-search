@@ -1,6 +1,5 @@
-// Axios Imports
 import { axiosWpadmin } from "./axios-wpadmin";
-import { AxiosRequestConfig } from "axios";
+import type { AxiosRequestConfig } from "axios";
 
 export function warpdriven_get_products(req: Req) {
   const { params, ...restReq } = req;

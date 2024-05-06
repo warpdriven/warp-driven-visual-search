@@ -1,4 +1,4 @@
-import { Shadows } from "@mui/material";
+import type { Shadows } from "@mui/material";
 
 export const shadowsMap = new Map<string, Shadows>();
 

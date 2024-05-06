@@ -1,7 +1,7 @@
 // Query Imports
 import { useQuery } from "@tanstack/react-query";
 import { recommendations } from "@/api/recommender";
-import { Params, Res } from "@/api/recommender/recommendations";
+import type { Params, Res } from "@/api/recommender/recommendations";
 
 export function useRecommendations(params: Params) {
   return useQuery<Res>({

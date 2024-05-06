@@ -1,18 +1,9 @@
-// Components Imports
+import { Container } from "@mui/material";
+import { usePostHog } from "posthog-js/react";
 import { RecsList, RecsItem } from "@/components/recs-list";
-
-// API Imports
 import { useRecommendations } from "@/hooks/api-recommender";
 import { useProductsQuery } from "@/hooks/api-wpadmin";
-
-// Utils Imports
 import { getJsonProduct } from "@/utils";
-
-// MUI Imports
-import { Container } from "@mui/material";
-
-// Posthog Imports
-import { usePostHog } from "posthog-js/react";
 
 export function VisualSimilar() {
   const product = getJsonProduct();
@@ -29,7 +20,7 @@ export function VisualSimilar() {
   const productsQuery = useProductsQuery(
     vsrQuery.data?.map?.((item) => {
       return Number(item.shop_product_id);
-    }) || []
+    }) || [],
   );
 
   if (vsrQuery.isPending) {

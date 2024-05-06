@@ -1,13 +1,8 @@
-// MUI Imports
-import { TextField, TextFieldProps } from "@mui/material";
-
-// Form Imports
+import { TextField } from "@mui/material";
 import { useFormContext, useController } from "react-hook-form";
+import type { TextFieldProps } from "@mui/material";
 
-export type ItemTextProps = TextFieldProps & { name: string };
-
-export function ItemText(props: ItemTextProps) {
-  // ** Props
+export function ItemText(props: Props) {
   const { name, disabled, ...restProps } = props;
 
   // Form Hooks
@@ -26,6 +21,8 @@ export function ItemText(props: ItemTextProps) {
       error={!!controller.fieldState.error}
       helperText={controller.fieldState.error?.message}
       {...restProps}
-    ></TextField>
+    />
   );
 }
+
+type Props = TextFieldProps & { name: string };

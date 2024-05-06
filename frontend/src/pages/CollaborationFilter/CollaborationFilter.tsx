@@ -1,16 +1,9 @@
-// Components Imports
-import { RecsList, RecsItem } from "@/components/recs-list";
-
-// API Imports
-import { useRecommendations } from "@/hooks/api-recommender";
-import { useProductsQuery } from "@/hooks/api-wpadmin";
-
-// Utils Imports
-import { getJsonProduct } from "@/utils";
-
-// MUI Imports
 import { Container } from "@mui/material";
 import { usePostHog } from "posthog-js/react";
+import { RecsList, RecsItem } from "@/components/recs-list";
+import { useRecommendations } from "@/hooks/api-recommender";
+import { useProductsQuery } from "@/hooks/api-wpadmin";
+import { getJsonProduct } from "@/utils";
 
 export function CollaborationFilter() {
   const product = getJsonProduct();
@@ -27,7 +20,7 @@ export function CollaborationFilter() {
   const productsQuery = useProductsQuery(
     cfQuery.data?.map?.((item) => {
       return Number(item.shop_product_id);
-    }) || []
+    }) || [],
   );
 
   if (cfQuery.isPending) {
@@ -68,7 +61,7 @@ export function CollaborationFilter() {
           product={data}
           suffixSearch="vsr_click"
           intersectionEventName="WarpDrivenCFView"
-        ></RecsItem>
+        />
       );
     });
 

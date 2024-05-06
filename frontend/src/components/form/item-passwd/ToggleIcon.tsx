@@ -1,6 +1,6 @@
 // MUI Imports
-import { InputAdornment, IconButton } from "@mui/material";
 import { VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material";
+import { InputAdornment, IconButton } from "@mui/material";
 
 export function ToggleIcon(props: ToggleIconProps) {
   // ** Props

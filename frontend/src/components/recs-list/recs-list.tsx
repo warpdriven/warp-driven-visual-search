@@ -1,19 +1,11 @@
-// Swiper Imports
+import { styled } from "@mui/material";
+import React from "react";
 import Swiper from "swiper";
 import { Navigation } from "swiper/modules";
 import "swiper/scss";
-
-// Styles Imports
 import "@/assets/scss/recs.scss";
 
-// React Imports
-import React from "react";
-
-// MUI Imports
-import { styled } from "@mui/material";
-
 export function RecsList(props: RecsListProps) {
-  // ** Props
   const { title, children, ...restProps } = props;
 
   const swiperRef = React.useRef<HTMLDivElement>(null);
