@@ -70,7 +70,7 @@ Up to now, you can practice the product description copywriting functions in GPT
 WarpDriven Recommendation System is a semi-customised SaaS platform.
 
 Please submit your request here:
-[https://warpdriven.ai/recommender/dashboard/](https://warpdriven.ai/recommender/dashboard/)
+[https://warpdriven.ai/ticket](https://warpdriven.ai/ticket)
 
 Once got approved, you will see the recommendation system dashboard and settings pages.
 
