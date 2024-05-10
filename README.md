@@ -167,7 +167,7 @@ Requires PHP: 5.6
 
 Tested up to: 6.1
 
-Stable tag: 0.0.91
+Stable tag: 0.2.0
 
 License: GPLv2 or later
 
