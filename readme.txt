@@ -4,7 +4,7 @@ Donate link: https://warp-driven.com/
 Requires at least: 5.9
 Requires PHP: 5.6
 Tested up to: 6.4.2
-Stable tag: 0.0.10
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,7 +78,7 @@ Connect your WooCommerce shop, after confirmed the authorization in your shop we
 WarpDriven Recommendation System is a semi-customised SaaS platform.
 
 Please submit your request here:
-[https://warpdriven.ai/recommender/dashboard/](https://warpdriven.ai/recommender/dashboard/)
+[https://warpdriven.ai/ticket](https://warpdriven.ai/ticket)
 
 Once got approved, you will see the recommendation system dashboard and settings pages.
 
