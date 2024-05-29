@@ -158,7 +158,8 @@ function warpdriven_get_products()
         foreach ($ids as $key => $vo) {
 
             $product = wc_get_product(intval($vo));
-            if ($product->get_stock_status() == 'instock' && intval($product->get_price()) > 0)   //判断库存和价格
+            $status = $product->get_status();
+            if ($product->get_stock_status() == 'instock' && intval($product->get_price()) > 0 && $status === 'publish')   //判断库存和价格
             {
                 $prodataarr[$key] = array(
                     "product_id" => $vo,
