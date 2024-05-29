@@ -1,8 +1,6 @@
-// Utils Imports
 import { toJsonForEl } from "./to-json-for-el";
 
 export function getJsonSettings() {
-  // Empty Element
   const el = document.getElementById("warpdriven-recs-json-settings-main");
   if (!el) {
     console.error("No element warpdriven-recs-settings-main");

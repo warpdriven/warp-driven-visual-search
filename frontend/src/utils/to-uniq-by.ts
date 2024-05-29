@@ -4,7 +4,6 @@ export function toUniqBy<TData>(items: TData[], ops: Partial<Ops> = {}) {
   const map = new Map<unknown, TData>();
 
   items.forEach((item) => {
-    // Item must be an object
     if (typeof item !== "object") {
       console.error("Excepted an object");
       return;
@@ -15,14 +14,12 @@ export function toUniqBy<TData>(items: TData[], ops: Partial<Ops> = {}) {
       return;
     }
 
-    // Get unique key for map
     const mapKey = Reflect.get(item, key);
     if (!mapKey) {
       console.error("mapKey must be a truth, got a falsy!");
       return;
     }
 
-    // Whether to allow overwriting
     if (overwrite) {
       map.set(mapKey, item);
       return;

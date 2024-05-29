@@ -16,9 +16,9 @@ ReactDOM.createRoot(
     document.body.append(newEl);
 
     return newEl;
-  })(),
+  })()
 ).render(
   <React.StrictMode>
-    <SiteApp></SiteApp>
-  </React.StrictMode>,
+    <SiteApp />
+  </React.StrictMode>
 );
