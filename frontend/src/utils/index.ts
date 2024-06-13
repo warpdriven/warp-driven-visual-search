@@ -1,4 +1,3 @@
-// Shopline JSON
 export * from "./to-json-for-el";
 export * from "./get-json-product";
 export * from "./get-json-settings";
