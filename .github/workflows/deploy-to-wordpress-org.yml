@@ -1,9 +1,5 @@
 name: Deploy to WordPress.org
 on:
-  # push:
-  #   branches: ["main"]
-  # pull_request:
-  #   branches: ["main"]
   workflow_dispatch:
   push:
     tags:
@@ -22,12 +18,16 @@ jobs:
     if: ${{ github.event_name != 'pull_request' || github.event.pull_request.merged == true }}
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: latest
+          run_install: false
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: pnpm
       - run: |
           cd ./frontend
-          corepack enable
           pnpm i
           pnpm build
       - uses: nk-o/action-wordpress-plugin-deploy@master
